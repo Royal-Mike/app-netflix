@@ -1,0 +1,484 @@
+{{#if messages.success}}
+<div class="d-flex justify-content-end alert alert-success" role="alert">
+    {{messages.success}}
+</div>
+{{/if}}
+
+<div class="container-fluid d-flex flex-column align-items-center">
+    <!-- Promo Poster -->
+    <img src="/imgs/banner.png" class="border rounded img-fluid w-75 mx-auto d-block mt-3" alt="promo" loading="lazy" />
+    <!-- Hot Search -->
+    <div class="d-flex">
+        <div id="hot-search" class="ps-3 fs-4">
+            <p class="mt-3">Từ khóa nổi bật</p>
+            <div>
+                {{#each hot_search}}
+                <button type="button" class="btn border rounded-pill mt-2 me-1 fs-5 search-hot-search">{{this.name}}</button>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <!-- Quick Search -->
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card text-bg-dark h-100 bg-white border border-0">
+                    <img src="/imgs/search/1.jpg" class="card-img h-100" alt="...">
+                    <div class="card-img-overlay d-flex">
+                        <div style="width: 50%;">
+                            <h5 class="card-title fs-4 text-dark">Sản phẩm</h5>
+                            <p class="card-text fs-3 fw-bolder text-dark">Áo thời trang</p>
+                            <button type="button" class="btn rounded-pill btn-primary more-pros">Xem thêm</button>
+                        </div>
+                        <div class="ps-1 mt-2" style="width: 50%;">
+                            <img src="/imgs/search/t-shirt.webp" class="rounded mx-auto d-block" style="height: 100%; width: 100%; opacity: 0.9"
+                                alt="..." loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card text-bg-dark h-100 bg-white border border-0">
+                    <img src="/imgs/search/2.jpg" class="card-img h-100" alt="...">
+                    <div class="card-img-overlay d-flex">
+                        <div style="width: 50%;">
+                            <h5 class="card-title fs-4 text-dark">Sản phẩm</h5>
+                            <p class="card-text fs-3 fw-bolder text-dark">Quần thời trang</p>
+                            <button type="button" class="btn rounded-pill btn-primary more-pros">Xem thêm</button>
+                        </div>
+                        <div class="ps-1 mt-2" style="width: 50%;">
+                            <img src="/imgs/search/pants.webp" class="rounded mx-auto d-block" style="height: 100%; width: 100%; opacity: 0.8"
+                                alt="..." loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card text-bg-dark h-100 bg-white border border-0">
+                    <img src="/imgs/search/3.jpg" class="card-img h-100" alt="...">
+                    <div class="card-img-overlay d-flex">
+                        <div style="width: 50%;">
+                            <h5 class="card-title fs-4 text-dark">Sản phẩm</h5>
+                            <p class="card-text fs-3 fw-bolder text-dark">Giày thời trang</p>
+                            <button type="button" class="btn rounded-pill btn-primary more-pros">Xem thêm</button>
+                        </div>
+                        <div class="ps-1 mt-1" style="width: 50%;">
+                            <img src="/imgs/search/shoes.jpg" class="rounded mx-auto d-block" style="height: 100%; width: 100%; opacity: 0.8"
+                                alt="..." loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Genre Search -->
+    <ul class="list-group list-group-horizontal justify-content-center mb-2">
+        <a href="/relating-products?type=giảm-giá&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Giảm giá</li>
+        </a>
+        <a href="/relating-products?type=sản-phẩm-mới&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Sản phẩm mới</li>
+        </a>
+        <a href="/relating-products?type=nam&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Nam</li>
+        </a>
+        <a href="/relating-products?type=nữ&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Nữ</li>
+        </a>
+        <a href="/relating-products?type=trẻ&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Trẻ</li>
+        </a>
+        <a href="/relating-products?type=em-bé&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Em bé</li>
+        </a>
+        <a href="/relating-products?type=thể-thao&page=1" style="text-decoration: none;"
+            class="text-center border rounded mx-2">
+            <li class="list-group-item fs-5 border border-0">Thể thao</li>
+        </a>
+    </ul>
+
+    <!--Filter-->
+    <div class="d-flex flex-column align-items-center">
+        <hr style="width:100%">
+        <h3 class="mb-3">Bộ lọc sản phẩm</h3>
+        <form action="/relating-products">
+            <div class="input-group mb-3 me-2">
+                <label class="input-group-text fs-5" for="catalogue">Danh mục</label>
+                <select class="form-select fs-5" id="catalogue" name="catalogue">
+                    <option selected value="Tất cả">Tất cả</option>
+                    {{#each catalogue}}
+                    <option value="{{this.category}}">{{this.category}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <input type="text" value="1" name="page" class="d-none">
+            <div class="d-flex">
+                <div class="input-group mb-3 me-2">
+                    <label class="input-group-text fs-5" for="typeProducts">Sản phẩm</label>
+                    <select class="form-select fs-5" id="typeProducts" name="typeProducts">
+                        <option selected value="Tất cả">Tất cả</option>
+                        <option value="1">Sản phẩm mới</option>
+                        <option value="2">Sản phẩm có ưu đãi</option>
+                        <option value="3">Sản phẩm phổ biến</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3 me-2">
+                    <label class="input-group-text fs-5" for="typePrice">Giá tiền</label>
+                    <select class="form-select fs-5" id="typePrice" name="typePrice">
+                        <option selected value="Tất cả">Tất cả</option>
+                        <option value="1">Dưới 50.000₫</option>
+                        <option value="2">50.000 - 100.000₫</option>
+                        <option value="3">100.000 - 200.000₫</option>
+                        <option value="4">200.000 - 300.000₫</option>
+                        <option value="5">300.000 - 400.000₫</option>
+                        <option value="6">400.000 - 500.000₫</option>
+                        <option value="7">Trên 500.000₫</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3 me-2">
+                    <label class="input-group-text fs-5" for="typeStars">Đánh giá</label>
+                    <select class="form-select fs-5" id="typeStars" name="typeStars">
+                        <option selected value="0">Tất cả</option>
+                        <option value="1">1 ⭐</option>
+                        <option value="2">2 ⭐</option>
+                        <option value="3">3 ⭐</option>
+                        <option value="4">4 ⭐</option>
+                        <option value="5">5 ⭐</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text fs-5" for="gender">Dành cho</label>
+                    <select class="form-select fs-5" id="gender" name="gender">
+                        <option selected value="Tất cả">Tất cả</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary fs-5" type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+
+    <!-- Top Seller -->
+    <div class="border rounded m-5 mb-2 p-2 w-75">
+        <div class="mb-3">
+            <h1 class="d-inline mx-2">Bán chạy nhất</h1>
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <div class="container d-flex justify-content-center">
+            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-2">
+                {{#each bestseller}}
+                <div class="col" data-id="{{this.id}}">
+                    <div class="card card-home h-100">
+                        <img src="{{this.thumbnail}}" class="card-img-top" alt="..." style="height: 18rem;">
+                        <div class="card-body">
+                            <div style="height: 5rem;">
+                                <div style="width: fit-content; height: 1.5rem; padding: .2rem; background-color: rgb(255, 17, 0);"
+                                    class="rounded d-flex align-items-center justify-content-center text-light mb-1">
+                                    {{this.sale}}
+                                </div>
+                                <p class="fw-bold show-text-overflow" title="{{this.name}}">
+                                    {{this.name}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between opacity-25">
+                                <span>{{this.for}}</span>
+                                <span>Kích cỡ: S - Freesize</span>
+                            </div>
+                            <div class="d-flex mt-2">
+                                {{#each this.holdColors}}
+                                <img src="/imgs/color/{{this}}.png" class="rounded-circle me-1" style="width: 1rem;"
+                                    alt="{{this}}">
+                                {{/each}}
+                            </div>
+                            <div class="mt-3 d-flex align-items-start">
+                                <span class="text-info align-baseline fs-4 fw-bold">{{this.newPrice}}</span>
+                                <span class="text-info align-baseline fw-bold me-3"
+                                    style="line-height: 1.75rem">₫</span>
+
+                                <del class="text-base align-baseline" style="line-height: 2.25rem;">{{this.price}}</del>
+                                <del class="text-base align-baseline" style="line-height: 2.25rem;">₫</del>
+                            </div>
+
+                            <div class="mt-2">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Đã bán {{this.sold}}</span>
+
+                                <div {{#if dark}}style="color: yellow;" class="fs-3" {{else}}class="text-danger"
+                                    {{/if}}>
+
+                                    {{#each this.full}}
+                                    <i class="fa-solid fa-star"></i>
+                                    {{/each}}
+
+                                    {{#each this.half}}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    {{/each}}
+
+                                    {{#each this.none}}
+                                    <i class="fa-regular fa-star"></i>
+                                    {{/each}}
+                                    <span class="card-text text-light">({{this.numComments}})</span>
+                                </div>
+                            </div>
+
+                            <div class="progress mt-2" style="height: 0.65rem;">
+                                <div class="progress-bar bg-linear-gradient" role="progressbar"
+                                    style="width: {{this.rate}}%;" aria-valuenow="{{this.rate}}" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <!-- New Arrivals -->
+    <div class="border rounded m-5 mb-2 p-2 w-75">
+        <div class="d-flex align-items-center">
+            <h1 class="d-inline mx-2">Hàng mới</h1>
+            <img src="/imgs/firework.png" alt="Firework" style="width: 3rem; height: 3rem">
+        </div>
+        <div class="container d-flex justify-content-center mt-2">
+            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-2">
+                {{#each newarrival}}
+                <div class="col" data-id="{{this.id}}">
+                    <div class="card card-home h-100">
+                        <img src="{{this.thumbnail}}" class="card-img-top" alt="..." style="height: 18rem;">
+                        <div class="card-body">
+                            <div style="height: 5rem;">
+                                <p class="fw-bold show-text-overflow" title="{{this.name}}">{{this.name}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between opacity-25">
+                                <span>{{this.for}}</span>
+                                <span>Kích cỡ: S - Freesize</span>
+                            </div>
+                            <div class="d-flex mt-2">
+                                {{#each this.holdColors}}
+                                <img src="/imgs/color/{{this}}.png" class="rounded-circle me-1" style="width: 1rem;"
+                                    alt="{{this}}">
+                                {{/each}}
+                            </div>
+                            <div class="mt-3 d-flex align-items-start">
+                                <span class="text-danger align-baseline fs-4 fw-bold">{{this.price}}</span>
+                                <span class="text-danger align-baseline fw-bold me-3"
+                                    style="line-height: 1.75rem">₫</span>
+                            </div>
+
+                            <div class="mt-2">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Đã bán {{this.sold}}</span>
+
+                                <div {{#if dark}}style="color: yellow;" class="fs-3" {{else}}class="text-danger"
+                                    {{/if}}>
+                                    
+                                    {{#each this.full}}
+                                    <i class="fa-solid fa-star"></i>
+                                    {{/each}}
+
+                                    {{#each this.half}}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    {{/each}}
+
+                                    {{#each this.none}}
+                                    <i class="fa-regular fa-star"></i>
+                                    {{/each}}
+                                    <span class="card-text text-light">({{this.numComments}})</span>
+                                </div>
+                            </div>
+
+                            <div class="progress mt-2" style="height: 0.65rem;">
+                                <div class="progress-bar bg-linear-gradient" role="progressbar"
+                                    style="width: {{this.rate}}%;" aria-valuenow="{{this.rate}}" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <!-- Recommended -->
+    <div class="border rounded m-5 p-2 w-75">
+        <h1 class="text-center mb-4">Đề xuất cho bạn</h1>
+        <div class="container d-flex justify-content-center">
+            <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-2 get-more-products-in-recommend">
+                {{#each recommend}}
+                <div class="col products-in-recommend" data-id="{{this.id}}">
+                    <div class="card card-home h-100">
+                        <img src="{{this.thumbnail}}" class="card-img-top" alt="..." style="height: 18rem;">
+                        <div class="card-body">
+                            <div style="height: 5rem;">
+                                <p class="fw-bold show-text-overflow">{{this.name}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between opacity-25">
+                                <span>{{this.for}}</span>
+                                <span>Kích cỡ: S - Freesize</span>
+                            </div>
+                            <div class="d-flex mt-2">
+                                {{#each this.holdColors}}
+                                <img src="/imgs/color/{{this}}.png" class="rounded-circle me-1" style="width: 1rem;"
+                                    alt="{{this}}">
+                                {{/each}}
+                            </div>
+                            <div class="mt-3 d-flex align-items-start" style="color: orange; margin-left: -1rem;">
+                                <span class="align-baseline fs-5 ms-2">{{this.newPrice}}</span>
+                                <span class="align-baseline me-2" style="line-height: 1.75rem">₫</span>
+                                {{#if this.check}}
+                                <span class="text-success" style="line-height: 2rem;">(<i
+                                        class="fa-solid fa-arrow-down"></i> {{this.sale}})</span>
+                                {{else}}
+                                <span class="text-danger" style="line-height: 2rem;">(<i
+                                        class="fa-solid fa-arrow-up"></i> {{this.sale}})</span>
+                                {{/if}}
+                            </div>
+
+                            <div class="mt-2">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Đã bán {{this.sold}}</span>
+
+                                <div {{#if dark}}style="color: yellow;" class="fs-3" {{else}}class="text-danger"
+                                    {{/if}}>
+                                    
+                                    {{#each this.full}}
+                                    <i class="fa-solid fa-star"></i>
+                                    {{/each}}
+
+                                    {{#each this.half}}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    {{/each}}
+
+                                    {{#each this.none}}
+                                    <i class="fa-regular fa-star"></i>
+                                    {{/each}}
+                                    <span class="card-text text-light">({{this.numComments}})</span>
+                                </div>
+                            </div>
+
+                            <div class="progress mt-2" style="height: 0.65rem;">
+                                <div class="progress-bar bg-linear-gradient" role="progressbar"
+                                    style="width: {{this.rate}}%;" aria-valuenow="{{this.rate}}" aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn fs-5" id="see-more-home-page">Xem thêm</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(() => {
+        $('#see-more-home-page').on('click', function () {
+            const numProductsCurrent = $('.products-in-recommend').length + 20;
+
+            $.ajax({
+                url: `http://localhost:3000/home/getMoreProductsRecommend?page=${numProductsCurrent / 20}`,
+                method: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    const rs = data.success;
+                    for (const product of rs) {
+                        let rt =
+                            `
+                        <div class="col products-in-recommend" data-id="${product.id}">
+                            <div class="card card-home h-100">
+                                <img src="${product.thumbnail}" class="card-img-top" alt="..." style="height: 18rem;">
+                                <div class="card-body">
+                                    <div style="height: 5rem;">
+                                        <p class="fw-bold show-text-overflow">${product.name}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between opacity-25">
+                                        <span>${product.for}</span>
+                                        <span>Kích cỡ: S - Freesize</span>
+                                    </div>
+                                    <div class="d-flex mt-2">`
+
+                        for (let i = 0; i < product.holdColors.length; i++) {
+                            rt += `<img src="/imgs/color/${product.holdColors[i]}.png" class="rounded-circle me-1" style="width: 1rem;" alt="">`
+                        }
+
+                        rt +=
+                            `</div>
+                                    <div class="mt-3 d-flex align-items-start" style="color: orange; margin-left: -1rem;">
+                                        <span class="align-baseline fs-5 ms-2">${product.newPrice}</span>
+                                        <span class="align-baseline me-2" style="line-height: 1.75rem">₫</span>`;
+
+                        if (product.check) {
+                            rt += `<span class="text-success" style="line-height: 2rem;">(<i
+                                                class="fa-solid fa-arrow-down"></i> ${product.sale})</span>`;
+                        } else {
+                            rt += `<span class="text-danger" style="line-height: 2rem;">(<i
+                                                class="fa-solid fa-arrow-up"></i> ${product.sale})</span>`;
+                        }
+                        rt +=
+                            `</div>
+
+                                    <div class="mt-2">
+                                        <i class="fa-solid fa-check"></i>
+                                        <span>Đã bán ${product.sold}</span>
+
+                                        <div>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star-half-stroke"></i>
+                                            (${product.numComments})
+                                        </div>
+                                    </div>
+
+                                    <div class="progress mt-2" style="height: 0.65rem;">
+                                        <div class="progress-bar bg-linear-gradient" role="progressbar" style="width: ${product.rate}%;"
+                                            aria-valuenow="${product.rate}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        $('.get-more-products-in-recommend').append(rt);
+                    }
+
+                    $('.col').on('click', function () {
+                        const product_id = $(this).data('id');
+                        window.location.href = `/details?id=${product_id}`;
+                    });
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        $('.col').on('click', function () {
+            const product_id = $(this).data('id');
+            window.location.href = `/details?id=${product_id}`;
+        });
+
+        $('.search-hot-search').on('click', function () {
+            const value = $(this).text();
+            window.location.href = `/relating-products?type=${value}&page=1`;
+        });
+
+        $('.more-pros').on('click', function () {
+            window.alert("Updating...We're so sorry about this!");
+        })
+    });
+</script>

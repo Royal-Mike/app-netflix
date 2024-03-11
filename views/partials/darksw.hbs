@@ -1,0 +1,10 @@
+<script>
+    $(() => {
+        $("#sw-theme").on("change", function() {
+            let theme = $("body").attr("data-bs-theme") === "light" ? "dark" : "light";
+            $("body").attr("data-bs-theme", theme);
+            $(this).next().find("i").toggleClass("fa-moon fa-sun");
+            Cookies.set("theme", theme, { expires: 365 });
+        });
+    });
+</script>
