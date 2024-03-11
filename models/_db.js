@@ -86,7 +86,26 @@ module.exports = {
             }
         }
     },
-    get: async (tbName, fieldName, value) => {
+    getOne: async (tbName, fieldName, value) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            const rs = await con.oneOrNone(
+                `SELECT * FROM "${tbName}" WHERE "${fieldName}" = $1`,
+                [value]
+            );
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getAny: async (tbName, fieldName, value) => {
         let con = null;
         try {
             cn.database = process.env.DB_NAME;
