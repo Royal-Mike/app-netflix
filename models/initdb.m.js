@@ -1,6 +1,6 @@
 const db = require('./_db');
 
-module.exports = class Home {
+module.exports = class InitDB {
     static async checkExistDB() {
         const rs = await db.checkExistDB();
         return rs;
