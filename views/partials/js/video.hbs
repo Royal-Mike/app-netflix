@@ -1,0 +1,85 @@
+<script>
+    $(() => {
+        const supportsVideo = !!document.createElement("video").canPlayType;
+        if (!supportsVideo) return;
+
+        const video = $("video").get(0);
+
+        // Fade controls
+        let timeoutFade;
+
+        $("video").on("hover", function () {
+            clearTimeout(timeoutFade);
+            $(".controls").css("opacity", "0");
+            fadeOutControls();
+        }, function (e) {
+            $(".controls").css("opacity", "0");
+        });
+
+        $("video").on("mousemove", function () {
+            clearTimeout(timeoutFade);
+            $(".controls").css("opacity", "1");
+            fadeOutControls();
+        });
+
+        function fadeOutControls() {
+            timeoutFade = setTimeout(function () {
+                $(".controls").css("opacity", "0");
+            }, 3000);
+        }
+
+        // Progress bar
+        $("video").on("loadedmetadata", () => {
+            $("progress").attr("max", video.duration);
+        });
+
+        $("video").on("timeupdate", () => {
+            const progress = $("progress");
+
+            if (!progress.attr("max")) {
+                progress.attr("max", video.duration);
+            }
+
+            progress.attr("value", video.currentTime);
+            $("#progress-value").css("width", `${Math.floor(
+                (video.currentTime * 100) / video.duration,
+            )}%`);
+        });
+
+        // Play and Pause
+        $("#play-pause").on("click", function () {
+            if (video.paused) {
+                video.play();
+            }
+            else {
+                video.pause();
+            }
+            $(this).toggleClass("fa-play fa-pause");
+        });
+
+        $("video").on("play", function () {
+            $("#play-pause").addClass("fa-pause").removeClass("fa-play");
+        });
+
+        $("video").on("pause", function () {
+            $("#play-pause").addClass("fa-play").removeClass("fa-pause");
+        });
+
+        // Audio
+        let muted = false, savedVolume = 1;
+
+        $("#audio").on("click", function () {
+            if (muted) {
+                video.volume = savedVolume;
+                $(this).removeClass("fa-volume-xmark");
+                if (savedVolume > 0.5) $(this).addClass("fa-volume-high");
+                else $(this).addClass("fa-volume-low");
+            }
+            else {
+                video.volume = 0;
+                $(this).removeClass("fa-volume-high fa-volume-low").addClass("fa-volume-xmark");
+            }
+            muted = !muted;
+        });
+    });
+</script>
