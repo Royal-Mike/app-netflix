@@ -1,5 +1,21 @@
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     .movie-hoverred:hover {
-        display: none;
+        z-index: 3;
+    }
+
+    .movie-hoverred:nth-child(n+2):nth-child(-n+5) {
+        transform-origin: center;
+    }
+
+    .movie-hoverred:nth-child(1) {
+        transform-origin: left;
+    }
+
+    .movie-hoverred:nth-child(6) {
+        transform-origin: right;
     }
 </style>
