@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userC = require("../controllers/home.c");
+const videoC = require("../controllers/video.c");
 
 router.use((req, res, next) => {
     if (req.isAuthenticated()) {
@@ -9,6 +9,6 @@ router.use((req, res, next) => {
     res.redirect("/");
 });
 
-router.get("/", userC.home);
+router.get("/", videoC.watch);
 
 module.exports = router;

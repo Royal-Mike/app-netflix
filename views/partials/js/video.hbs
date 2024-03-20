@@ -1,0 +1,27 @@
+<script>
+    $(() => {
+        const video = $("video").get(0);
+
+        // Play and Pause
+        $("#play-pause").on("click", function() {
+            if (video.paused) {
+                video.play();
+            }
+            else {
+                video.pause();
+            }
+            $(this).toggleClass("fa-play fa-pause");
+        });
+
+        $("video").on("play", function() {
+            $("#play-pause").addClass("fa-pause").removeClass("fa-play");
+        });
+
+        $("video").on("pause", function() {
+            $("#play-pause").addClass("fa-play").removeClass("fa-pause");
+        });
+
+        // Audio
+        
+    });
+</script>
