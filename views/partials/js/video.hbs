@@ -2,8 +2,31 @@
     $(() => {
         const video = $("video").get(0);
 
+        // Fade controls
+        let timeoutFade;
+
+        $("video").on("hover", function() {
+            clearTimeout(timeoutFade);
+            $(".controls").css("opacity", "0");
+            fadeOutControls();
+        }, function (e) {
+            $(".controls").css("opacity", "0");
+        });
+
+        $("video").on("mousemove", function () {
+            clearTimeout(timeoutFade);
+            $(".controls").css("opacity", "1");
+            fadeOutControls();
+        });
+
+        function fadeOutControls() {
+            timeoutFade = setTimeout(function() {
+                $(".controls").css("opacity", "0");
+            }, 3000);
+        }
+
         // Play and Pause
-        $("#play-pause").on("click", function() {
+        $("#play-pause").on("click", function () {
             if (video.paused) {
                 video.play();
             }
@@ -13,18 +36,18 @@
             $(this).toggleClass("fa-play fa-pause");
         });
 
-        $("video").on("play", function() {
+        $("video").on("play", function () {
             $("#play-pause").addClass("fa-pause").removeClass("fa-play");
         });
 
-        $("video").on("pause", function() {
+        $("video").on("pause", function () {
             $("#play-pause").addClass("fa-play").removeClass("fa-pause");
         });
 
         // Audio
         let muted = false, savedVolume = 1;
 
-        $("#audio").on("click", function() {
+        $("#audio").on("click", function () {
             if (muted) {
                 video.volume = savedVolume;
                 $(this).removeClass("fa-volume-xmark");
