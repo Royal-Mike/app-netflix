@@ -4,12 +4,12 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card border-0 shadow rounded-3 my-5">
                 <div class="card-body p-4 p-sm-5">
-                    <h5 class="card-title text-center mb-5 fw-light fs-5">Đăng ký</h5>
+                    <h5 class="card-title text-center mb-5 fw-light fs-5">Sign Up</h5>
                     <form action="/acc/signup-submit" method="post">
                         <div class="form-floating mb-3">
                             <input name="username" type="text" class="form-control" id="floatingUsername"
                                 placeholder="Ex: something..." value="{{messages.unValue}}" required/>
-                            <label for="floatingUsername">Tên tài khoản</label>
+                            <label for="floatingUsername">Username</label>
                             {{#if messages.errorUser}}
                             <div style="color: red;">
                                 {{messages.errorUser}}
@@ -29,25 +29,25 @@
 
                         <div class="form-floating mb-3">
                             <input name="dob" type="date" class="form-control" id="floatingDob" value="{{messages.dobValue}}" required />
-                            <label for="floatingDob">Ngày sinh</label>
+                            <label for="floatingDob">Date of Birth</label>
                         </div>
 
                         <div class="form-floating mb-3 input-control">
                             <input name="password" type="password" class="form-control" value="{{messages.pwValue}}" id="floatingPassword"
                                 placeholder="Password" required />
-                            <label for="floatingPassword">Mật khẩu</label>
+                            <label for="floatingPassword">Password</label>
                             <div class="error" style="color: red;"></div>
                         </div>
 
                         <div class="form-floating mb-3 input-control">
                             <input name="re-password" type="password" class="form-control" value="{{messages.pwValue}}" id="floatingRePassword"
                                 placeholder="re-Password" required />
-                            <label for="floatingRePassword">Nhập lại mật khẩu</label>
+                            <label for="floatingRePassword">Retype Password</label>
                             <div class="error" style="color: red;"></div>
                         </div>
 
                         <div class="d-grid">
-                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Đăng ký</button>
+                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign Up</button>
                         </div>
                     </form>
                 </div>

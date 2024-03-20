@@ -6,7 +6,7 @@ const accountC = require("../controllers/account.c");
 router.post("/signup-submit", accountC.signup);
 router.post("/login", passport.authenticate("myStrategies", { failureRedirect: "/", failureFlash: true, }),
 	(req, res) => {
-		req.flash("success", "Đăng nhập thành công!");
+		req.flash("success", "Login successful!");
 
 		if (req.user.role === "admin") {
 			res.redirect("/admin");
