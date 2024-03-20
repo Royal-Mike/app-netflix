@@ -45,4 +45,11 @@ router.get('/signup', async (req, res) => {
     })
 });
 
+router.get("/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) throw err;
+    });
+    res.redirect("/");
+});
+
 module.exports = router;
