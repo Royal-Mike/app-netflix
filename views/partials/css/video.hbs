@@ -1,11 +1,4 @@
 <style>
-    progress {
-        bottom: 15%;
-        width: 97%;
-        height: 4px;
-        border-radius: 0;
-    }
-
     i {
         font-size: 3rem;
         cursor: pointer;
@@ -27,5 +20,32 @@
 
     #video-control {
         background: linear-gradient(to top, black, transparent);
+    }
+
+    #progress-control {
+        bottom: 15%;
+        width: 97%;
+        height: 4px;
+    }
+
+    #progress-control * {
+        position: absolute;
+        height: 100%;
+    }
+
+    progress {
+        --value: rgb(190, 190, 190);
+        width: 100%;
+        border-radius: 0;
+    }
+
+    progress::-moz-progress-bar { background: var(--value); }
+    progress::-webkit-progress-value { background: var(--value); }
+    progress { color: var(--value); }
+
+    #progress-value {
+        width: 0;
+        background-color: red;
+        transition: 0.5s;
     }
 </style>

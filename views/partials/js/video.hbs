@@ -1,11 +1,14 @@
 <script>
     $(() => {
+        const supportsVideo = !!document.createElement("video").canPlayType;
+        if (!supportsVideo) return;
+
         const video = $("video").get(0);
 
         // Fade controls
         let timeoutFade;
 
-        $("video").on("hover", function() {
+        $("video").on("hover", function () {
             clearTimeout(timeoutFade);
             $(".controls").css("opacity", "0");
             fadeOutControls();
@@ -20,10 +23,28 @@
         });
 
         function fadeOutControls() {
-            timeoutFade = setTimeout(function() {
+            timeoutFade = setTimeout(function () {
                 $(".controls").css("opacity", "0");
             }, 3000);
         }
+
+        // Progress bar
+        $("video").on("loadedmetadata", () => {
+            $("progress").attr("max", video.duration);
+        });
+
+        $("video").on("timeupdate", () => {
+            const progress = $("progress");
+
+            if (!progress.attr("max")) {
+                progress.attr("max", video.duration);
+            }
+
+            progress.attr("value", video.currentTime);
+            $("#progress-value").css("width", `${Math.floor(
+                (video.currentTime * 100) / video.duration,
+            )}%`);
+        });
 
         // Play and Pause
         $("#play-pause").on("click", function () {
