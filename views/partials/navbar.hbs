@@ -1,20 +1,17 @@
 <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary mb-5">
     <div class="container-fluid py-1">
-        <div class="d-flex w-100">
-            <a class="m-0 fs-1" href="/home">Netflix</a>
-            <div class="form-check form-switch p-0" style="margin-top:0.8rem; margin-left:auto">
-                <input class="form-check-input fs-4 ms-3 me-2" type="checkbox" role="switch" id="sw-theme" {{#if dark}}
-                    checked {{/if}} style="cursor:pointer" />
-                <label for="sw-theme" class="form-check-label">
-                    <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2"></i>
-                </label>
-            </div>
+        <img class="m-2" src="/imgs/logo.svg" width="200">
+        <a class="m-2 ms-3 fs-5 link-unstyled" href="/home">Home</a>
+        <a class="m-2 fs-5 link-unstyled">My List</a>
+        <div class="form-check form-switch p-0 me-2" style="margin-left:auto">
+            <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2" id="sw-theme"
+            style="cursor:pointer"></i>
         </div>
-        <div class="form-check form-switch">
+        <div class="form-check form-switch p-0">
             {{#if home}}
             <label>
                 <form action="/logout" method="get">
-                    <button type="submit" title="Đăng xuất"
+                    <button type="submit" title="Logout"
                         style="position: relative; border: 0; background: transparent; font-size: 25px">
                         <i class="fa-solid fa-right-to-bracket fs-2"></i>
                     </button>
@@ -24,7 +21,7 @@
             {{#if admin}}
             <label>
                 <form action="/logout" method="get">
-                    <button type="submit" title="Đăng xuất"
+                    <button type="submit" title="Logout"
                         style="position: relative; border: 0; background: transparent; font-size: 25px">
                         <i class="fa-solid fa-right-to-bracket fs-2"></i>
                     </button>

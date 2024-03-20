@@ -1,4 +1,46 @@
 <style>
+    .link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    .bg-linear-gradient {
+        background: linear-gradient(to right, rgb(95, 236, 255), #0f03ae);
+    }
+
+    .show-text-overflow {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .card-home {
+        cursor: pointer;
+    }
+
+    .card-home:hover {
+        transition: 0.4s;
+        border-color: red;
+        border-width: .05rem;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+        text-align: center;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .testing:hover, .movie-hoverred:hover {
+        transform: scale(1.2, 1.05);
+        transition: 0.5s;
+    }
+
     .movie-hoverred:hover {
         display: none;
     }
