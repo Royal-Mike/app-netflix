@@ -22,6 +22,20 @@
         });
 
         // Audio
-        
+        let muted = false, savedVolume = 1;
+
+        $("#audio").on("click", function() {
+            if (muted) {
+                video.volume = savedVolume;
+                $(this).removeClass("fa-volume-xmark");
+                if (savedVolume > 0.5) $(this).addClass("fa-volume-high");
+                else $(this).addClass("fa-volume-low");
+            }
+            else {
+                video.volume = 0;
+                $(this).removeClass("fa-volume-high fa-volume-low").addClass("fa-volume-xmark");
+            }
+            muted = !muted;
+        });
     });
 </script>
