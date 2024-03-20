@@ -9,7 +9,7 @@ const videoR = require("./video.r");
 router.use("/acc", accountR);
 router.use("/home", homeR);
 router.use("/admin", adminR);
-router.use("/video", videoR);
+router.use("/watch", videoR);
 
 const initializeDBM = require("../models/initdb.m");
 
