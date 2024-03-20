@@ -1,0 +1,22 @@
+<script>
+    $(document).ready(function () {
+        $('.movie-hoverred').each(function () {
+            $(this).on('mouseover', function () {
+                $('.movie-actions', this).removeClass('d-none');
+                $(this).css({
+                    'transform': 'scale(1.3)',
+                    'transition': '0.5s',
+                    'position': 'relative',
+                });
+            });
+
+            $(this).on('mouseout', function () {
+                $('.movie-actions', this).addClass('d-none');
+                $(this).css({
+                    'transform': 'scale(1)',
+                    'transition': '0.5s',
+                });
+            });
+        });
+    });
+</script>

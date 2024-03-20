@@ -1,307 +1,279 @@
+{{> js/home}}
+{{> css/home}}
 {{#if messages.success}}
 <div class="d-flex justify-content-end alert alert-success" role="alert">
     {{messages.success}}
 </div>
 {{/if}}
 
-<div class="container-fluid" style="margin-top: 8rem;">
+<div class="container-fluid outer-container">
     <div>
         <h2>Movies in Top Box Office</h2>
         <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-inner" style="overflow: visible;">
+            <div class="carousel-inner full-carousel">
                 <div class="carousel-item active">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 10rem">
+                    <div class="d-flex justify-content-center align-items-center place-6-movies">
                         <div class="movie-hoverred ms-1">
-                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
                         <div class="movie-hoverred ms-1">
-                            <img src="/imgs/atrociraptor.jpg" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
                         <div class="movie-hoverred ms-1">
-                            <img src="/imgs/acrocanthosaurus.jpg" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
                         <div class="movie-hoverred ms-1">
-                            <img src="/imgs/brachiosaurus.webp" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
                         <div class="movie-hoverred ms-1">
-                            <img src="/imgs/alamosaurus.webp" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
                         <div class="movie-hoverred ms-1 me-1">
-                            <img src="/imgs/titanosaurus.jpg" class="d-block rounded-top"
-                                style="height: 10rem; width: 18rem" alt="...">
-                            <div class="movie-actions bg-black p-2 d-none rounded-bottom" style="width: 18rem;">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
-                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-plus fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
-                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5"
-                                        style="width: 3rem; height: 3rem">
+                                    <div class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
                                 <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
-                                <div class="d-flex justify-content-start align-items-center m-0">
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
                                     <div class="border border-3 m-0">
-                                        <p class="m-0 ps-2 pe-2" style="font-size: 1.2rem;">18+</p>
+                                        <p class="m-0 ps-2 pe-2">18+</p>
                                     </div>
                                     <p class="m-0 fs-5 ms-2">1h 34m</p>
                                     <div class="border border-2 rounded m-0 ms-2">
-                                        <p class="m-0 ps-1 pe-1 fw-bold" style="font-size: 0.8rem;">HD</p>
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
                                     </div>
                                     <div class="m-0 ms-2 d-flex align-items-center">
                                         <i class="fa-solid fa-podcast fs-3"></i>
                                         <div>
                                             <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
-                                            <p class="m-0 ms-1 lh-1" style="font-size: .8rem;">Audio</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-start mt-3 align-items-center">
-                                    <p class="text-light m-0" style="font-size: 1rem;">Feel-Good</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Goofy</p>
-                                    <div class="m-0 bg-secondary rounded ms-2" style="width: .3rem; height: .3rem"></div>
-                                    <p class="text-light m-0 ms-2" style="font-size: 1rem;">Martial Arts</p>
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
                                 </div>
                             </div>
                         </div>
@@ -311,12 +283,12 @@
 
                 </div>
             </div>
-            <button class="carousel-control-prev bg-secondary rounded-start p-1" style="width: 6rem; height: 10rem" type="button" data-bs-target="#carouselExampleIndicators"
+            <button class="carousel-control-prev bg-secondary rounded-start p-1 next-prev-button" type="button" data-bs-target="#carouselExampleIndicators"
                 data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>Previous
             </button>
-            <button class="carousel-control-next bg-secondary rounded-end p-1" style="width: 6rem; height: 10rem" type="button" data-bs-target="#carouselExampleIndicators"
+            <button class="carousel-control-next bg-secondary rounded-end p-1 next-prev-button" type="button" data-bs-target="#carouselExampleIndicators"
                 data-bs-slide="next">Next
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
@@ -328,26 +300,3 @@
         <h2>Movies with Highest Profit</h2>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('.movie-hoverred').each(function () {
-            $(this).on('mouseover', function () {
-                $('.movie-actions', this).removeClass('d-none');
-                $(this).css({
-                    'transform': 'scale(1.3)',
-                    'transition': '0.5s',
-                    'position': 'relative',
-                });
-            });
-
-            $(this).on('mouseout', function () {
-                $('.movie-actions', this).addClass('d-none');
-                $(this).css({
-                    'transform': 'scale(1)',
-                    'transition': '0.5s',
-                });
-            });
-        });
-    });
-</script>
