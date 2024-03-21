@@ -37,6 +37,7 @@ app.use(cookieParser(secret));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/imgs', express.static('./imgs'))
+app.use('/favicon', express.static('./favicon'))
 app.use('/js', express.static('./js'));
 app.use('/fonts', express.static('./fonts'))
 

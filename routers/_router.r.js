@@ -9,7 +9,7 @@ const videoR = require("./video.r");
 router.use("/acc", accountR);
 router.use("/home", homeR);
 router.use("/admin", adminR);
-router.use("/video", videoR);
+router.use("/watch", videoR);
 
 const initializeDBM = require("../models/initdb.m");
 
@@ -43,6 +43,13 @@ router.get('/signup', async (req, res) => {
         home: false,
         dark: dark
     })
+});
+
+router.get("/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) throw err;
+    });
+    res.redirect("/");
 });
 
 module.exports = router;

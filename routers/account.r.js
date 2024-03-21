@@ -18,11 +18,4 @@ router.post("/login", passport.authenticate("myStrategies", { failureRedirect: "
 	}
 );
 
-router.get("/logout", (req, res) => {
-    req.logout((err) => {
-        if (err) throw err;
-    });
-    res.redirect("/");
-});
-
 module.exports = router;
