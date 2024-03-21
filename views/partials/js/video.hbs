@@ -36,6 +36,11 @@
             `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
         });
 
+        $("#video-progress").on("input", function() {
+            video.currentTime = $(this).val();
+            $("video").trigger("timeupdate");
+        });
+
         // Play and Pause
         $("#play-pause").on("click", function () {
             if (video.paused) {
