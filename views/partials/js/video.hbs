@@ -63,6 +63,14 @@
         // Audio
         let muted = false, savedVolume = 1;
 
+        $("#audio").on("mouseover", function() {
+            $("#audio-range").addClass("audio-range-active");
+        });
+
+        $("#video-control").on("mouseleave", function() {
+            $("#audio-range").removeClass("audio-range-active");
+        });
+
         $("#audio").on("click", function() {
             if (muted) {
                 video.volume = savedVolume;
