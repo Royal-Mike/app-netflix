@@ -22,20 +22,18 @@
 
         // Progress bar
         $("video").on("loadedmetadata", () => {
-            $("progress").attr("max", video.duration);
+            $("#video-progress").attr("max", video.duration);
         });
 
         $("video").on("timeupdate", () => {
-            const progress = $("progress");
+            const progress = $("#video-progress").get(0);
 
-            if (!progress.attr("max")) {
-                progress.attr("max", video.duration);
-            }
+            if (!progress.max) progress.max = video.duration;
+            progress.value = video.currentTime;
 
-            progress.attr("value", video.currentTime);
-            $("#progress-value").css("width", `${Math.floor(
-                (video.currentTime * 100) / video.duration,
-            )}%`);
+            const percent = (progress.value - progress.min) / (progress.max - progress.min) * 100;
+            $("#video-progress").css("background",
+            `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
         });
 
         // Play and Pause
