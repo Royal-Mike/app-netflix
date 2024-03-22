@@ -148,17 +148,17 @@
 
         // Playback speed
         $("#playback").on("mouseover", function () {
-            $("#playback-speed").css("opacity", "1");
+            $("#playback-speed").addClass("active");
         });
 
         $("#playback-speed").on("mouseleave", function () {
-            $(this).css("opacity", "0");
+            $(this).removeClass("active");
         });
 
         $(".speed-button").on("click", function () {
             $(".speed-button-active").removeClass("speed-button-active");
             $(this).addClass("speed-button-active");
-    
+
             const rate = $("#playback-text p").eq($(this).index() - 1);
             $("#playback-text p").css("font-weight", "");
             rate.css("font-weight", "bold");

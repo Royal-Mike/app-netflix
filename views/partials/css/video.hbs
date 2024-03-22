@@ -15,6 +15,11 @@
         text-align: right;
     }
 
+    .active {
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }
+
     .controls {
         opacity: 0;
         transition: 0.5s;
@@ -106,6 +111,7 @@
         bottom: 6.5rem;
         opacity: 0;
         transition: 0.2s;
+        pointer-events: none;
     }
 
     #playback-speed h2 {
