@@ -20,7 +20,7 @@
     }
 
     .next-prev-button {
-        width: 6rem;
+        width: 5.5rem;
         height: 10rem;
     }
 
@@ -36,7 +36,7 @@
         height: 10rem;
     }
 
-    .movie-hoverred>img {
+    .movie-hoverred>img, .movie-top-10-VN-info>img {
         height: 10rem;
         width: 18rem;
     }
@@ -76,5 +76,25 @@
         -webkit-text-stroke: 5px grey;
         color: black;
         font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
+    }
+
+    .movie-top-10-VN-hovered:nth-child(1):hover {
+        transform-origin: left;
+    }
+
+    .movie-top-10-VN-hovered:nth-child(10):hover {
+        transform-origin: right;
+    }
+
+    .movie-top-10-VN-info {
+        position: absolute;
+        opacity: 0;
+        transition: 0.5s;
+    }
+
+    .all-container:hover .movie-top-10-VN-info {
+        opacity: 1;
+        transform: scale(1.5);
+        transition: 0.5s;
     }
 </style>
