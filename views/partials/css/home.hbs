@@ -1,6 +1,7 @@
 <style>
     * {
         box-sizing: border-box;
+        margin: 0;
     }
 
     .movie-hoverred:hover {
@@ -72,7 +73,7 @@
     }
 
     .number1 {
-        font-size: 20rem;
+        font-size: 18rem;
         -webkit-text-stroke: 5px grey;
         color: black;
         font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
@@ -96,5 +97,50 @@
         opacity: 1;
         transform: scale(1.5);
         transition: 0.5s;
+    }
+
+    .poster {
+        width: 100%;
+        margin-top: -10rem;
+    }
+
+    .movie-details > div:nth-child(1) {
+        width: 65%;
+    }
+
+    .movie-details > div:nth-child(2) {
+        width: 35%;
+    }
+
+    .text p:nth-child(1) {
+        font-size: 1rem;
+    }
+
+    .text p:nth-child(2) {
+        font-size: .7rem;
+    }
+
+    .movie-title {
+        font-size: 5rem;
+        font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
+    }
+
+    .indistinct-chattering {
+        margin-left: 8rem;
+        font-weight: bolder;
+    }
+
+    .action-on-movie {
+        top: 70%;
+    }
+
+    .cancel-review {
+        top: 2%;
+        right: 2%;
+        background-color: black;
+    }
+
+    .movie-details {
+        background: linear-gradient(to bottom, rgb(52, 52, 52), black);
     }
 </style>
