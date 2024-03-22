@@ -33,10 +33,10 @@
 
             const percent = (progress.value - progress.min) / (progress.max - progress.min) * 100;
             $("#video-progress").css("background",
-            `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
+                `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
         });
 
-        $("#video-progress").on("input", function() {
+        $("#video-progress").on("input", function () {
             video.currentTime = $(this).val();
             $("video").trigger("timeupdate");
         });
@@ -49,29 +49,41 @@
             else {
                 video.pause();
             }
-            $(this).toggleClass("fa-play fa-pause");
+
+            $("#play-pause,#play-pause-animation i").toggleClass("fa-play fa-pause");
+
+            const el = $("#play-pause-animation").get(0);
+            el.style.animation = "none";
+            el.offsetHeight;
+            el.style.animation = null;
+        });
+
+        $("video").on("click", function () {
+            $("#play-pause").trigger("click");
         });
 
         $("video").on("play", function () {
             $("#play-pause").addClass("fa-pause").removeClass("fa-play");
+            $("#play-pause-animation i").addClass("fa-play").removeClass("fa-pause");
         });
 
         $("video").on("pause", function () {
             $("#play-pause").addClass("fa-play").removeClass("fa-pause");
+            $("#play-pause-animation i").addClass("fa-pause").removeClass("fa-play");
         });
 
         // Audio
         let muted = false, savedVolume = 1;
 
-        $("#audio").on("mouseover", function() {
+        $("#audio").on("mouseover", function () {
             $("#audio-range").addClass("audio-range-active");
         });
 
-        $("#video-control").on("mouseleave", function() {
+        $("#video-control").on("mouseleave", function () {
             $("#audio-range").removeClass("audio-range-active");
         });
 
-        $("#audio").on("click", function() {
+        $("#audio").on("click", function () {
             if (muted) {
                 video.volume = savedVolume;
                 $(this).removeClass("fa-volume-xmark");
@@ -87,7 +99,7 @@
             changeAudioRange();
         });
 
-        $("#audio-range").on("input", function() {
+        $("#audio-range").on("input", function () {
             const inputRange = $("#audio-range").get(0);
 
             savedVolume = inputRange.value / 100;
@@ -110,7 +122,7 @@
             const inputRange = $("#audio-range").get(0);
             const progress = (inputRange.value - inputRange.min) / (inputRange.max - inputRange.min) * 100;
             $("#audio-range").css("background",
-            `linear-gradient(to right, white 0%, white ${progress}%, rgba(255, 255, 255, 0.5) ${progress}%, rgba(255, 255, 255, 0.5) 100%)`);
+                `linear-gradient(to right, white 0%, white ${progress}%, rgba(255, 255, 255, 0.5) ${progress}%, rgba(255, 255, 255, 0.5) 100%)`);
         }
     });
 </script>
