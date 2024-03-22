@@ -9,13 +9,31 @@
         <i class="fa-solid fa-arrow-left m-4 ps-1"></i>
     </div>
     <div class="position-absolute bottom-0 w-100 d-flex flex-column controls" id="video-control">
+        <div class="position-absolute bg-dark rounded p-4 px-5" id="playback-speed">
+            <h2 class="mb-5">Playback Speed</h2>
+            <div class="d-flex position-relative my-4">
+                <hr class="position-absolute w-100 m-0">
+                <div class="rounded-pill speed-button"></div>
+                <div class="rounded-pill speed-button"></div>
+                <div class="rounded-pill speed-button speed-button-active"></div>
+                <div class="rounded-pill speed-button"></div>
+                <div class="rounded-pill speed-button"></div>
+            </div>
+            <div class="d-flex" id="playback-text">
+                <p class="fs-3">0.5x</p>
+                <p class="fs-3">0.75x</p>
+                <p class="fs-3" style="font-weight:bold">1x (Normal)</p>
+                <p class="fs-3">1.25x</p>
+                <p class="fs-3">1.5x</p>
+            </div>
+        </div>
         <input type="range" class="form-range" id="video-progress" min="0" value="0">
         <div class="d-flex align-items-center">
             <i id="play-pause" class="fa-solid fa-play m-4 pb-2 ps-1"></i>
             <i id="audio" class="fa-solid fa-volume-high m-4 ms-1 pb-2 ps-1"></i>
             <input type="range" class="form-range ms-4" id="audio-range" min="0" max="100" value="100">
             <div style="margin-left:auto"></div>
-            <i class="fa-solid fa-gauge-simple-high m-4 me-2 pb-2 ps-1 rtl"></i>
+            <i id="playback" class="fa-solid fa-gauge-simple-high m-4 me-2 pb-2 ps-1 rtl"></i>
             <i id="expand" class="fa-solid fa-expand m-4 pb-2 ps-1 rtl"></i>
         </div>
     </div>

@@ -145,5 +145,25 @@
             fullScreen = !fullScreen;
             $("#expand").toggleClass("fa-expand fa-compress");
         });
+
+        // Playback speed
+        $("#playback").on("mouseover", function () {
+            $("#playback-speed").css("opacity", "1");
+        });
+
+        $("#playback-speed").on("mouseleave", function () {
+            $(this).css("opacity", "0");
+        });
+
+        $(".speed-button").on("click", function () {
+            $(".speed-button-active").removeClass("speed-button-active");
+            $(this).addClass("speed-button-active");
+    
+            const rate = $("#playback-text p").eq($(this).index() - 1);
+            $("#playback-text p").css("font-weight", "");
+            rate.css("font-weight", "bold");
+
+            video.playbackRate = parseFloat(rate.text());
+        });
     });
 </script>

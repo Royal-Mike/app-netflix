@@ -92,11 +92,51 @@
     }
 
     @keyframes flash_play_pause {
-        from { 
+        from {
             opacity: 1;
         }
+
         to {
             opacity: 0;
         }
+    }
+
+    #playback-speed {
+        right: 0;
+        bottom: 6.5rem;
+        opacity: 0;
+        transition: 0.2s;
+    }
+
+    #playback-speed h2 {
+        margin-left: -1rem;
+    }
+
+    #playback-speed .d-flex {
+        width: 40rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #playback-speed hr {
+        bottom: 48%;
+        border: 1px solid rgb(160, 160, 160);
+        opacity: 1;
+    }
+
+    .speed-button {
+        position: relative;
+        width: 15px;
+        height: 15px;
+        background-color: rgb(160, 160, 160);
+        cursor: pointer;
+        box-sizing: content-box;
+    }
+
+    .speed-button-active {
+        background-color: white;
+        border: 7px solid rgb(var(--bs-dark-rgb));
+        outline: 3px solid rgb(160, 160, 160);
+        transform: scale(1.5);
     }
 </style>
