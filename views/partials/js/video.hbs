@@ -4,6 +4,7 @@
         if (!supportsVideo) return;
 
         const video = $("video").get(0);
+        const container = $("#video-container").get(0);
 
         // Fade controls
         let timeoutFade;
@@ -124,5 +125,25 @@
             $("#audio-range").css("background",
                 `linear-gradient(to right, white 0%, white ${progress}%, rgba(255, 255, 255, 0.5) ${progress}%, rgba(255, 255, 255, 0.5) 100%)`);
         }
+
+        // Expand
+        let fullScreen = false;
+        $("#expand").on("click", function () {
+            if (!fullScreen) {
+                if (container.requestFullscreen) container.requestFullscreen();
+                else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+                else if (container.msRequestFullScreen) container.msRequestFullScreen();
+            }
+            else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                else if (document.mozCancelFullscreen) document.mozCancelFullscreen();
+            }
+        });
+
+        $(document).on("fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange", function () {
+            fullScreen = !fullScreen;
+            $("#expand").toggleClass("fa-expand fa-compress");
+        });
     });
 </script>
