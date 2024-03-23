@@ -6,7 +6,7 @@
 </div>
 {{/if}}
 
-<div class="container-fluid outer-container">
+<div class="container-fluid outer-container position-relative">
     <div>
         <h2>Movies in Top Box Office</h2>
         <div id="carouselExampleIndicators" class="carousel slide">
@@ -18,7 +18,7 @@
                             <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                                 <div class="option-list d-flex">
                                     <div
-                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center play-video">
                                         <i class="fa-solid fa-play fs-3 text-dark"></i>
                                     </div>
                                     <div
@@ -30,7 +30,7 @@
                                         <i class="fa-solid fa-thumbs-up fs-3"></i>
                                     </div>
                                     <div
-                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5 open-movie-details">
                                         <i class="fa-solid fa-chevron-down fs-3"></i>
                                     </div>
                                 </div>
@@ -320,7 +320,7 @@
         </div>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-5 mb-5">
         <h2>Top 10 TV Shows in Vietnam Today</h2>
         <div id="carouselExampleIndicators1" class="carousel slide">
             <div class="carousel-inner full-carousel mt-5">
@@ -926,8 +926,321 @@
         </div>
     </div>
 
-    <div class="poster position-relative">
-        <div class="position-absolute top-50 start-50 translate-middle" style="height: 50rem; width: 60vw">
+    <div style="margin-top: 10rem;">
+        <h2>Movies in Top Box Office</h2>
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-inner full-carousel">
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center align-items-center place-6-movies">
+                        <div class="movie-hoverred ms-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-hoverred ms-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-hoverred ms-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-hoverred ms-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-hoverred ms-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="movie-hoverred ms-1 me-1">
+                            <img src="/imgs/allosaurus.webp" class="d-block rounded-top" alt="...">
+                            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                <div class="option-list d-flex">
+                                    <div
+                                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center">
+                                        <i class="fa-solid fa-play fs-3 text-dark"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-plus fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-5">
+                                        <i class="fa-solid fa-thumbs-up fs-3"></i>
+                                    </div>
+                                    <div
+                                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-5">
+                                        <i class="fa-solid fa-chevron-down fs-3"></i>
+                                    </div>
+                                </div>
+                                <p class="text-success fs-5 fw-bold m-0 mt-3">82% Match</p>
+                                <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                    <div class="border border-3 m-0">
+                                        <p class="m-0 ps-2 pe-2">18+</p>
+                                    </div>
+                                    <p class="m-0 fs-5 ms-2">1h 34m</p>
+                                    <div class="border border-2 rounded m-0 ms-2">
+                                        <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                    </div>
+                                    <div class="m-0 ms-2 d-flex align-items-center">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div>
+                                            <p class="fs-5 fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-start mt-3 align-items-center movie-categories">
+                                    <p class="text-light m-0">Feel-Good</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Goofy</p>
+                                    <div class="m-0 bg-secondary rounded ms-2"></div>
+                                    <p class="text-light m-0 ms-2">Martial Arts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+
+                </div>
+            </div>
+            <button class="carousel-control-prev bg-secondary rounded-start p-1 next-prev-button" type="button"
+                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next bg-secondary rounded-end p-1 next-prev-button" type="button"
+                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="poster invisible">
+        <div class="position-absolute top-75 start-50 translate-middle" style="height: 50rem; width: 60vw">
             <div>
                 <div class="movie-info-part">
                     <div class="m-0 movie-image position-relative">
@@ -1272,7 +1585,7 @@
                     </div>
                 </div>
 
-                <div class="deeper-info-about-movie bg-black p-5">
+                <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
                     <hr color="blue" />
                     <p class="fs-3">About <b>Get Out</b></p>
                     <p>
@@ -1305,5 +1618,4 @@
             </div>
         </div>
     </div>
-
 </div>

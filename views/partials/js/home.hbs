@@ -18,5 +18,17 @@
                 });
             });
         });
+
+        $('.cancel-review').on('click', function() {
+            $('.poster').css({ 'visibility': 'hidden' })
+        });
+
+        $('.open-movie-details').on('click', function() {
+            $('.poster').css({ 'visibility': 'visible' })
+        });
+
+        $('.play-video').on('click', function() {
+            window.location.href = '/watch';
+        })
     });
 </script>
