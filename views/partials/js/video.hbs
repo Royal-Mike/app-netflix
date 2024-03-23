@@ -169,8 +169,8 @@
             $("#playback-speed").addClass("active");
         });
 
-        $("#playback-speed").on("mouseleave", function () {
-            $(this).removeClass("active");
+        $("#video-control").on("mouseleave", function () {
+            $("#playback-speed").removeClass("active");
         });
 
         $(".speed-button").on("click", function () {
