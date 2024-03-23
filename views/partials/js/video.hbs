@@ -6,6 +6,18 @@
         const video = $("video").get(0);
         const container = $("#video-container").get(0);
 
+        // Get timestamp from video
+        function getTimestamp(secs) {
+            const hours = Math.floor(secs / 3600);
+            const minutes = Math.floor((secs % 3600) / 60);
+            const seconds = Math.floor(secs % 60);
+            const timestamp = 
+                (hours === 0 ? '' : hours + ':') +
+                (minutes < 10 ? '0' : '') + minutes + ':' +
+                (seconds < 10 ? '0' : '') + seconds;
+            return timestamp;
+        }
+
         // Fade controls
         let timeoutFade;
 
@@ -24,9 +36,11 @@
         // Progress bar
         $("video").on("loadedmetadata", () => {
             $("#video-progress").attr("max", video.duration);
+            $("#timestamp").text(getTimestamp(video.duration));
         });
 
         $("video").on("timeupdate", () => {
+            console.log(video.currentTime)
             const progress = $("#video-progress").get(0);
 
             if (!progress.max) progress.max = video.duration;
@@ -34,7 +48,11 @@
 
             const percent = (progress.value - progress.min) / (progress.max - progress.min) * 100;
             $("#video-progress").css("background",
-                `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
+            `linear-gradient(to right, red 0%, red ${percent}%, rgba(255, 255, 255, 0.5) ${percent}%, rgba(255, 255, 255, 0.5) 100%)`);
+
+            const timeLeft = video.duration - video.currentTime;
+            const timestamp = getTimestamp(timeLeft);
+            $("#timestamp").text(timestamp);
         });
 
         $("#video-progress").on("input", function () {
