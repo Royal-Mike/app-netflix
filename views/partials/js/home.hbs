@@ -20,11 +20,11 @@
         });
 
         $('.cancel-review').on('click', function() {
-            $('.poster').css({ 'visibility': 'hidden' })
+            $('.poster').addClass("invisible");
         });
 
         $('.open-movie-details').on('click', function() {
-            $('.poster').css({ 'visibility': 'visible' })
+            $('.poster').removeClass("invisible");
         });
 
         $('.play-video').on('click', function() {
