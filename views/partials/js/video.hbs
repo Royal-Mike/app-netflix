@@ -183,5 +183,14 @@
 
             video.playbackRate = parseFloat(rate.text());
         });
+
+        // Forward and Backward
+        $("#forward-10").on("click", function () {
+            video.currentTime += 10;
+        });
+
+        $("#backward-10").on("click", function () {
+            video.currentTime -= 10;
+        });
     });
 </script>
