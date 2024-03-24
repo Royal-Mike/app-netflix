@@ -37,6 +37,13 @@
         $("video").on("loadedmetadata", () => {
             $("#video-progress").attr("max", video.duration);
             $("#timestamp").text(getTimestamp(video.duration));
+            const volume = Number(Cookies.get("volume"));
+            if (volume > -1) {
+                if (volume === 0) return $("#audio").trigger("click");
+                video.volume = volume;
+                $("#audio-range").val(volume * 100);
+                changeAudioRange();
+            }
         });
 
         $("video").on("timeupdate", () => {
@@ -115,6 +122,7 @@
             }
             muted = !muted;
             $("#audio-range").val(video.volume * 100);
+            Cookies.set("volume", video.volume, { expires: 365 });
             changeAudioRange();
         });
 
@@ -130,14 +138,17 @@
             }
             else {
                 muted = false;
-                if (video.volume < 0.6) $("#audio").removeClass("fa-volume-high fa-volume-xmark").addClass("fa-volume-low");
-                else $("#audio").removeClass("fa-volume-low fa-volume-xmark").addClass("fa-volume-high");
             }
 
+            Cookies.set("volume", video.volume, { expires: 365 });
             changeAudioRange();
         });
 
         function changeAudioRange() {
+            if (!muted) {
+                if (video.volume < 0.6) $("#audio").removeClass("fa-volume-high fa-volume-xmark").addClass("fa-volume-low");
+                else $("#audio").removeClass("fa-volume-low fa-volume-xmark").addClass("fa-volume-high");
+            }
             const inputRange = $("#audio-range").get(0);
             const progress = (inputRange.value - inputRange.min) / (inputRange.max - inputRange.min) * 100;
             $("#audio-range").css("background",
