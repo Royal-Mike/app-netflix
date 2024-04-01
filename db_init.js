@@ -81,7 +81,7 @@ async function createDatabase() {
 `);
 
 await pool.query(`
-  CREATE TABLE IF NOT EXISTS now_showing_movies (
+  CREATE TABLE IF NOT EXISTS now_playing_movies (
     movie_id INTEGER REFERENCES movies(id),
     PRIMARY KEY (movie_id)
   );
@@ -126,30 +126,32 @@ async function importMovies() {
 
         if (rows.length === 0) {
           // Insert movie into the database if it doesn't exist
-          await pool.query(`
+          const { rows } = await pool.query(`
             INSERT INTO movies (adult, backdrop_path, genres, tmdb_id, imdb_id, original_language, original_title, overview, poster_path, production_companies, production_countries, release_date, runtime, tagline)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
             RETURNING id
-          `, [adult, backdrop_path, JSON.stringify(genres), id, imdb_id, original_language, original_title, overview, poster_path, JSON.stringify(production_companies), JSON.stringify(production_countries), release_date, runtime, tagline]);
-        
+          `, [adult, backdrop_path, JSON.stringify(genres || []), id, imdb_id, original_language, original_title, overview, poster_path, JSON.stringify(production_companies || []), JSON.stringify(production_countries || []), release_date, runtime, tagline]);
+
           const movieId = rows[0].id;
 
-          // Insert movie genres into the movie_genres table      
-          for (const genre of genres) {
-        // Check if the genre already exists in the genres table
-            const { rows: genreRows } = await pool.query('SELECT * FROM genres WHERE id = $1', [genre.id]);
-      
-          if (genreRows.length === 0) {
-            // Insert genre into the genres table if it doesn't exist
-            await pool.query('INSERT INTO genres (id, name) VALUES ($1, $2)', [genre.id, genre.name]);
-            console.log(`Inserted genre: ${genre.name}`);
-          }   
-          // Insert movie-genre relationship into the movie_genres table
-          await pool.query(`
-            INSERT INTO movie_genres (movie_id, genre_id)
-            VALUES ($1, $2)
-            ON CONFLICT DO NOTHING
-          `, [movieId, genre.id]);
+          // Insert movie genres into the movie_genres table
+          if (Array.isArray(genres)) {
+            for (const genre of genres) {
+              // Check if the genre already exists in the genres table
+              const { rows: genreRows } = await pool.query('SELECT * FROM genres WHERE id = $1', [genre.id]);
+
+              if (genreRows.length === 0) {
+                // Insert genre into the genres table if it doesn't exist
+                await pool.query('INSERT INTO genres (id, name) VALUES ($1, $2)', [genre.id, genre.name]);
+                console.log(`Inserted genre: ${genre.name}`);
+              }
+              // Insert movie-genre relationship into the movie_genres table
+              await pool.query(`
+                INSERT INTO movie_genres (movie_id, genre_id)
+                VALUES ($1, $2)
+                ON CONFLICT DO NOTHING
+              `, [movieId, genre.id]);
+            }
           }
           // Insert movie into the corresponding movie type table
           await pool.query(`
@@ -177,6 +179,7 @@ async function importMovies() {
     await pool.end();
   }
 }
+
 
 
 async function dbInit() {
