@@ -124,6 +124,8 @@ async function importMovies() {
         // Check if the movie already exists in the database
         const { rows } = await pool.query('SELECT * FROM movies WHERE tmdb_id = $1', [id]);
 
+        let movieId;
+
         if (rows.length === 0) {
           // Insert movie into the database if it doesn't exist
           const { rows } = await pool.query(`
@@ -132,7 +134,7 @@ async function importMovies() {
             RETURNING id
           `, [adult, backdrop_path, JSON.stringify(genres || []), id, imdb_id, original_language, original_title, overview, poster_path, JSON.stringify(production_companies || []), JSON.stringify(production_countries || []), release_date, runtime, tagline]);
 
-          const movieId = rows[0].id;
+          movieId = rows[0].id;
 
           // Insert movie genres into the movie_genres table
           if (Array.isArray(genres)) {
@@ -153,16 +155,23 @@ async function importMovies() {
               `, [movieId, genre.id]);
             }
           }
-          // Insert movie into the corresponding movie type table
+
+          importedCount++;
+        } else {
+          movieId = rows[0].id;
+          existingCount++;
+        }
+
+        // Check if the movie already exists in the corresponding movie type table
+        const { rows: movieTypeRows } = await pool.query(`SELECT * FROM ${movieType}_movies WHERE movie_id = $1`, [movieId]);
+
+        if (movieTypeRows.length === 0) {
+          // Insert movie into the corresponding movie type table if it doesn't exist
           await pool.query(`
             INSERT INTO ${movieType}_movies (movie_id)
             VALUES ($1)
             ON CONFLICT DO NOTHING
           `, [movieId]);
-
-          importedCount++;
-        } else {
-          existingCount++;
         }
       }
 
@@ -181,9 +190,9 @@ async function importMovies() {
 }
 
 
-
 async function dbInit() {
   await createDatabase();
-  await importMovies();
+  await importMovies(); 
+
 }
 module.exports = dbInit;
