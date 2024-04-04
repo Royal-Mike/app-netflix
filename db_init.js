@@ -13,6 +13,25 @@ const pool = new Pool({
 
 const TMDB_API_KEY = '7fa5ab1cc07d8b360250d25148c880eb';
 
+async function dropDatabase() {
+  try {
+    await pool.query('DROP TABLE IF EXISTS movie_genres CASCADE');
+    await pool.query('DROP TABLE IF EXISTS ratings CASCADE');
+    await pool.query('DROP TABLE IF EXISTS upcoming_movies CASCADE');
+    await pool.query('DROP TABLE IF EXISTS now_playing_movies CASCADE');
+    await pool.query('DROP TABLE IF EXISTS top_rated_movies CASCADE');
+    await pool.query('DROP TABLE IF EXISTS popular_movies CASCADE');
+    await pool.query('DROP TABLE IF EXISTS movies CASCADE');
+    await pool.query('DROP TABLE IF EXISTS genres CASCADE');
+    await pool.query('DROP TABLE IF EXISTS users CASCADE');
+
+    console.log('Old database dropped successfully');
+  } catch (error) {
+    console.error('Error dropping old database:', error);
+  }
+}
+
+
 async function createDatabase() {
   try {
     console.log('Connected to PostgreSQL server.');
@@ -106,6 +125,7 @@ async function createDatabase() {
   } 
 }
 
+
 async function importMovies() {
   try {
     const movieTypes = ['upcoming', 'now_playing', 'top_rated', 'popular'];
@@ -118,7 +138,12 @@ async function importMovies() {
       let existingCount = 0;
 
       for (const movie of movies) {
-        const { adult, backdrop_path, id, imdb_id, original_language, original_title, overview, poster_path, production_companies, production_countries, release_date, runtime, tagline } = movie;
+        const { id } = movie;
+
+        // Fetch the full movie details from TMDB API
+        const fullMovie = await getMovieDetails(id);
+
+        const { adult, backdrop_path, genres, imdb_id, original_language, original_title, overview, poster_path, production_companies, production_countries, release_date, runtime, tagline } = fullMovie;
 
         // Check if the movie already exists in the database
         const { rows } = await pool.query('SELECT * FROM movies WHERE tmdb_id = $1', [id]);
@@ -128,13 +153,24 @@ async function importMovies() {
         if (rows.length === 0) {
           // Insert movie into the database if it doesn't exist
           const { rows } = await pool.query(`
-            INSERT INTO movies (adult, backdrop_path, tmdb_id, imdb_id, original_language, original_title, overview, poster_path, production_companies, production_countries, release_date, runtime, tagline)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+            INSERT INTO movies (adult, backdrop_path, genres, tmdb_id, imdb_id, original_language, original_title, overview, poster_path, production_companies, production_countries, release_date, runtime, tagline)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
             RETURNING id
-          `, [adult, backdrop_path, id, imdb_id, original_language, original_title, overview, poster_path, JSON.stringify(production_companies || []), JSON.stringify(production_countries || []), release_date, runtime, tagline]);
+          `, [adult, backdrop_path, JSON.stringify(genres || []), id, imdb_id, original_language, original_title, overview, poster_path, JSON.stringify(production_companies || []), JSON.stringify(production_countries || []), release_date, runtime, tagline]);
 
           movieId = rows[0].id;
           importedCount++;
+
+          // Insert genres into the genres table and establish movie-genre relations
+          for (const genre of genres || []) {
+            const { rows: genreRows } = await pool.query('SELECT * FROM genres WHERE id = $1', [genre.id]);
+
+            if (genreRows.length === 0) {
+              await pool.query('INSERT INTO genres (id, name) VALUES ($1, $2)', [genre.id, genre.name]);
+            }
+
+            await pool.query('INSERT INTO movie_genres (movie_id, genre_id) VALUES ($1, $2)', [movieId, genre.id]);
+          }
         } else {
           movieId = rows[0].id;
           existingCount++;
@@ -165,6 +201,18 @@ async function importMovies() {
   }
 }
 
+async function getMovieDetails(movieId) {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching details for movie ID ${movieId}:`, error);
+    return null;
+  }
+}
+
+
+
 async function getMovieGenres(movieId) {
   try {
     const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_API_KEY}`);
@@ -176,36 +224,45 @@ async function getMovieGenres(movieId) {
   }
 }
 
-async function checkMovieGenres() {
+async function checkGenres() {
   try {
-    const movieTitle = 'Kung Fu Panda 4';
-    const { rows: movieRows } = await pool.query(`
-      SELECT tmdb_id
-      FROM movies
-      WHERE original_title = $1
-    `, [movieTitle]);
+    // Check genres in movies table
+    const { rows: movieGenres } = await pool.query('SELECT DISTINCT genres FROM movies');
+    console.log('Genres in movies table:', movieGenres);
 
-    if (movieRows.length > 0) {
-      const movieId = movieRows[0].tmdb_id;
-      const genres = await getMovieGenres(movieId);
+    // Check genres in genres table
+    const { rows: genres } = await pool.query('SELECT * FROM genres');
+    console.log('Genres in genres table:', genres);
 
-      console.log(`Genres of "${movieTitle}":`);
-      genres.forEach(genre => {
-        console.log(genre.name);
-      });
+    // Check movie_genres table
+    const { rows: movieGenreRelations } = await pool.query('SELECT * FROM movie_genres');
+    console.log('Movie-Genre relations:', movieGenreRelations);
+
+    // Query for the movie "Kung Fu Panda 4"
+    const { rows: movie } = await pool.query(`
+      SELECT m.*, g.name AS genre_name
+      FROM movies m
+      LEFT JOIN movie_genres mg ON m.id = mg.movie_id
+      LEFT JOIN genres g ON mg.genre_id = g.id
+      WHERE m.original_title = 'Kung Fu Panda 4'
+    `);
+
+    if (movie.length > 0) {
+      console.log('Movie found:', movie[0]);
     } else {
-      console.log(`No movie found with the title "${movieTitle}"`);
+      console.log('Movie not found');
     }
   } catch (error) {
-    console.error('Error checking movie genres:', error);
+    console.error('Error checking genres and querying movie:', error);
   }
 }
 
 async function dbInit() {
   await pool.connect();
+  await dropDatabase();
   await createDatabase();
   await importMovies();
-  //await checkMovieGenres();
+  await checkGenres();
   pool.end();
 }
 
