@@ -4,6 +4,36 @@
         margin: 0;
     }
 
+    .suggested-movie {
+        position: relative;
+    }
+
+    .suggested-movie>img {
+        display: block;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .overlay-bottom {
+        position: absolute;
+        top: 60%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to bottom, rgba(33, 37, 41, 0), rgba(33, 37, 41, 1));
+        pointer-events: none;
+    }
+
+    .overlay-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to bottom, rgba(33, 37, 41, 1), rgba(33, 37, 41, 0));
+        pointer-events: none;
+    }
+
     .movie-hoverred:hover {
         z-index: 3;
     }
@@ -22,7 +52,7 @@
 
     .next-prev-button {
         width: 5.5rem;
-        height: 10rem;
+        height: 13rem;
     }
 
     .full-carousel {
@@ -34,11 +64,12 @@
     }
 
     .place-6-movies {
-        height: 10rem;
+        height: 13rem;
     }
 
-    .movie-hoverred>img, .movie-top-10-VN-info>img {
-        height: 10rem;
+    .movie-hoverred>img,
+    .movie-top-10-VN-info>img {
+        height: 13rem;
         width: 18rem;
     }
 
@@ -104,11 +135,11 @@
         margin-top: -30rem;
     }
 
-    .movie-details > div:nth-child(1) {
+    .movie-details>div:nth-child(1) {
         width: 65%;
     }
 
-    .movie-details > div:nth-child(2) {
+    .movie-details>div:nth-child(2) {
         width: 35%;
     }
 
@@ -154,5 +185,28 @@
 
     .similar-movies .col:hover .card {
         box-shadow: 2px 2px 10px white;
+    }
+
+    .web-info div:nth-child(2),
+    .web-info div:nth-child(3),
+    .web-info div:nth-child(4) {
+        margin-left: 10rem;
+    }
+
+    .web-info div:nth-child(1) {
+        margin-right: 5rem;
+    }
+
+    .platforms {
+        margin-top: 5rem;
+    }
+
+    .service-code {
+        border: 3px solid white;
+        width: fit-content;
+    }
+
+    .contact {
+        margin-top: 3rem;
     }
 </style>

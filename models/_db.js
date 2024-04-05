@@ -156,5 +156,229 @@ module.exports = {
                 con.done();
             }
         }
+    },
+    getPopuluarMovies: async (tbName1, tbName2) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            let rsQuery = await con.any(`SELECT * FROM ${tbName1} AS TB1 JOIN ${tbName2} AS TB2 ON TB1.id = TB2.movie_id`);
+            rsQuery.forEach(movie => {
+                let runtime = movie.runtime;
+                let hour = Math.floor(runtime / 60);
+                let minute = runtime % 60;
+                movie.runtime = hour + "h " + minute + "m";
+
+                movie.genres[0].isFirst = true;
+            });
+            let rs = [];
+            let save6Movies = [];
+            for (let i = 0; i < rsQuery.length; i++) {
+                if (i % 6 == 0) {
+                    if (save6Movies.length == 0) {
+                        save6Movies.push(rsQuery[i]);
+                    } else {
+                        let isFirst = {
+                            checkFirst: true,
+                            list6Movies: save6Movies
+                        }
+                        if (rs.length) {
+                            isFirst.checkFirst = false;
+                        }
+                        rs.push(isFirst);
+                        save6Movies = [];
+                        save6Movies.push(rsQuery[i]);
+                    }
+                } else {
+                    save6Movies.push(rsQuery[i]);
+                }
+            }
+            if (save6Movies) {
+                let isFirst = {
+                    checkFirst: true,
+                    list6Movies: save6Movies
+                }
+                if (rs.length) {
+                    isFirst.checkFirst = false;
+                }
+                rs.push(isFirst);
+            }
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getNowPlayingMovies: async (tbName1, tbName2) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            let rsQuery = await con.any(`SELECT * FROM ${tbName1} AS TB1 JOIN ${tbName2} AS TB2 ON TB1.id = TB2.movie_id`);
+            rsQuery.forEach(movie => {
+                let runtime = movie.runtime;
+                let hour = Math.floor(runtime / 60);
+                let minute = runtime % 60;
+                movie.runtime = hour + "h " + minute + "m";
+
+                movie.genres[0].isFirst = true;
+            });
+            let rs = [];
+            let save6Movies = [];
+            for (let i = 0; i < rsQuery.length; i++) {
+                if (i % 6 == 0) {
+                    if (save6Movies.length == 0) {
+                        save6Movies.push(rsQuery[i]);
+                    } else {
+                        let isFirst = {
+                            checkFirst: true,
+                            list6Movies: save6Movies
+                        }
+                        if (rs.length) {
+                            isFirst.checkFirst = false;
+                        }
+                        rs.push(isFirst);
+                        save6Movies = [];
+                        save6Movies.push(rsQuery[i]);
+                    }
+                } else {
+                    save6Movies.push(rsQuery[i]);
+                }
+            }
+            if (save6Movies) {
+                let isFirst = {
+                    checkFirst: true,
+                    list6Movies: save6Movies
+                }
+                if (rs.length) {
+                    isFirst.checkFirst = false;
+                }
+                rs.push(isFirst);
+            }
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getTopRatedMovies: async (tbName1, tbName2) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            let rsQuery = await con.any(`SELECT * FROM ${tbName1} AS TB1 JOIN ${tbName2} AS TB2 ON TB1.id = TB2.movie_id`);
+            rsQuery.forEach(movie => {
+                let runtime = movie.runtime;
+                let hour = Math.floor(runtime / 60);
+                let minute = runtime % 60;
+                movie.runtime = hour + "h " + minute + "m";
+
+                movie.genres[0].isFirst = true;
+            });
+            let rs = [];
+            let save6Movies = [];
+            for (let i = 0; i < rsQuery.length; i++) {
+                if (i % 6 == 0) {
+                    if (save6Movies.length == 0) {
+                        save6Movies.push(rsQuery[i]);
+                    } else {
+                        let isFirst = {
+                            checkFirst: true,
+                            list6Movies: save6Movies
+                        }
+                        if (rs.length) {
+                            isFirst.checkFirst = false;
+                        }
+                        rs.push(isFirst);
+                        save6Movies = [];
+                        save6Movies.push(rsQuery[i]);
+                    }
+                } else {
+                    save6Movies.push(rsQuery[i]);
+                }
+            }
+            if (save6Movies) {
+                let isFirst = {
+                    checkFirst: true,
+                    list6Movies: save6Movies
+                }
+                if (rs.length) {
+                    isFirst.checkFirst = false;
+                }
+                rs.push(isFirst);
+            }
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getUpcomingMovies: async (tbName1, tbName2) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            let rsQuery = await con.any(`SELECT * FROM ${tbName1} AS TB1 JOIN ${tbName2} AS TB2 ON TB1.id = TB2.movie_id`);
+            rsQuery.forEach(movie => {
+                let runtime = movie.runtime;
+                let hour = Math.floor(runtime / 60);
+                let minute = runtime % 60;
+                movie.runtime = hour + "h " + minute + "m";
+
+                movie.genres[0].isFirst = true;
+            });
+            let rs = [];
+            let save6Movies = [];
+            for (let i = 0; i < rsQuery.length; i++) {
+                if (i % 6 == 0) {
+                    if (save6Movies.length == 0) {
+                        save6Movies.push(rsQuery[i]);
+                    } else {
+                        let isFirst = {
+                            checkFirst: true,
+                            list6Movies: save6Movies
+                        }
+                        if (rs.length) {
+                            isFirst.checkFirst = false;
+                        }
+                        rs.push(isFirst);
+                        save6Movies = [];
+                        save6Movies.push(rsQuery[i]);
+                    }
+                } else {
+                    save6Movies.push(rsQuery[i]);
+                }
+            }
+            if (save6Movies) {
+                let isFirst = {
+                    checkFirst: true,
+                    list6Movies: save6Movies
+                }
+                if (rs.length) {
+                    isFirst.checkFirst = false;
+                }
+                rs.push(isFirst);
+            }
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
     }
 }
