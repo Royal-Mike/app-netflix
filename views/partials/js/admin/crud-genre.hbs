@@ -1,36 +1,36 @@
 <script>
     $(() => {
-        let data, proCur;
+        let data, genreCur;
         let pageCur = 1;
 
         const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
 
         // Pagination
-        $(".page-pro").on("click", function() {
-            $(".page-pro.active").removeClass("active");
+        $(".page-genre").on("click", function() {
+            $(".page-genre.active").removeClass("active");
             $(this).addClass("active");
 
-            $("#pro-pagination .page-arrows a.disabled").removeClass("disabled");
-            if ($(this).parent().next().hasClass("page-arrows")) $("#page-pro-next").addClass("disabled");
-            if ($(this).parent().prev().hasClass("page-arrows")) $("#page-pro-prev").addClass("disabled");
+            $("#genre-pagination .page-arrows a.disabled").removeClass("disabled");
+            if ($(this).parent().next().hasClass("page-arrows")) $("#page-genre-next").addClass("disabled");
+            if ($(this).parent().prev().hasClass("page-arrows")) $("#page-genre-prev").addClass("disabled");
 
             let page = $(this).text();
             pageCur = Number(page);
 
-            $("#pro-container").empty();
+            $("#genre-container").empty();
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/getpro',
+                url: '/admin/getgenre',
                 data: {
                     page: page
                 },
                 success: function(result) {
                     data = result;
-                    proCur = data[0];
+                    genreCur = data[0];
                     result.forEach(item => {
-                        $("#pro-container").append(
-                            `<a class="list-group-item list-group-item-action list-item-pro">
+                        $("#genre-container").append(
+                            `<a class="list-group-item list-group-item-action list-item-genre">
                                 <div class="d-flex align-items-center">
                                     <img src="${item.images[0] ? item.images[0] : ""}"
                                     class="me-3" style="width:70px;height:70px">
@@ -52,37 +52,37 @@
             });
         });
 
-        $("#pro-pagination .page-arrows a").on("click", function() {
+        $("#genre-pagination .page-arrows a").on("click", function() {
             let id = $(this).attr("id");
 
             if (id.includes("prev")) pageCur--;
             else pageCur++;
 
-            $(`#page-pro-${pageCur}`).trigger("click");
+            $(`#page-genre-${pageCur}`).trigger("click");
         });
 
-        $(`#page-pro-${pageCur}`).trigger("click");
+        $(`#page-genre-${pageCur}`).trigger("click");
 
         // CRUD - Create
-        $("#open-add-pro").on("click", function() {
+        $("#open-add-genre").on("click", function() {
             $(".file-input").show();
-            $("#edit-pro").removeClass("d-none").find("input,textarea").val("");
-            $("#pro-container,#pro-pagination,.btn-edit-pro").addClass("d-none");
-            $("#add-pro").removeClass("d-none");
+            $("#edit-genre").removeClass("d-none").find("input,textarea").val("");
+            $("#genre-container,#genre-pagination,.btn-edit-genre").addClass("d-none");
+            $("#add-genre").removeClass("d-none");
         });
 
-        $("#add-pro").on("click", function() {
-            let proAdd = {};
-            for (const key in proCur) {
+        $("#add-genre").on("click", function() {
+            let genreAdd = {};
+            for (const key in genreCur) {
                 if (!fields.includes(key)) continue;
-                proAdd[key] = $(`#pro-${key}`).next().val();
-                if (!proAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+                genreAdd[key] = $(`#genre-${key}`).next().val();
+                if (!genreAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/addpro',
-                data: proAdd,
+                url: '/admin/addgenre',
+                data: genreAdd,
                 success: function(result) {
                     alert('Thêm sản phẩm thành công!');
                     window.location.reload();
@@ -94,35 +94,35 @@
         });
 
         // CRUD - Read
-        $("body").on("click", ".list-item-pro", function() {
+        $("body").on("click", ".list-item-genre", function() {
             $(".file-input").hide();
-            $("#edit-pro").removeClass("d-none");
-            $("#pro-container,#pro-pagination").addClass("d-none");
+            $("#edit-genre").removeClass("d-none");
+            $("#genre-container,#genre-pagination").addClass("d-none");
 
-            proCur = data[$(this).index()];
+            genreCur = data[$(this).index()];
 
-            for (const key in proCur) {
+            for (const key in genreCur) {
                 if (!fields.includes(key)) continue;
-                let value = proCur[key];
+                let value = genreCur[key];
                 if (key === "create_date") value = value.split("T")[0];
                 if (typeof value === "string") value = value.trim();
-                $(`#pro-${key}`).next().val(value);
+                $(`#genre-${key}`).next().val(value);
             }
         });
 
         // CRUD - Update
-        $("#update-edit-pro").on("click", function() {
-            let proUpdate = {id: proCur.id};
-            for (const key in proCur) {
+        $("#update-edit-genre").on("click", function() {
+            let genreUpdate = {id: genreCur.id};
+            for (const key in genreCur) {
                 if (!fields.includes(key)) continue;
-                proUpdate[key] = $(`#pro-${key}`).next().val();
-                if (!proUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+                genreUpdate[key] = $(`#genre-${key}`).next().val();
+                if (!genreUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/updpro',
-                data: proUpdate,
+                url: '/admin/updgenre',
+                data: genreUpdate,
                 success: function(result) {
                     alert('Sản phẩm cập nhật thành công!');
                     window.location.reload();
@@ -133,18 +133,18 @@
             });
         });
 
-        $("#cancel-edit-pro").on("click", function() {
-            $("#edit-pro,#add-pro").addClass("d-none");
-            $("#pro-container,#pro-pagination,.btn-edit-pro").removeClass("d-none");
+        $("#cancel-edit-genre").on("click", function() {
+            $("#edit-genre,#add-genre").addClass("d-none");
+            $("#genre-container,#genre-pagination,.btn-edit-genre").removeClass("d-none");
         });
 
         // CRUD - Delete
-        $("#delete-edit-pro").on("click", function() {
+        $("#delete-edit-genre").on("click", function() {
             $.ajax({
                 type: 'POST',
-                url: '/admin/delpro',
+                url: '/admin/delgenre',
                 data: {
-                    id: proCur.id
+                    id: genreCur.id
                 },
                 success: function(result) {
                     alert('Xóa sản phẩm thành công!');
@@ -157,14 +157,14 @@
         });
 
         // Upload file
-        $("#pro-upload").fileinput({
+        $("#genre-upload").fileinput({
             uploadUrl: "/upload",
             uploadAsync: false,
             maxFileCount: 5
         });
 
-        $("#pro-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
-            $("#pro-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
+        $("#genre-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
+            $("#genre-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
         });
     })
 </script>

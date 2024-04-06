@@ -1,0 +1,170 @@
+<script>
+    $(() => {
+        let data, movieCur;
+        let pageCur = 1;
+
+        const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
+
+        // Pagination
+        $(".page-movie").on("click", function() {
+            $(".page-movie.active").removeClass("active");
+            $(this).addClass("active");
+
+            $("#movie-pagination .page-arrows a.disabled").removeClass("disabled");
+            if ($(this).parent().next().hasClass("page-arrows")) $("#page-movie-next").addClass("disabled");
+            if ($(this).parent().prev().hasClass("page-arrows")) $("#page-movie-prev").addClass("disabled");
+
+            let page = $(this).text();
+            pageCur = Number(page);
+
+            $("#movie-container").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/getmovie',
+                data: {
+                    page: page
+                },
+                success: function(result) {
+                    data = result;
+                    movieCur = data[0];
+                    result.forEach(item => {
+                        $("#movie-container").append(
+                            `<a class="list-group-item list-group-item-action list-item-movie">
+                                <div class="d-flex align-items-center">
+                                    <img src="${item.images[0] ? item.images[0] : ""}"
+                                    class="me-3" style="width:70px;height:70px">
+                                    <div class="d-flex w-100 flex-column">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">#${item.id}</h5>
+                                            <small>${item.categoryname}</small>
+                                        </div>
+                                        <p class="mb-1">${item.name}</p>
+                                    </div>
+                                </div>
+                            </a>`
+                        );
+                    });
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
+
+        $("#movie-pagination .page-arrows a").on("click", function() {
+            let id = $(this).attr("id");
+
+            if (id.includes("prev")) pageCur--;
+            else pageCur++;
+
+            $(`#page-movie-${pageCur}`).trigger("click");
+        });
+
+        $(`#page-movie-${pageCur}`).trigger("click");
+
+        // CRUD - Create
+        $("#open-add-movie").on("click", function() {
+            $(".file-input").show();
+            $("#edit-movie").removeClass("d-none").find("input,textarea").val("");
+            $("#movie-container,#movie-pagination,.btn-edit-movie").addClass("d-none");
+            $("#add-movie").removeClass("d-none");
+        });
+
+        $("#add-movie").on("click", function() {
+            let movieAdd = {};
+            for (const key in movieCur) {
+                if (!fields.includes(key)) continue;
+                movieAdd[key] = $(`#movie-${key}`).next().val();
+                if (!movieAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/addmovie',
+                data: movieAdd,
+                success: function(result) {
+                    alert('Thêm sản phẩm thành công!');
+                    window.location.reload();
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
+
+        // CRUD - Read
+        $("body").on("click", ".list-item-movie", function() {
+            $(".file-input").hide();
+            $("#edit-movie").removeClass("d-none");
+            $("#movie-container,#movie-pagination").addClass("d-none");
+
+            movieCur = data[$(this).index()];
+
+            for (const key in movieCur) {
+                if (!fields.includes(key)) continue;
+                let value = movieCur[key];
+                if (key === "create_date") value = value.split("T")[0];
+                if (typeof value === "string") value = value.trim();
+                $(`#movie-${key}`).next().val(value);
+            }
+        });
+
+        // CRUD - Update
+        $("#update-edit-movie").on("click", function() {
+            let movieUpdate = {id: movieCur.id};
+            for (const key in movieCur) {
+                if (!fields.includes(key)) continue;
+                movieUpdate[key] = $(`#movie-${key}`).next().val();
+                if (!movieUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/updmovie',
+                data: movieUpdate,
+                success: function(result) {
+                    alert('Sản phẩm cập nhật thành công!');
+                    window.location.reload();
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
+
+        $("#cancel-edit-movie").on("click", function() {
+            $("#edit-movie,#add-movie").addClass("d-none");
+            $("#movie-container,#movie-pagination,.btn-edit-movie").removeClass("d-none");
+        });
+
+        // CRUD - Delete
+        $("#delete-edit-movie").on("click", function() {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/delmovie',
+                data: {
+                    id: movieCur.id
+                },
+                success: function(result) {
+                    alert('Xóa sản phẩm thành công!');
+                    window.location.reload();
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
+
+        // Upload file
+        $("#movie-upload").fileinput({
+            uploadUrl: "/upload",
+            uploadAsync: false,
+            maxFileCount: 5
+        });
+
+        $("#movie-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
+            $("#movie-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
+        });
+    })
+</script>
