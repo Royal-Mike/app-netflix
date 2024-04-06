@@ -47,7 +47,6 @@
         });
 
         $("video").on("timeupdate", () => {
-            console.log(video.currentTime)
             const progress = $("#video-progress").get(0);
 
             if (!progress.max) progress.max = video.duration;
