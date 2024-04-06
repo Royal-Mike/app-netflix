@@ -6,12 +6,12 @@
         <a class="m-2 fs-4 link-unstyled">My List</a>
         {{/if}}
 
-        <div class="form-check form-switch p-0 me-2 d-flex" style="margin-left:auto">
-            <form class="d-flex me-4" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit"><i
-                        class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+        <form class="d-flex me-4" role="search" style="margin-left:auto">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"><i
+                    class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <div class="form-check form-switch p-0 me-2 d-flex">
             <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2" id="sw-theme"
                 style="cursor:pointer"></i>
         </div>
