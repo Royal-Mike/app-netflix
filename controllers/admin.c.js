@@ -6,19 +6,19 @@ module.exports = {
         let theme = req.cookies.theme;
         let dark = theme === "dark" ? true : false;
 
-        const products = await adminM.getAllProducts();
+        // const products = await adminM.getAllProducts();
 
-        const pages_p = Math.ceil(products.length / 100);
+        // const pages_p = Math.ceil(products.length / 100);
 
-        function makeArray(pages) {
-            return [...Array(pages + 1).keys()].slice(1)
-        }
+        // function makeArray(pages) {
+        //     return [...Array(pages + 1).keys()].slice(1)
+        // }
 
         res.render('admin/home', {
             title: 'Admin',
             dark: dark,
             admin: true,
-            pages_p: makeArray(pages_p)
+            // pages_p: makeArray(pages_p)
         });
     },
     getPro: async (req, res) => {

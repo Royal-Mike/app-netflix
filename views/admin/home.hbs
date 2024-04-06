@@ -1,25 +1,21 @@
 {{> css/profile}}
 {{> css/admin}}
+{{> js/admin/control}}
 <div class="container-fluid">
-    <div class="d-flex my-3 w-100">
+    <div class="d-flex mb-5 w-100">
         <div class="container border py-2 w-25" style="margin:0">
-            <h4 class="mb-3">Số liệu</h4>
-            <div id="swap-stats" class="d-flex align-items-center mb-5 fs-5 side-button" style="cursor:pointer">
-                <i class="fa-solid fa-gauge-high me-3 text-info" style="width:20px"></i>
-                <p class="mb-0 text-info">Thống kê</p>
+            <h4 class="mb-3">Manage...</h4>
+            <div id="swap-category" class="d-flex align-items-center mb-3 fs-5 side-button side-button-active">
+                <i class="fa-solid fa-film me-3" style="width:20px"></i>
+                <p class="mb-0">Movies</p>
             </div>
-            <h4 class="mb-3">Quản lý</h4>
-            <div id="swap-category" class="d-flex align-items-center mb-3 fs-5 side-button" style="cursor:pointer">
-                <i class="fa-solid fa-layer-group me-3" style="width:20px"></i>
-                <p class="mb-0">Danh mục</p>
+            <div id="swap-product" class="d-flex align-items-center mb-3 fs-5 side-button">
+                <i class="fa-solid fa-list me-3" style="width:20px"></i>
+                <p class="mb-0">Genres</p>
             </div>
-            <div id="swap-product" class="d-flex align-items-center mb-3 fs-5 side-button" style="cursor:pointer">
-                <i class="fa-solid fa-bag-shopping me-3" style="width:20px"></i>
-                <p class="mb-0">Mặt hàng</p>
-            </div>
-            <div id="swap-user" class="d-flex align-items-center fs-5 side-button" style="cursor:pointer">
+            <div id="swap-user" class="d-flex align-items-center fs-5 side-button">
                 <i class="fa-solid fa-user me-3" style="width:20px"></i>
-                <p class="mb-0">Người dùng</p>
+                <p class="mb-0">Users</p>
             </div>
         </div>
         {{> admin/m-product}}
