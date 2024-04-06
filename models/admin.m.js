@@ -10,7 +10,7 @@ module.exports = class Admin {
         return rs;
     }
     static async getAllUsers() {
-        const rs = await db.getAll("accounts", "role");
+        const rs = await db.getAll("users", "role");
         return rs;
     }
     static async getAllOrders() {

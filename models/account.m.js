@@ -1,5 +1,5 @@
 const db = require("./_db");
-const table = "accounts";
+const table = "users";
 
 module.exports = class Account {
 	constructor(un, em, dob, pw, role) {

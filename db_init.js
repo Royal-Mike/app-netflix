@@ -41,8 +41,9 @@ async function createDatabase() {
       id SERIAL PRIMARY KEY,
       username VARCHAR(50) UNIQUE NOT NULL,
       email VARCHAR(100) UNIQUE NOT NULL,
+      dob date,
       password VARCHAR(100) NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      role text
     );
   `);
 

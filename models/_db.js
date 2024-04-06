@@ -21,33 +21,33 @@ module.exports = {
         const check = await db.any(`SELECT FROM pg_database WHERE datname = '${process.env.DB_NAME}'`);
         return check.length;
     },
-    createDB: async () => {
-        await db.none(`CREATE DATABASE $1:name`, [process.env.DB_NAME]);
-        cn.database = process.env.DB_NAME;
+    // createDB: async () => {
+    //     await db.none(`CREATE DATABASE $1:name`, [process.env.DB_NAME]);
+    //     cn.database = process.env.DB_NAME;
 
-        db = pgp(cn);
-        con = await db.connect();
-        await con.none(`
-        CREATE TABLE IF NOT EXISTS public.accounts
-        (
-            username character varying(100) COLLATE pg_catalog."default" NOT NULL,
-            email text COLLATE pg_catalog."default",
-            password character varying(100) COLLATE pg_catalog."default",
-            dob date,
-            role text COLLATE pg_catalog."default",
-            CONSTRAINT "account_username_pkey" PRIMARY KEY (username)
-        )
+    //     db = pgp(cn);
+    //     con = await db.connect();
+    //     await con.none(`
+    //     CREATE TABLE IF NOT EXISTS public.accounts
+    //     (
+    //         username character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    //         email text COLLATE pg_catalog."default",
+    //         password character varying(100) COLLATE pg_catalog."default",
+    //         dob date,
+    //         role text COLLATE pg_catalog."default",
+    //         CONSTRAINT "account_username_pkey" PRIMARY KEY (username)
+    //     )
 
-        TABLESPACE pg_default;
+    //     TABLESPACE pg_default;
 
-        ALTER TABLE IF EXISTS public.accounts
-            OWNER to postgres;
-        `);
+    //     ALTER TABLE IF EXISTS public.accounts
+    //         OWNER to postgres;
+    //     `);
 
-        if (con) {
-            con.done();
-        }
-    },
+    //     if (con) {
+    //         con.done();
+    //     }
+    // },
     add: async (tbName, obj) => {
         let con = null;
         try {
