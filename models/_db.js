@@ -157,7 +157,24 @@ module.exports = {
             }
         }
     },
-    getPopuluarMovies: async (tbName1, tbName2) => {
+    updateAdmin: async (username) => {
+        let con = null;
+        try {
+            con = await db.connect();
+            await con.none(
+                `UPDATE "users" SET role = 'admin' WHERE username = $1`,
+                [username]
+            );
+            return 1;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getPopularMovies: async (tbName1, tbName2) => {
         let con = null;
         try {
             cn.database = process.env.DB_NAME;

@@ -13,8 +13,12 @@ module.exports = class Admin {
         const rs = await db.getAll("users", "role");
         return rs;
     }
-    static async getAllOrders() {
-        const rs = await db.getAll("orders", "id");
+    static async makeAdminUser(username) {
+        const rs = await db.updateAdmin(username);
+        return rs;
+    }
+    static async deleteUser(username) {
+        const rs = await db.delete("users", "username", username);
         return rs;
     }
 }

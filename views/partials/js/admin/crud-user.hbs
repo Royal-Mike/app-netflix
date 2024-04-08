@@ -3,8 +3,6 @@
         let data, userCur;
         let pageCur = 1;
 
-        const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
-
         // Pagination
         $(".page-user").on("click", function() {
             $(".page-user.active").removeClass("active");
@@ -31,17 +29,11 @@
                     result.forEach(item => {
                         $("#user-container").append(
                             `<a class="list-group-item list-group-item-action list-item-user">
-                                <div class="d-flex align-items-center">
-                                    <img src="${item.images[0] ? item.images[0] : ""}"
-                                    class="me-3" style="width:70px;height:70px">
-                                    <div class="d-flex w-100 flex-column">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">#${item.id}</h5>
-                                            <small>${item.categoryname}</small>
-                                        </div>
-                                        <p class="mb-1">${item.name}</p>
-                                    </div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">${item.username}</h5>
+                                    <small>${item.role}</small>
                                 </div>
+                                <p class="mb-1">${item.email}</p>
                             </a>`
                         );
                     });
@@ -63,69 +55,36 @@
 
         $(`#page-user-${pageCur}`).trigger("click");
 
-        // CRUD - Create
-        $("#open-add-user").on("click", function() {
-            $(".file-input").show();
-            $("#edit-user").removeClass("d-none").find("input,textarea").val("");
-            $("#user-container,#user-pagination,.btn-edit-user").addClass("d-none");
-            $("#add-user").removeClass("d-none");
-        });
-
-        $("#add-user").on("click", function() {
-            let userAdd = {};
-            for (const key in userCur) {
-                if (!fields.includes(key)) continue;
-                userAdd[key] = $(`#user-${key}`).next().val();
-                if (!userAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '/admin/adduser',
-                data: userAdd,
-                success: function(result) {
-                    alert('Thêm sản phẩm thành công!');
-                    window.location.reload();
-                },
-                error: function(result) {
-                    console.log(result);
-                }
-            });
-        });
-
         // CRUD - Read
         $("body").on("click", ".list-item-user", function() {
-            $(".file-input").hide();
             $("#edit-user").removeClass("d-none");
             $("#user-container,#user-pagination").addClass("d-none");
+            $("#user-username").next().attr("readonly", true);
 
             userCur = data[$(this).index()];
 
             for (const key in userCur) {
-                if (!fields.includes(key)) continue;
+                if (key === "password") continue;
                 let value = userCur[key];
-                if (key === "create_date") value = value.split("T")[0];
-                if (typeof value === "string") value = value.trim();
+                if (key === "dob") value = value.split("T")[0];
                 $(`#user-${key}`).next().val(value);
             }
         });
 
         // CRUD - Update
         $("#update-edit-user").on("click", function() {
-            let userUpdate = {id: userCur.id};
-            for (const key in userCur) {
-                if (!fields.includes(key)) continue;
-                userUpdate[key] = $(`#user-${key}`).next().val();
-                if (!userUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
-            }
+            if (userCur.role === "admin") return alert('User is already Admin');
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/upduser',
-                data: userUpdate,
-                success: function(result) {
-                    alert('Sản phẩm cập nhật thành công!');
-                    window.location.reload();
+                url: '/admin/adminuser',
+                data: {
+                    username: userCur.username
+                },
+                success: function() {
+                    $("#user-role").next().val('admin');
+                    $("#user-pagination .page-link-num.active").trigger("click");
+                    alert('Account Updated');
                 },
                 error: function(result) {
                     console.log(result);
@@ -135,6 +94,7 @@
 
         $("#cancel-edit-user").on("click", function() {
             $("#edit-user,#add-user").addClass("d-none");
+            $("#user-password").parent().addClass("d-none");
             $("#user-container,#user-pagination,.btn-edit-user").removeClass("d-none");
         });
 
@@ -144,27 +104,20 @@
                 type: 'POST',
                 url: '/admin/deluser',
                 data: {
-                    id: userCur.id
+                    username: userCur.username
                 },
                 success: function(result) {
-                    alert('Xóa sản phẩm thành công!');
-                    window.location.reload();
+                    if (result === 'err_username') {
+                        return alert('Can\'t delete an active account');
+                    }
+                    alert('Account Deleted');
+                    $("#user-pagination .page-link-num.active").trigger("click");
+                    $("#cancel-edit-user").trigger("click");
                 },
                 error: function(result) {
                     console.log(result);
                 }
             });
-        });
-
-        // Upload file
-        $("#user-upload").fileinput({
-            uploadUrl: "/upload",
-            uploadAsync: false,
-            maxFileCount: 5
-        });
-
-        $("#user-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
-            $("#user-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
         });
     })
 </script>

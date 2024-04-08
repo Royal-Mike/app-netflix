@@ -6,8 +6,8 @@ const topRatedTb = "top_rated_movies";
 const upcomingTb = "upcoming_movies";
 
 module.exports = class Home {
-    static async getPopuluarMovies() {
-        const rtDat = await db.getPopuluarMovies(moviesTb, popularMoviesTb);
+    static async getPopularMovies() {
+        const rtDat = await db.getPopularMovies(moviesTb, popularMoviesTb);
         return rtDat;
     }
     
