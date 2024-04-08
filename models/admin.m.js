@@ -1,14 +1,21 @@
 const db = require('./_db');
 
 module.exports = class Admin {
-    static async getAllCatalogues() {
-        const rs = await db.getAll("catalogue", "id_category");
+    static async getCount(table) {
+        const rs = await db.getCount(table);
         return rs;
     }
-    static async getAllProducts() {
-        const rs = await db.getAll("products", "id");
+    // Movie
+    static async getAllMovies() {
+        const rs = await db.getAll("movies", "id");
         return rs;
     }
+    // Genre
+    static async getAllGenres() {
+        const rs = await db.getAll("genres", "id");
+        return rs;
+    }
+    // User
     static async getAllUsers() {
         const rs = await db.getAll("users", "role");
         return rs;

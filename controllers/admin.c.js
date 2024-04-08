@@ -2,8 +2,8 @@ const adminM = require('../models/admin.m');
 // const productM = require("../models/product.m");
 
 function getPageIndices(page) {
-    let indexStart = (page - 1) * 100;
-    let indexEnd = indexStart + 100;
+    let indexStart = (page - 1) * 10;
+    let indexEnd = indexStart + 10;
     return { start: indexStart, end: indexEnd };
 }
 
@@ -12,9 +12,11 @@ module.exports = {
         let theme = req.cookies.theme;
         let dark = theme === "dark" ? true : false;
 
-        const users = await adminM.getAllUsers();
+        const data_g = await adminM.getCount("genres");
+        const pages_g = Math.ceil(data_g.count / 10);
 
-        const pages_u = Math.ceil(users.length / 100);
+        const data_u = await adminM.getCount("users");
+        const pages_u = Math.ceil(data_u.count / 10);
 
         function makeArray(pages) {
             return [...Array(pages + 1).keys()].slice(1)
@@ -24,9 +26,18 @@ module.exports = {
             title: 'Admin',
             dark: dark,
             admin: true,
+            pages_g: makeArray(pages_g),
             pages_u: makeArray(pages_u)
         });
     },
+    // Genre
+    getGenres: async (req, res) => {
+        const indices = getPageIndices(req.body.page);
+        const result = await adminM.getAllGenres();
+        const page = result.slice(indices.start, indices.end);
+        res.send(page);
+    },
+    // User
     getUsers: async (req, res) => {
         const indices = getPageIndices(req.body.page);
         const result = await adminM.getAllUsers();
@@ -42,25 +53,5 @@ module.exports = {
         if (deleteName === req.user.username) return res.send('err_username');
         await adminM.deleteUser(deleteName);
         res.send('success');
-    },
-    // getPro: async (req, res) => {
-    //     let page = req.body.page;
-    //     let indexStart = (page - 1) * 100;
-    //     let indexEnd = indexStart + 100;
-    //     const products = await adminM.getAllProducts();
-    //     const productsPage = products.slice(indexStart, indexEnd);
-    //     res.send(productsPage);
-    // },
-    // updatePro: async (req, res) => {
-    //     await productM.updatePro(new productM(req.body));
-    //     res.send('success');
-    // },
-    // addPro: async (req, res) => {
-    //     await productM.addPro(new productM(req.body));
-    //     res.send('success');
-    // },
-    // deletePro: async (req, res) => {
-    //     await productM.deletePro(req.body.id);
-    //     res.send('success');
-    // }
+    }
 };

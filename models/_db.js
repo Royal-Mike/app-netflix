@@ -70,13 +70,38 @@ module.exports = {
             }
         }
     },
+    getCount: async (tbName) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            let rs = await con.one(`SELECT COUNT(*) FROM "${tbName}"`);
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
     getAll: async (tbName, order) => {
         let con = null;
         try {
             cn.database = process.env.DB_NAME;
             db = pgp(cn);
             con = await db.connect();
-            let rs = await con.any(`SELECT * FROM "${tbName}" ORDER BY ${order}`);
+
+            let query = '';
+            if (tbName === 'genres') {
+                query = `SELECT A.*, COUNT(B.movie_id) AS amount FROM genres A LEFT JOIN movie_genres B ON A.id = B.genre_id GROUP BY A.id, A.name ORDER BY A.id`;
+            }
+            else {
+                query = `SELECT * FROM "${tbName}" ORDER BY ${order}`;
+            }
+
+            let rs = await con.any(query);
             return rs;
         } catch (error) {
             throw error;

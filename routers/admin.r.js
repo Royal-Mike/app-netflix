@@ -11,6 +11,8 @@ router.use((req, res, next) => {
 
 router.get('/', adminC.home);
 
+router.post('/getgenre', adminC.getGenres);
+
 router.post('/getuser', adminC.getUsers);
 router.post('/adminuser', adminC.adminUser);
 router.post('/deluser', adminC.deleteUser);

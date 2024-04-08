@@ -7,58 +7,14 @@
     <hr class="mt-2">
     <div id="edit-genre" class="container d-none">
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-name">Tên sản phẩm</span>
-            <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="genre-name">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-create_date">Ngày sản xuất</span>
-            <input type="date" class="form-control" placeholder="Creation Date" aria-label="Creation Date" aria-describedby="genre-create_date">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-brand">Nhãn hiệu</span>
-            <input type="text" class="form-control" placeholder="Brand" aria-label="Brand" aria-describedby="genre-brand">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-color">Màu sắc</span>
-            <input type="text" class="form-control" placeholder="Color" aria-label="Color" aria-describedby="genre-color">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-images">Hình ảnh</span>
-            <input type="text" class="form-control" placeholder="Images" aria-label="Images" aria-describedby="genre-images">
-        </div>
-        <input type='file' id='genre-upload' multiple='multiple' accept='image/*' name='upload-genreduct' />
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-price">Giá tiền</span>
-            <input type="number" class="form-control" placeholder="Price" aria-label="Price" aria-describedby="genre-price" style="text-align:left">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-description">Miêu tả</span>
-            <textarea type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="genre-description" style="height:200px"></textarea>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-sale">Giảm giá</span>
-            <input type="text" class="form-control" placeholder="Sale" aria-label="Sale" aria-describedby="genre-sale">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-for">Dành cho</span>
-            <select class="form-select">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </select>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="genre-id_category">Danh mục</span>
-            <select class="form-select">
-                {{#each catalogues}}
-                <option value="{{id_category}}">{{category}}</option>
-                {{/each}}
-            </select>
+            <span class="input-group-text" style="width:15%" id="genre-name">Name</span>
+            <input type="text" class="form-control" placeholder="name" aria-label="name" aria-describedby="genre-name">
         </div>
         <div class="d-flex mb-2">
-            <a id="update-edit-genre" class="btn btn-primary btn-edit-genre me-2">Cập nhật</a>
-            <a id="delete-edit-genre" class="btn btn-primary btn-edit-genre me-2">Xóa sản phẩm</a>
-            <a id="add-genre" class="btn btn-primary me-2 d-none">Thêm sản phẩm</a>
-            <a id="cancel-edit-genre" class="btn btn-primary">Thoát</a>
+            <a id="update-edit-genre" class="btn btn-danger btn-edit-genre me-2">Update</a>
+            <a id="delete-edit-genre" class="btn btn-danger btn-edit-genre me-2">Delete</a>
+            <a id="add-genre" class="btn btn-danger me-2 d-none">Add</a>
+            <a id="cancel-edit-genre" class="btn btn-danger">Return</a>
         </div>
     </div>
     <div id="genre-container" class="list-group list-group-container mb-3">
@@ -70,7 +26,7 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            {{#each pages_p}}
+            {{#each pages_g}}
                 <li class="page_item">
                     <a id="page-genre-{{this}}" class="page-link page-link-num page-genre {{#if @first}} active {{/if}}">{{this}}</a>
                 </li>
