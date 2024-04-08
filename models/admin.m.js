@@ -15,6 +15,10 @@ module.exports = class Admin {
         const rs = await db.getAll("genres", "id");
         return rs;
     }
+    static async updateGenre(data) {
+        const rs = await db.updateGenre(data);
+        return rs;
+    }
     // User
     static async getAllUsers() {
         const rs = await db.getAll("users", "role");

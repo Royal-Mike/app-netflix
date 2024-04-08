@@ -37,6 +37,14 @@ module.exports = {
         const page = result.slice(indices.start, indices.end);
         res.send(page);
     },
+    updateGenre: async (req, res) => {
+        const data = {
+            id: req.body.id,
+            name: req.body.name
+        };
+        await adminM.updateGenre(data);
+        res.send('success');
+    },
     // User
     getUsers: async (req, res) => {
         const indices = getPageIndices(req.body.page);

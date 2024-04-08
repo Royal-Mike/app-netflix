@@ -166,12 +166,12 @@ module.exports = {
             }
         }
     },
-    update: async (data) => {
+    updateGenre: async (data) => {
         let con = null;
         try {
             con = await db.connect();
-            const condition = pgp.as.format(' WHERE id = ${id}', data); // Placeholders
-            let sql = pgp.helpers.update(data, ['field1', 'field2'], 'table') + condition; // Placeholders
+            const condition = pgp.as.format(' WHERE id = ${id}', data);
+            let sql = pgp.helpers.update(data, ['name'], 'genres') + condition;
             await con.none(sql);
             return 1;
         } catch (error) {

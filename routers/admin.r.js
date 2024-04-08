@@ -12,10 +12,11 @@ router.use((req, res, next) => {
 router.get('/', adminC.home);
 
 router.post('/getgenre', adminC.getGenres);
+router.post('/updategenre', adminC.updateGenre);
 
 router.post('/getuser', adminC.getUsers);
 router.post('/adminuser', adminC.adminUser);
-router.post('/deluser', adminC.deleteUser);
+router.post('/deleteuser', adminC.deleteUser);
 
 // router.post('/getpro', adminC.getPro);
 // router.post('/updpro', adminC.updatePro);

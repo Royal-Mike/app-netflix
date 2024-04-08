@@ -3,8 +3,6 @@
         let data, genreCur;
         let pageCur = 1;
 
-        const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
-
         // Pagination
         $(".page-genre").on("click", function() {
             $(".page-genre.active").removeClass("active");
@@ -32,10 +30,10 @@
                         $("#genre-container").append(
                             `<a class="list-group-item list-group-item-action list-item-genre">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">#${item.id}</h5>
+                                    <h5 class="mb-1">${item.name}</h5>
                                     <small>${item.amount} Movies</small>
                                 </div>
-                                <p class="mb-1">${item.name}</p>
+                                <p class="mb-1">#${item.id}</p>
                             </a>`
                         );
                     });
@@ -94,31 +92,21 @@
             $("#genre-container,#genre-pagination").addClass("d-none");
 
             genreCur = data[$(this).index()];
-
-            for (const key in genreCur) {
-                if (!fields.includes(key)) continue;
-                let value = genreCur[key];
-                if (key === "create_date") value = value.split("T")[0];
-                if (typeof value === "string") value = value.trim();
-                $(`#genre-${key}`).next().val(value);
-            }
+            $("#genre-name").next().val(genreCur.name);
         });
 
         // CRUD - Update
         $("#update-edit-genre").on("click", function() {
             let genreUpdate = {id: genreCur.id};
-            for (const key in genreCur) {
-                if (!fields.includes(key)) continue;
-                genreUpdate[key] = $(`#genre-${key}`).next().val();
-                if (!genreUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
-            }
+            genreUpdate.name = $("#genre-name").next().val();
+            if (!genreUpdate.name) return alert('Please enter genre name');
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/updgenre',
+                url: '/admin/updategenre',
                 data: genreUpdate,
                 success: function(result) {
-                    alert('Sản phẩm cập nhật thành công!');
+                    alert('Genre Updated');
                     window.location.reload();
                 },
                 error: function(result) {
