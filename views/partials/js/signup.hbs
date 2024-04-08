@@ -23,19 +23,13 @@
 
             if (!validatePassword(passwordInput.val(), rePasswordInput.val())) {
                 event.preventDefault();
-                setError(passwordInput, 'Mật khẩu phải giống nhau!');
+                setError(passwordInput, 'Passwords must match.');
                 passwordInput.val('');
                 rePasswordInput.val('');
             } else if (passwordInput.val().length < 8 || rePasswordInput.val().length < 8) {
                 event.preventDefault();
-                setError(passwordInput, 'Mật khẩu ít nhất 8 kí tự');
-                setError(rePasswordInput, 'Mật khẩu ít nhất 8 kí tự');
-                passwordInput.val('');
-                rePasswordInput.val('');
-            } else if (specialChars.test(passwordInput.val()) || specialChars.test(rePasswordInput.val())) {
-                event.preventDefault();
-                setError(passwordInput, 'Mật khẩu không chứa các kí tự đặc biệt');
-                setError(rePasswordInput, 'Mật khẩu không chứa các kí tự đặc biệt');
+                setError(passwordInput, 'Passwords must include at least 8 characters.');
+                setError(rePasswordInput, 'Passwords must include at least 8 characters.');
                 passwordInput.val('');
                 rePasswordInput.val('');
             } else {
