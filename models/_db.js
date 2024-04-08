@@ -54,11 +54,8 @@ module.exports = {
             cn.database = process.env.DB_NAME;
             db = pgp(cn);
             con = await db.connect();
-            // if (tbName !== "accounts") {
-            //     const rs = await con.one(`SELECT MAX(${tbName === "catalogue" ? "id_category" : "id"}) FROM ${tbName}`);
-            //     if (tbName === "catalogue") obj.id_category = rs.max + 1;
-            //     else obj.id = rs.max + 1;
-            // }
+            const rs = await con.one(`SELECT MAX(id) FROM ${tbName}`);
+            obj.id = rs.max + 1;
             let sql = pgp.helpers.insert(obj, null, tbName);
             await con.none(sql);
             return 1;

@@ -37,12 +37,20 @@ module.exports = {
         const page = result.slice(indices.start, indices.end);
         res.send(page);
     },
+    addGenre: async (req, res) => {
+        await adminM.addGenre({ name: req.body.name });
+        res.send('success');
+    },
     updateGenre: async (req, res) => {
         const data = {
             id: req.body.id,
             name: req.body.name
         };
         await adminM.updateGenre(data);
+        res.send('success');
+    },
+    deleteGenre: async (req, res) => {
+        await adminM.deleteGenre(req.body.id);
         res.send('success');
     },
     // User

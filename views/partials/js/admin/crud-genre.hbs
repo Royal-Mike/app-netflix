@@ -65,18 +65,15 @@
 
         $("#add-genre").on("click", function() {
             let genreAdd = {};
-            for (const key in genreCur) {
-                if (!fields.includes(key)) continue;
-                genreAdd[key] = $(`#genre-${key}`).next().val();
-                if (!genreAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
-            }
+            genreAdd.name = $("#genre-name").next().val();
+            if (!genreAdd.name) return alert('Please enter genre name');
 
             $.ajax({
                 type: 'POST',
                 url: '/admin/addgenre',
                 data: genreAdd,
                 success: function(result) {
-                    alert('Thêm sản phẩm thành công!');
+                    alert('Genre Added');
                     window.location.reload();
                 },
                 error: function(result) {
@@ -122,31 +119,23 @@
 
         // CRUD - Delete
         $("#delete-edit-genre").on("click", function() {
+            if (Number(genreCur.amount) > 0)
+            return alert('Can\'t delete genre with existing movies');
+
             $.ajax({
                 type: 'POST',
-                url: '/admin/delgenre',
+                url: '/admin/deletegenre',
                 data: {
                     id: genreCur.id
                 },
                 success: function(result) {
-                    alert('Xóa sản phẩm thành công!');
+                    alert('Genre Deleted');
                     window.location.reload();
                 },
                 error: function(result) {
                     console.log(result);
                 }
             });
-        });
-
-        // Upload file
-        $("#genre-upload").fileinput({
-            uploadUrl: "/upload",
-            uploadAsync: false,
-            maxFileCount: 5
-        });
-
-        $("#genre-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
-            $("#genre-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
         });
     })
 </script>

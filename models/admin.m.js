@@ -15,8 +15,16 @@ module.exports = class Admin {
         const rs = await db.getAll("genres", "id");
         return rs;
     }
+    static async addGenre(obj) {
+        const rs = await db.add("genres", obj);
+        return rs;
+    }
     static async updateGenre(data) {
         const rs = await db.updateGenre(data);
+        return rs;
+    }
+    static async deleteGenre(id) {
+        const rs = await db.delete("genres", "id", id);
         return rs;
     }
     // User
