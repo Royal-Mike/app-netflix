@@ -260,7 +260,6 @@ async function checkGenres() {
 
 async function dbInit() {
   await pool.connect();
-  await dropDatabase();
   await createDatabase();
   await importMovies();
   await checkGenres();
