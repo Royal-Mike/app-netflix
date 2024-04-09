@@ -7,7 +7,7 @@
         {{/if}}
 
         <form class="d-flex me-4" role="search" style="margin-left:auto">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2"  type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit"><i
                     class="fa-solid fa-magnifying-glass"></i></button>
         </form>
@@ -26,5 +26,21 @@
             {{/if}}
         </div>
     </div>
+    
 </nav>
+<script>
+
+const inputField = document.getElementById("form-control me-2")
+if(inputField)
+{inputField.addEventListener("input", () =>{
+    console.log("123")
+})}
+console.log("ok")
+
+
+
+
+</script>
 <div style="height:100px"></div>
+
+   

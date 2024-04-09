@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id = "myInputField" id="name" type="text" onchange={importMovies()}>
+    <div id="result">The typed value is <span id="info"></span></div>
+    <div class="searchmovieName"> Movie name is: </div>
+    
+    <Script>
+    
+    async function importMovies() {
+    
+        const myInputField = document.getElementById("myInputField")
+
+        myInputField.addEventListener("input", (e) =>
+   {
+           console.log(myInputField.value)
+           const api_search_movie = "https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value
+           const response =  axios.get("https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value);
+            console.log(response)
+        })
+     }
+    
+    </Script>
+</body>
+
+</html>
