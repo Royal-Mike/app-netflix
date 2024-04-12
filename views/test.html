@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,24 +8,27 @@
 <body>
     <input id = "myInputField" id="name" type="text" onchange={importMovies()}>
     <div id="result">The typed value is <span id="info"></span></div>
-    <div class="searchmovieName"> Movie name is: </div>
+    <div class="searchmovieName"> Movie name is: </div> -->
     
     <Script>
-    
+
+
     async function importMovies() {
     
         const myInputField = document.getElementById("myInputField")
-
         myInputField.addEventListener("input", (e) =>
    {
+        url = "https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value
            console.log(myInputField.value)
-           const api_search_movie = "https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value
-           const response =  axios.get("https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value);
-            console.log(response)
-        })
-     }
+                fetch(url)
+        .then(res => res.json())
+        .then(json => console.log(json.results))
+        .catch(err => console.error('error:' + err));
+
+     })
+    }
     
     </Script>
-</body>
+<!-- </body>
 
-</html>
+</html> -->
