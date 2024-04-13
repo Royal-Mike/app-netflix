@@ -51,8 +51,8 @@
     }
 
     .next-prev-button {
-        width: 5.5rem;
-        height: 13rem;
+        width: 4rem;
+        height: 9rem;
     }
 
     .full-carousel {
@@ -64,26 +64,38 @@
     }
 
     .place-6-movies {
-        height: 13rem;
+        height: 9rem;
     }
 
     .movie-hoverred>img,
     .movie-top-10-VN-info>img {
-        height: 13rem;
-        width: 18rem;
+        height: 9rem;
+        width: 13.5rem;
     }
 
     .movie-actions {
-        width: 18rem;
+        width: 13.5rem;
     }
 
     .option-list div {
-        width: 3rem;
-        height: 3rem;
+        width: 1.7rem;
+        height: 1.7rem;
+    }
+
+    .option-list div:hover {
+        background-color: white !important;
+    }
+
+    .option-list div:hover > i {
+        color: black !important;
+    }
+
+    .option-list div > i {
+        font-size: 1rem;
     }
 
     .movie-categories p {
-        font-size: 1rem;
+        font-size: .7rem;
     }
 
     .movie-categories div {
@@ -92,15 +104,27 @@
     }
 
     .small-info-of-movie>div>p {
-        font-size: 1.2rem;
+        font-size: .8rem;
+    }
+
+    .small-info-of-movie > p {
+        font-size: .7rem;
     }
 
     .small-info-of-movie div:nth-child(3)>p {
-        font-size: 0.8rem;
+        font-size: .5rem;
     }
 
-    .small-info-of-movie div:nth-child(4)>div p:nth-child(2) {
+    .match {
         font-size: .8rem;
+    }
+
+    .spatial-audio > p:nth-child(1){
+        font-size: .6rem;
+    }
+
+    .spatial-audio > p:nth-child(2){
+        font-size: .5rem;
     }
 
     .number1 {
@@ -132,7 +156,13 @@
 
     .poster {
         width: 100%;
-        margin-top: -30rem;
+        margin-top: 0;
+        scroll-behavior: smooth;   
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+        background-color: transparent;
     }
 
     .movie-details>div:nth-child(1) {
@@ -162,13 +192,20 @@
     }
 
     .action-on-movie {
-        top: 70%;
+        top: 40%;
     }
 
     .cancel-review {
         top: 2%;
         right: 2%;
         background-color: black;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .add-to-list, .like-movie, .volumn {
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     .play-video:hover {
