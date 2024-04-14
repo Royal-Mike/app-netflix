@@ -19,16 +19,208 @@
             });
         });
 
-        $('.cancel-review').on('click', function() {
-            $('.poster').addClass("invisible");
+        $('.outer-container').on('click', ".cancel-review", function () {
+            $('.poster').remove();
+            $('.all-movies').css({
+                'pointer-events': '',
+            })
+            $('.overlay-left, .overlay-right').addClass('invisible');
         });
 
-        $('.open-movie-details').on('click', function() {
-            $('.poster').removeClass("invisible");
+        $('.open-movie-details').on('click', function () {
+            const poster_template =
+                `
+            <div class="poster">
+                <div class="position-absolute start-50 top-0 translate-middle-x"
+                    style="height: 70vw; overflow-y: auto; overflow-x: hidden; width: 60vw;">
+                    <div class="movie-info-part">
+                        <div class="m-0 movie-image position-relative">
+                            <div
+                                class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
+                                <i class="fa-solid fa-xmark fs-3"></i>
+                            </div>
+                            <img src="/imgs/achelousaurus.jpg" width="100%" class="rounded-top" alt="">
+                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-around"
+                                style="width: 60vw;">
+                                <div class="p-3">
+                                    <p class="movie-title fw-bold">GET OUT</p>
+                                    <div class="d-flex">
+                                        <div class="bg-light fs-3 ps-5 pe-5 rounded text-dark">
+                                            <i class="fa-solid fa-play"></i>
+                                            Play
+                                        </div>
+                                        <div
+                                            class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 add-to-list">
+                                            <i class="fa-solid fa-plus fs-4"></i>
+                                        </div>
+
+                                        <div
+                                            class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 like-movie">
+                                            <i class="fa-solid fa-thumbs-up fs-4"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="indistinct-chattering">
+                                    <b class="fs-4">[indistinct chattering]</b>
+                                </div>
+
+                                <div
+                                    class="rounded-circle ms-5 d-flex justify-content-center align-self-end border border-3 p-1 mb-3 me-3 volumn">
+                                    <i class="fa-solid fa-volume-high fs-4 text-body-tertiary"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-0 pt-5 movie-details ps-5 pe-3 d-flex">
+                            <div>
+                                <div class="d-flex align-items-center">
+                                    <b class="text-success me-2">New</b>
+                                    <p class="m-0 me-2">2017</p>
+                                    <p class="m-0 me-2">1h 44m</p>
+                                    <p class="rounded border ps-2 pe-2 m-0 me-2">HD</p>
+                                    <div class="m-0 d-flex align-items-center me-2">
+                                        <i class="fa-solid fa-podcast fs-3"></i>
+                                        <div class="text">
+                                            <p class="fw-bold m-0 ms-1">Spatial</p>
+                                            <p class="m-0 ms-1 lh-1">Audio</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-rectangle-ad me-2"></i>
+                                    <i class="fa-regular fa-message"></i>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <p class="border ps-2 pe-2 m-0 me-2 fw-bold">18+</p>
+                                    <p class="m-0">violence, language, suicide</p>
+                                </div>
+
+                                <div class="mt-5 fs-5">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quaerat neque commodi,
+                                    quisquam cum cupiditate itaque voluptas odit quo sed illo exercitationem deserunt incidunt
+                                    delectus ullam distinctio. Ab, quod molestias.
+                                </div>
+                            </div>
+
+                            <div class="ps-4">
+                                <p>
+                                    <span class="text-body-tertiary">Cast:</span>
+                                    Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                                </p>
+
+                                <p>
+                                    <span class="text-body-tertiary">Genres:</span>
+                                    Independent Movies, Horror Movies, US Movies
+                                </p>
+
+                                <p>
+                                    <span class="text-body-tertiary">This movie is:</span>
+                                    Ominous, Scary, Suspenseful
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="similar-movies bg-black p-5">
+                        <h2>More Like This</h2>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                <div class="card h-100" style="padding: .2rem !important;">
+                                    <img src="/imgs/achelousaurus.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                            <div class="d-flex align-items-center">
+                                                <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">18+</p>
+                                                <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                <p class="m-0" style="font-size: 1rem;">2017</p>
+                                                <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                            </div>
+
+                                            <div
+                                                class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                <i class="fa-solid fa-plus fs-4"></i>
+                                            </div>
+                                        </h5>
+                                        <p class="card-text">This is a longer card with supporting text below as a natural
+                                            lead-in to additional content. This content is a little bit longer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
+                        <hr color="blue" />
+                        <p class="fs-3">About <b>Get Out</b></p>
+                        <p>
+                            <span class="text-body-tertiary">Director:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Cast:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Writer:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Genres:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">This movie is:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+                        <div class="d-flex">
+                            <span class="text-body-tertiary">Maturity rating:</span>
+                            <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
+                                18+</p>
+                            <p class="me-4">violence, language, suicide</p>
+                            <p>Recommended for ages 18 and up</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+            $('.outer-container').append(poster_template);
+            $('.all-movies').css({
+                'pointer-events': 'none',
+            })
+            $('.overlay-left, .overlay-right').removeClass('invisible');
         });
 
-        $('.play-video').on('click', function() {
+        $('.play-video').on('click', function () {
             window.location.href = '/watch';
+        });
+
+        const video = $('#video')[0];
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.7
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        }, options);
+
+        observer.observe(video);
+
+        $('.volumn').on('click', () => {
+            if (video.muted) {
+                $('.turn-on-volumn').removeClass('d-none');
+                $('.turn-off-volumn').addClass('d-none');
+            } else {
+                $('.turn-on-volumn').addClass('d-none');
+                $('.turn-off-volumn').removeClass('d-none');
+            }
+            video.muted = !video.muted;
         })
     });
 </script>
