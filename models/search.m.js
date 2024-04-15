@@ -8,6 +8,7 @@ module.exports = class Search {
             dat = json.results;
             dat.forEach(movie => {
                 movie.runtime = Math.floor(Math.random() * 3 + 1) + "h " + Math.floor(Math.random() * 60) + "m";
+                console.log('test');
             })
             return dat;
         } catch (err) {
