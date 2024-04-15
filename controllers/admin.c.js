@@ -15,6 +15,7 @@ module.exports = {
         const data_m = await adminM.getCount("movies");
         const pages_m = Math.ceil(data_m.count / 10);
 
+        const genres = await adminM.getAllGenres();
         const data_g = await adminM.getCount("genres");
         const pages_g = Math.ceil(data_g.count / 10);
 
@@ -29,6 +30,7 @@ module.exports = {
             title: 'Admin',
             dark: dark,
             admin: true,
+            genres: genres,
             pages_m: makeArray(pages_m),
             pages_g: makeArray(pages_g),
             pages_u: makeArray(pages_u)

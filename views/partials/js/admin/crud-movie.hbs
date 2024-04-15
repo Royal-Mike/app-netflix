@@ -103,9 +103,24 @@
 
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
+
                 let value = movieCur[key];
-                if (key === "create_date") value = value.split("T")[0];
+
+                if (key === "genres") {
+                    value.forEach(genre => {
+                        $("#genre" + genre.id).attr("checked", true);
+                    });
+                    continue;
+                }
+
+                if (key.startsWith("production")) {
+                    value = value.map(e => e.name).join(", ");
+                }
+
+                if (key === "release_date") value = value.split("T")[0];
                 if (typeof value === "string") value = value.trim();
+
+                value = String(value);
                 $(`#movie-${key}`).next().val(value);
             }
         });

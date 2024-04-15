@@ -7,58 +7,78 @@
     <hr class="mt-2">
     <div id="edit-movie" class="container d-none">
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-name">Tên sản phẩm</span>
-            <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="movie-name">
+            <span class="input-group-text" style="width:15%" id="movie-original_title">Title</span>
+            <input type="text" class="form-control" placeholder="Title" aria-label="Title" aria-describedby="movie-original_title">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-create_date">Ngày sản xuất</span>
-            <input type="date" class="form-control" placeholder="Creation Date" aria-label="Creation Date" aria-describedby="movie-create_date">
+            <span class="input-group-text" style="width:15%" id="movie-overview">Overview</span>
+            <textarea type="text" class="form-control" placeholder="Overview" aria-label="Overview" aria-describedby="movie-overview" style="height:100px"></textarea>
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-brand">Nhãn hiệu</span>
-            <input type="text" class="form-control" placeholder="Brand" aria-label="Brand" aria-describedby="movie-brand">
+            <span class="input-group-text" style="width:15%" id="movie-tagline">Tagline</span>
+            <input type="text" class="form-control" placeholder="Tagline" aria-label="Tagline" aria-describedby="movie-tagline">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-color">Màu sắc</span>
-            <input type="text" class="form-control" placeholder="Color" aria-label="Color" aria-describedby="movie-color">
+            <span class="input-group-text" style="width:15%" id="movie-runtime">Runtime (sec.)</span>
+            <input type="text" class="form-control" placeholder="Runtime" aria-label="Runtime" aria-describedby="movie-runtime">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-images">Hình ảnh</span>
-            <input type="text" class="form-control" placeholder="Images" aria-label="Images" aria-describedby="movie-images">
-        </div>
-        <input type='file' id='movie-upload' multiple='multiple' accept='image/*' name='upload-movieduct' />
-        <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-price">Giá tiền</span>
-            <input type="number" class="form-control" placeholder="Price" aria-label="Price" aria-describedby="movie-price" style="text-align:left">
+            <span class="input-group-text" style="width:15%" id="movie-release_date">Release Date</span>
+            <input type="date" class="form-control" placeholder="Release Date" aria-label="Release Date" aria-describedby="movie-release_date">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-description">Miêu tả</span>
-            <textarea type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="movie-description" style="height:200px"></textarea>
+            <span class="input-group-text" style="width:15%" id="movie-backdrop_path">Backdrop Path</span>
+            <input type="text" class="form-control" placeholder="Backdrop Path" aria-label="Backdrop Path" aria-describedby="movie-backdrop_path">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-sale">Giảm giá</span>
-            <input type="text" class="form-control" placeholder="Sale" aria-label="Sale" aria-describedby="movie-sale">
+            <span class="input-group-text" style="width:15%" id="movie-poster_path">Poster Path</span>
+            <input type="text" class="form-control" placeholder="Poster Path" aria-label="Poster Path" aria-describedby="movie-poster_path">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" style="width:15%" id="movie-for">Dành cho</span>
+            <span class="input-group-text" style="width:15%" id="movie-genres">Genres</span>
+            <div class="form-control">
+                <div class="row row-cols-3 ps-2">
+                    {{#each genres}}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{id}}" id="genre{{id}}">
+                        <label class="form-check-label">{{name}}</label>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width:15%" id="movie-adult">Adult</span>
             <select class="form-select">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
             </select>
         </div>
         <div class="input-group mb-3">
+            <span class="input-group-text" style="width:15%" id="movie-production_companies">Production Companies</span>
+            <input type="text" class="form-control" placeholder="Production Companies" aria-label="Production Companies" aria-describedby="movie-production_companies">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" style="width:15%" id="movie-production_countries">Production Countries</span>
+            <input type="text" class="form-control" placeholder="Production Countries" aria-label="Production Countries" aria-describedby="movie-production_countries">
+        </div>
+         <div class="input-group mb-3">
+            <span class="input-group-text" style="width:15%" id="movie-original_language">Original Language</span>
+            <input type="text" class="form-control" placeholder="Original Language" aria-label="Original Language" aria-describedby="movie-original_language" maxlength="2" onkeydown="return /[a-z]/i.test(event.key)">
+        </div>
+        {{!-- <div class="input-group mb-3">
             <span class="input-group-text" style="width:15%" id="movie-id_category">Danh mục</span>
             <select class="form-select">
                 {{#each catalogues}}
                 <option value="{{id_category}}">{{category}}</option>
                 {{/each}}
             </select>
-        </div>
+        </div> --}}
         <div class="d-flex mb-2">
-            <a id="update-edit-movie" class="btn btn-primary btn-edit-movie me-2">Cập nhật</a>
-            <a id="delete-edit-movie" class="btn btn-primary btn-edit-movie me-2">Xóa sản phẩm</a>
-            <a id="add-movie" class="btn btn-primary me-2 d-none">Thêm sản phẩm</a>
-            <a id="cancel-edit-movie" class="btn btn-primary">Thoát</a>
+            <a id="update-edit-movie" class="btn btn-primary btn-edit-movie me-2">Update Movie</a>
+            <a id="delete-edit-movie" class="btn btn-primary btn-edit-movie me-2">Delete Movie</a>
+            <a id="add-movie" class="btn btn-primary me-2 d-none">Add Movie</a>
+            <a id="cancel-edit-movie" class="btn btn-primary">Return</a>
         </div>
     </div>
     <div id="movie-container" class="list-group list-group-container mb-3">
