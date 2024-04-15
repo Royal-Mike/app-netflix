@@ -180,29 +180,18 @@
         $("#delete-edit-movie").on("click", function() {
             $.ajax({
                 type: 'POST',
-                url: '/admin/delmovie',
+                url: '/admin/deletemovie',
                 data: {
                     id: movieCur.id
                 },
                 success: function(result) {
-                    alert('Xóa sản phẩm thành công!');
+                    alert('Movie Deleted');
                     window.location.reload();
                 },
                 error: function(result) {
                     console.log(result);
                 }
             });
-        });
-
-        // Upload file
-        $("#movie-upload").fileinput({
-            uploadUrl: "/upload",
-            uploadAsync: false,
-            maxFileCount: 5
-        });
-
-        $("#movie-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
-            $("#movie-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
         });
     })
 </script>
