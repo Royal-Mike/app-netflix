@@ -18,6 +18,7 @@
                 $('.thumbnail', this).removeClass('d-none');
                 $('.run-video-when-hovering', this).addClass('d-none');
                 $('.run-video-when-hovering > video', this)[0].pause();
+                $('.run-video-when-hovering > video', this)[0].currentTime = 0;
                 $(this).css({
                     'transform': 'scale(1)',
                     'transition': '0.5s',
@@ -201,6 +202,7 @@
         });
 
         const video = $('#video')[0];
+
         const options = {
             root: null,
             rootMargin: '0px',

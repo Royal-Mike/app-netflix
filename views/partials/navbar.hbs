@@ -8,13 +8,14 @@
 
         {{#if home}}
         <form class="d-flex me-4" role="search" style="margin-left:auto">
-            <input class="form-control me-2"  type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit"><i
+            <button class="btn btn-outline-success" id="search-button"><i
                     class="fa-solid fa-magnifying-glass"></i></button>
+            <input class="form-control me-2 d-none" id="search-movies-input" style="width: 0px" type="search"
+                placeholder="Search" aria-label="Search">
         </form>
         {{/if}}
 
-        <div class="form-check form-switch p-0 me-2 d-flex" {{#unless home}}style="margin-left:auto"{{/unless}}>
+        <div class="form-check form-switch p-0 me-2 d-flex" {{#unless home}}style="margin-left:auto" {{/unless}}>
             <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2" id="sw-theme"
                 style="cursor:pointer"></i>
         </div>
@@ -28,21 +29,30 @@
             {{/if}}
         </div>
     </div>
-    
+
 </nav>
 <script>
-
-const inputField = document.getElementById("form-control me-2")
-if(inputField)
-{inputField.addEventListener("input", () =>{
-    console.log("123")
-})}
-console.log("ok")
-
-
-
-
+    $(() => {
+        $('#search-button').on('click', function (e) {
+            e.preventDefault();
+            if ($('#search-movies-input').css('width') == '0px') {
+                $('#search-movies-input').removeClass('d-none');
+                setTimeout(() => {
+                    $('#search-movies-input').css({
+                    'width': '200px',
+                    'transition': 'width 1s ease',
+                });
+                }, 0)
+            } else {
+                $('#search-movies-input').css({
+                    'width': '0px',
+                    'transition': 'width 1s ease',
+                });
+                setTimeout(() => {
+                    $('#search-movies-input').addClass('d-none');
+                }, 600)
+            }
+        })
+    })
 </script>
 <div style="height:100px"></div>
-
-   
