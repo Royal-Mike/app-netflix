@@ -10,6 +10,18 @@ module.exports = class Admin {
         const rs = await db.getAll("movies", "id");
         return rs;
     }
+    static async addMovie(obj) {
+        const rs = await db.add("movies", obj);
+        return rs;
+    }
+    static async updateMovie(data) {
+        const rs = await db.updateMovie(data);
+        return rs;
+    }
+    static async deleteMovie(id) {
+        const rs = await db.delete("movies", "id", id);
+        return rs;
+    }
     // Genre
     static async getAllGenres() {
         const rs = await db.getAll("genres", "id");

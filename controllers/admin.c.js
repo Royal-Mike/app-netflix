@@ -12,6 +12,9 @@ module.exports = {
         let theme = req.cookies.theme;
         let dark = theme === "dark" ? true : false;
 
+        const data_m = await adminM.getCount("movies");
+        const pages_m = Math.ceil(data_m.count / 10);
+
         const data_g = await adminM.getCount("genres");
         const pages_g = Math.ceil(data_g.count / 10);
 
@@ -26,9 +29,33 @@ module.exports = {
             title: 'Admin',
             dark: dark,
             admin: true,
+            pages_m: makeArray(pages_m),
             pages_g: makeArray(pages_g),
             pages_u: makeArray(pages_u)
         });
+    },
+    // Movie
+    getMovies: async (req, res) => {
+        const indices = getPageIndices(req.body.page);
+        const result = await adminM.getAllMovies();
+        const page = result.slice(indices.start, indices.end);
+        res.send(page);
+    },
+    addMovie: async (req, res) => {
+        await adminM.addMovie({ name: req.body.name });
+        res.send('success');
+    },
+    updateMovie: async (req, res) => {
+        const data = {
+            id: req.body.id,
+            name: req.body.name
+        };
+        await adminM.updateMovie(data);
+        res.send('success');
+    },
+    deleteMovie: async (req, res) => {
+        await adminM.deleteMovie(req.body.id);
+        res.send('success');
     },
     // Genre
     getGenres: async (req, res) => {

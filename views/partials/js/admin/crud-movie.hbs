@@ -3,7 +3,7 @@
         let data, movieCur;
         let pageCur = 1;
 
-        const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
+        const fields = ['id', 'adult', 'backdrop_path', 'genres', 'tmdb_id', 'imdb_id', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'];
 
         // Pagination
         $(".page-movie").on("click", function() {
@@ -32,14 +32,14 @@
                         $("#movie-container").append(
                             `<a class="list-group-item list-group-item-action list-item-movie">
                                 <div class="d-flex align-items-center">
-                                    <img src="${item.images[0] ? item.images[0] : ""}"
-                                    class="me-3" style="width:70px;height:70px">
+                                    <img src="https://image.tmdb.org/t/p/original${item.backdrop_path}"
+                                    class="me-3" style="width:200px;height:100px">
                                     <div class="d-flex w-100 flex-column">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">#${item.id}</h5>
-                                            <small>${item.categoryname}</small>
+                                            <h5 class="mb-1">${item.original_title}</h5>
+                                            <small>${item.genres.map(e => e.name).join(", ")}</small>
                                         </div>
-                                        <p class="mb-1">${item.name}</p>
+                                        <p class="mb-1">#${item.id}</p>
                                     </div>
                                 </div>
                             </a>`
