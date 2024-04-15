@@ -3,7 +3,7 @@
         let data, movieCur;
         let pageCur = 1;
 
-        const fields = ['id', 'adult', 'backdrop_path', 'genres', 'tmdb_id', 'imdb_id', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'];
+        const fields = ['adult', 'backdrop_path', 'genres', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'];
 
         // Pagination
         $(".page-movie").on("click", function() {
@@ -130,16 +130,39 @@
             let movieUpdate = {id: movieCur.id};
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
-                movieUpdate[key] = $(`#movie-${key}`).next().val();
-                if (!movieUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+
+                if (key === "genres") {
+                    let genres = [];
+                    $("#movie-genres").next().find("input:checked").each(function(index, item) {
+                        genres.push({ id: $(item).attr("id").replace("genre", ""), name: $(item).next().text() });
+                    });
+                    movieUpdate[key] = JSON.stringify(genres);
+                }
+
+                else {
+                    movieUpdate[key] = $(`#movie-${key}`).next().val();
+                }
+
+                if (!movieUpdate[key]) return alert('Please enter all information');
+
+                if (key.startsWith("production")) {
+                    const names = movieUpdate[key].split(",");
+                    let data = [];
+
+                    names.forEach(name => {
+                        data.push({ name: name.trim() });
+                    });
+
+                    movieUpdate[key] = JSON.stringify(data);
+                }
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/updmovie',
+                url: '/admin/updatemovie',
                 data: movieUpdate,
                 success: function(result) {
-                    alert('Sản phẩm cập nhật thành công!');
+                    alert('Movie Updated');
                     window.location.reload();
                 },
                 error: function(result) {

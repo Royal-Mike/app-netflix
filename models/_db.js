@@ -168,7 +168,7 @@ module.exports = {
         try {
             con = await db.connect();
             const condition = pgp.as.format(' WHERE id = ${id}', data);
-            let sql = pgp.helpers.update(data, ['id', 'adult', 'backdrop_path', 'genres', 'tmdb_id', 'imdb_id', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'], 'movies') + condition;
+            let sql = pgp.helpers.update(data, ['adult', 'backdrop_path', 'genres', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'], 'movies') + condition;
             await con.none(sql);
             return 1;
         } catch (error) {
