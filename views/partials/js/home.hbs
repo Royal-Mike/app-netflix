@@ -13,12 +13,23 @@
 
                 $('.run-video-when-hovering', this).removeClass('d-none');
 
-                $('.run-video-when-hovering', this).one('click', function () {
+                {{!-- $('.run-video-when-hovering', this).one('click', function () {
                     const video = $('video', this)[0];
                     if (video) {
                         video.play();
                     }
-                });
+                }); --}}
+
+                const video = $('.run-video-when-hovering > video', this)[0];
+                const checkAvailability = video.play();
+                if(checkAvailability !== undefined){
+                    checkAvailability.then(() => {
+                    }).catch(error => {
+                        video.muted = true;
+                        video.play();
+                    });
+                }
+
 
                 $(this).css({
                     'transform': 'scale(1.5)',
