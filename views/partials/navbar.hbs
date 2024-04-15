@@ -35,22 +35,27 @@
     $(() => {
         $('#search-button').on('click', function (e) {
             e.preventDefault();
-            if ($('#search-movies-input').css('width') == '0px') {
-                $('#search-movies-input').removeClass('d-none');
-                setTimeout(() => {
-                    $('#search-movies-input').css({
-                    'width': '200px',
-                    'transition': 'width 1s ease',
-                });
-                }, 0)
+            const value = $('#search-movies-input').val();
+            if (value) {
+                window.location.href = `/search?query=${value}`;
             } else {
-                $('#search-movies-input').css({
-                    'width': '0px',
-                    'transition': 'width 1s ease',
-                });
-                setTimeout(() => {
-                    $('#search-movies-input').addClass('d-none');
-                }, 600)
+                if ($('#search-movies-input').css('width') == '0px') {
+                    $('#search-movies-input').removeClass('d-none');
+                    setTimeout(() => {
+                        $('#search-movies-input').css({
+                            'width': '200px',
+                            'transition': 'width 1s ease',
+                        });
+                    }, 0)
+                } else {
+                    $('#search-movies-input').css({
+                        'width': '0px',
+                        'transition': 'width 1s ease',
+                    });
+                    setTimeout(() => {
+                        $('#search-movies-input').addClass('d-none');
+                    }, 600)
+                }
             }
         })
     })

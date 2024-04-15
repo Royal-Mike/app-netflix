@@ -16,5 +16,5 @@ module.exports = {
             top_rated_movies,
             upcoming_movies
         })
-    }
+    },
 };
