@@ -177,6 +177,7 @@
 
         // Playback speed
         $("#playback").on("mouseover", function () {
+            $(".video-controls-popup").removeClass("active");
             $("#playback-speed").addClass("active");
         });
 
@@ -215,8 +216,40 @@
             }
         });
 
-        {{!-- for (let i = 0; i < video.textTracks.length; i++) {
+        for (let i = 0; i < video.textTracks.length; i++) {
             video.textTracks[i].mode = "hidden";
-        } --}}
+            $("#subtitles-container").append(`
+                <p id="subtitles_${video.textTracks[i].language}" class="fs-3 px-4">
+                    <i class="fa-solid fa-check fs-3"></i>&nbsp;${video.textTracks[i].label}
+                </p>`
+            );
+        }
+
+        $("#subtitles").on("mouseover", function () {
+            $(".video-controls-popup").removeClass("active");
+            $("#subtitles-container").addClass("active");
+        });
+
+        $("#video-control").on("mouseleave", function () {
+            $("#subtitles-container").removeClass("active");
+        });
+
+        $("#subtitles-container > p").on("click", function () {
+            const id = $(this).attr("id").split("_")[1];
+
+            $("#subtitles-container .selected").removeClass("selected");
+            $(this).find("i").addClass("selected");
+
+            if (id !== "none") $("#subtitles").addClass("fa-solid").removeClass("fa-regular");
+            else $("#subtitles").removeClass("fa-solid").addClass("fa-regular");
+
+            for (let i = 0; i < video.textTracks.length; i++) {
+                if (video.textTracks[i].language === id) {
+                    video.textTracks[i].mode = "showing";
+                } else {
+                    video.textTracks[i].mode = "hidden";
+                }
+            }
+        });
     });
 </script>
