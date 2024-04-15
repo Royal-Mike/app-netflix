@@ -51,14 +51,18 @@ module.exports = {
     add: async (tbName, obj) => {
         let con = null;
         try {
-            cn.database = process.env.DB_NAME;
-            db = pgp(cn);
             con = await db.connect();
-            const rs = await con.one(`SELECT MAX(id) FROM ${tbName}`);
-            obj.id = rs.max + 1;
+
+            if (tbName === "movies") {
+                const rs = await con.one(`SELECT MAX(id) FROM ${tbName}`);
+                obj.id = rs.max + 1;
+            }
+
             let sql = pgp.helpers.insert(obj, null, tbName);
-            await con.none(sql);
-            return 1;
+            const rs = await con.none(sql);
+
+            if (tbName === "movies") return obj.id;
+            return rs;
         } catch (error) {
             throw error;
         } finally {
@@ -155,6 +159,22 @@ module.exports = {
                 [value]
             );
             return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    updateMovie: async (data) => {
+        let con = null;
+        try {
+            con = await db.connect();
+            const condition = pgp.as.format(' WHERE id = ${id}', data);
+            let sql = pgp.helpers.update(data, ['adult', 'backdrop_path', 'genres', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'], 'movies') + condition;
+            await con.none(sql);
+            return 1;
         } catch (error) {
             throw error;
         } finally {

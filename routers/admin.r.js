@@ -11,6 +11,11 @@ router.use((req, res, next) => {
 
 router.get('/', adminC.home);
 
+router.post('/getmovie', adminC.getMovies);
+router.post('/addmovie', adminC.addMovie);
+router.post('/updatemovie', adminC.updateMovie)
+router.post('/deletemovie', adminC.deleteMovie);
+
 router.post('/getgenre', adminC.getGenres);
 router.post('/addgenre', adminC.addGenre);
 router.post('/updategenre', adminC.updateGenre);

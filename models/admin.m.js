@@ -10,6 +10,27 @@ module.exports = class Admin {
         const rs = await db.getAll("movies", "id");
         return rs;
     }
+    static async addMovie(obj) {
+        const id = await db.add("movies", obj);
+        const genres = JSON.parse(obj.genres);
+        genres.forEach(async genre => {
+            await db.add("movie_genres", { movie_id: id, genre_id: genre.id });
+        });
+        return id;
+    }
+    static async updateMovie(data) {
+        const rs = await db.updateMovie(data);
+        return rs;
+    }
+    static async deleteMovie(id) {
+        await db.delete("movie_genres", "movie_id", id);
+        await db.delete("now_playing_movies", "movie_id", id);
+        await db.delete("popular_movies", "movie_id", id);
+        await db.delete("top_rated_movies", "movie_id", id);
+        await db.delete("upcoming_movies", "movie_id", id);
+        const rs = await db.delete("movies", "id", id);
+        return rs;
+    }
     // Genre
     static async getAllGenres() {
         const rs = await db.getAll("genres", "id");

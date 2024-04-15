@@ -3,7 +3,7 @@
         let data, movieCur;
         let pageCur = 1;
 
-        const fields = ['name', 'create_date', 'brand', 'color', 'images', 'price', 'description', 'sale', 'for', 'id_category'];
+        const fields = ['adult', 'backdrop_path', 'genres', 'original_language', 'original_title', 'overview', 'poster_path', 'production_companies', 'production_countries', 'release_date', 'runtime', 'tagline'];
 
         // Pagination
         $(".page-movie").on("click", function() {
@@ -32,14 +32,14 @@
                         $("#movie-container").append(
                             `<a class="list-group-item list-group-item-action list-item-movie">
                                 <div class="d-flex align-items-center">
-                                    <img src="${item.images[0] ? item.images[0] : ""}"
-                                    class="me-3" style="width:70px;height:70px">
+                                    <img src="https://image.tmdb.org/t/p/original${item.backdrop_path}"
+                                    class="me-3" style="width:200px;height:100px">
                                     <div class="d-flex w-100 flex-column">
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">#${item.id}</h5>
-                                            <small>${item.categoryname}</small>
+                                            <h5 class="mb-1">${item.original_title}</h5>
+                                            <small>${item.genres.map(e => e.name).join(", ")}</small>
                                         </div>
-                                        <p class="mb-1">${item.name}</p>
+                                        <p class="mb-1">#${item.id}</p>
                                     </div>
                                 </div>
                             </a>`
@@ -69,14 +69,38 @@
             $("#edit-movie").removeClass("d-none").find("input,textarea").val("");
             $("#movie-container,#movie-pagination,.btn-edit-movie").addClass("d-none");
             $("#add-movie").removeClass("d-none");
+            $("#movie-genres").next().find("input").attr("checked", false);
         });
 
         $("#add-movie").on("click", function() {
             let movieAdd = {};
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
-                movieAdd[key] = $(`#movie-${key}`).next().val();
-                if (!movieAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+
+                if (key === "genres") {
+                    let genres = [];
+                    $("#movie-genres").next().find("input:checked").each(function(index, item) {
+                        genres.push({ id: $(item).attr("id").replace("genre", ""), name: $(item).next().text() });
+                    });
+                    movieAdd[key] = JSON.stringify(genres);
+                }
+
+                else {
+                    movieAdd[key] = $(`#movie-${key}`).next().val();
+                }
+
+                if (!movieAdd[key]) return alert('Please enter all information');
+
+                if (key.startsWith("production")) {
+                    const names = movieAdd[key].split(",");
+                    let data = [];
+
+                    names.forEach(name => {
+                        data.push({ name: name.trim() });
+                    });
+
+                    movieAdd[key] = JSON.stringify(data);
+                }
             }
 
             $.ajax({
@@ -84,7 +108,7 @@
                 url: '/admin/addmovie',
                 data: movieAdd,
                 success: function(result) {
-                    alert('Thêm sản phẩm thành công!');
+                    alert('Movie Added');
                     window.location.reload();
                 },
                 error: function(result) {
@@ -98,14 +122,30 @@
             $(".file-input").hide();
             $("#edit-movie").removeClass("d-none");
             $("#movie-container,#movie-pagination").addClass("d-none");
+            $("#movie-genres").next().find("input").attr("checked", false);
 
             movieCur = data[$(this).index()];
 
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
+
                 let value = movieCur[key];
-                if (key === "create_date") value = value.split("T")[0];
+
+                if (key === "genres") {
+                    value.forEach(genre => {
+                        $("#genre" + genre.id).attr("checked", true);
+                    });
+                    continue;
+                }
+
+                if (key.startsWith("production")) {
+                    value = value.map(e => e.name).join(", ");
+                }
+
+                if (key === "release_date") value = value.split("T")[0];
                 if (typeof value === "string") value = value.trim();
+
+                value = String(value);
                 $(`#movie-${key}`).next().val(value);
             }
         });
@@ -115,16 +155,39 @@
             let movieUpdate = {id: movieCur.id};
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
-                movieUpdate[key] = $(`#movie-${key}`).next().val();
-                if (!movieUpdate[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+
+                if (key === "genres") {
+                    let genres = [];
+                    $("#movie-genres").next().find("input:checked").each(function(index, item) {
+                        genres.push({ id: $(item).attr("id").replace("genre", ""), name: $(item).next().text() });
+                    });
+                    movieUpdate[key] = JSON.stringify(genres);
+                }
+
+                else {
+                    movieUpdate[key] = $(`#movie-${key}`).next().val();
+                }
+
+                if (!movieUpdate[key]) return alert('Please enter all information');
+
+                if (key.startsWith("production")) {
+                    const names = movieUpdate[key].split(",");
+                    let data = [];
+
+                    names.forEach(name => {
+                        data.push({ name: name.trim() });
+                    });
+
+                    movieUpdate[key] = JSON.stringify(data);
+                }
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/updmovie',
+                url: '/admin/updatemovie',
                 data: movieUpdate,
                 success: function(result) {
-                    alert('Sản phẩm cập nhật thành công!');
+                    alert('Movie Updated');
                     window.location.reload();
                 },
                 error: function(result) {
@@ -142,29 +205,18 @@
         $("#delete-edit-movie").on("click", function() {
             $.ajax({
                 type: 'POST',
-                url: '/admin/delmovie',
+                url: '/admin/deletemovie',
                 data: {
                     id: movieCur.id
                 },
                 success: function(result) {
-                    alert('Xóa sản phẩm thành công!');
+                    alert('Movie Deleted');
                     window.location.reload();
                 },
                 error: function(result) {
                     console.log(result);
                 }
             });
-        });
-
-        // Upload file
-        $("#movie-upload").fileinput({
-            uploadUrl: "/upload",
-            uploadAsync: false,
-            maxFileCount: 5
-        });
-
-        $("#movie-upload").on('filebatchuploadsuccess', function(event, data, previewId, index) {
-            $("#movie-images").next().val(data.response.files.map(e => e.destination + '/' + e.filename).join(","));
         });
     })
 </script>
