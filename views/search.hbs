@@ -1,7 +1,8 @@
 {{> js/home}}
 {{> css/home}}
+{{> js/search}}
 <h2 class="ms-2">Search results with "{{search}}"</h2>
-<div class="row row-cols-1 row-cols-md-6 g-4 mt-5 justify-content-center">
+<div class="row row-cols-1 row-cols-md-6 g-4 mt-5 justify-content-center list-searched-movies">
     {{#each searchMovies}}
     <div class="col p-0 movie-hoverred ms-2 me-2 mb-5" style="width: 13.5rem;">
         <div class="card" style="height: 9rem; width: 13.5rem">

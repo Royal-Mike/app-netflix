@@ -1,0 +1,18 @@
+<script>
+    $(document).ready(function () {
+        function isCloseToBottom(elem) {
+            const rect = elem[0].getBoundingClientRect();
+            return rect.bottom <= $(window).height();
+        }
+
+        $(window).scroll(() => {
+            setTimeout(() => {
+                const lastMovie = $('.list-searched-movies .col:last-child');
+
+                if (lastMovie.length && isCloseToBottom(lastMovie)) {
+                    console.log('load')
+                }
+            }, 2000)
+        })
+    });
+</script>

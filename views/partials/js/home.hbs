@@ -1,11 +1,25 @@
 <script>
     $(document).ready(function () {
+        let src = '', title = '', runtime = '';
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
                 $('.movie-actions', this).removeClass('d-none');
                 $('.thumbnail', this).addClass('d-none');
+
+                src = $('.thumbnail', this).attr('src');
+                title = $('.thumbnail', this).attr('data-title');
+                if (title) title = title.toUpperCase();
+                runtime = $('.movie-runtime', this).text();
+
                 $('.run-video-when-hovering', this).removeClass('d-none');
-                $('.run-video-when-hovering > video', this)[0].play();
+
+                $('.run-video-when-hovering', this).one('click', function () {
+                    const video = $('video', this)[0];
+                    if (video) {
+                        video.play();
+                    }
+                });
+
                 $(this).css({
                     'transform': 'scale(1.5)',
                     'transition': '0.5s',
@@ -13,7 +27,7 @@
                 });
             });
 
-            $(this).on('mouseout', function () {
+            $(this).on('mouseleave', function () {
                 $('.movie-actions', this).addClass('d-none');
                 $('.thumbnail', this).removeClass('d-none');
                 $('.run-video-when-hovering', this).addClass('d-none');
@@ -47,11 +61,11 @@
                                 class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
                                 <i class="fa-solid fa-xmark fs-3"></i>
                             </div>
-                            <img src="/imgs/achelousaurus.jpg" width="100%" class="rounded-top" alt="">
+                            <img src="${src}" width="100%" style="height: 90vh" class="rounded-top" alt="">
                             <div class="d-flex align-items-center position-absolute action-on-movie justify-content-around"
                                 style="width: 60vw;">
                                 <div class="p-3">
-                                    <p class="movie-title fw-bold">GET OUT</p>
+                                    <p class="movie-title fw-bold">${title}</p>
                                     <div class="d-flex">
                                         <div class="bg-light fs-3 ps-5 pe-5 rounded text-dark">
                                             <i class="fa-solid fa-play"></i>
@@ -84,7 +98,7 @@
                                 <div class="d-flex align-items-center">
                                     <b class="text-success me-2">New</b>
                                     <p class="m-0 me-2">2017</p>
-                                    <p class="m-0 me-2">1h 44m</p>
+                                    <p class="m-0 me-2">${runtime}</p>
                                     <p class="rounded border ps-2 pe-2 m-0 me-2">HD</p>
                                     <div class="m-0 d-flex align-items-center me-2">
                                         <i class="fa-solid fa-podcast fs-3"></i>
@@ -98,7 +112,7 @@
                                 </div>
 
                                 <div class="d-flex align-items-center">
-                                    <p class="border ps-2 pe-2 m-0 me-2 fw-bold">18+</p>
+                                    <p class="border ps-2 pe-2 m-0 me-2 fw-bold">13+</p>
                                     <p class="m-0">violence, language, suicide</p>
                                 </div>
 
