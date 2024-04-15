@@ -1,35 +1,39 @@
 <script>
     $(document).ready(function () {
-        let src = '', title = '', runtime = '';
+        let src = '', title = '', runtime = '', genres = '', overview = '';
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
                 $('.movie-actions', this).removeClass('d-none');
                 $('.thumbnail', this).addClass('d-none');
 
+                $('.run-video-when-hovering', this).removeClass('d-none');
+
                 src = $('.thumbnail', this).attr('src');
                 title = $('.thumbnail', this).attr('data-title');
+                overview = $('.thumbnail', this).attr('data-overview');
+
                 if (title) title = title.toUpperCase();
                 runtime = $('.movie-runtime', this).text();
 
-                $('.run-video-when-hovering', this).removeClass('d-none');
+                genres = '';
+                $('.all-genre', this).each(function () {
+                    const genre = $(this).text().trim();
+                    genres = genres + genre + ", ";
+                });
 
-                {{!-- $('.run-video-when-hovering', this).one('click', function () {
-                    const video = $('video', this)[0];
-                    if (video) {
-                        video.play();
-                    }
-                }); --}}
+                if (genres) {
+                    genres = genres.slice(0, genres.length - 2);
+                }
 
                 const video = $('.run-video-when-hovering > video', this)[0];
                 const checkAvailability = video.play();
-                if(checkAvailability !== undefined){
+                if (checkAvailability !== undefined) {
                     checkAvailability.then(() => {
                     }).catch(error => {
                         video.muted = true;
                         video.play();
                     });
                 }
-
 
                 $(this).css({
                     'transform': 'scale(1.5)',
@@ -124,13 +128,11 @@
 
                                 <div class="d-flex align-items-center">
                                     <p class="border ps-2 pe-2 m-0 me-2 fw-bold">13+</p>
-                                    <p class="m-0">violence, language, suicide</p>
+                                    <p class="m-0">${genres}</p>
                                 </div>
 
                                 <div class="mt-5 fs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quaerat neque commodi,
-                                    quisquam cum cupiditate itaque voluptas odit quo sed illo exercitationem deserunt incidunt
-                                    delectus ullam distinctio. Ab, quod molestias.
+                                    ${overview}
                                 </div>
                             </div>
 
@@ -142,12 +144,7 @@
 
                                 <p>
                                     <span class="text-body-tertiary">Genres:</span>
-                                    Independent Movies, Horror Movies, US Movies
-                                </p>
-
-                                <p>
-                                    <span class="text-body-tertiary">This movie is:</span>
-                                    Ominous, Scary, Suspenseful
+                                    ${genres}
                                 </p>
                             </div>
                         </div>
@@ -183,33 +180,29 @@
 
                     <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
                         <hr color="blue" />
-                        <p class="fs-3">About <b>Get Out</b></p>
+                        <p class="fs-3">About <b>${title}</b></p>
                         <p>
                             <span class="text-body-tertiary">Director:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Cast:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Writer:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Genres:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
-                        </p>
-                        <p>
-                            <span class="text-body-tertiary">This movie is:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            ${genres}
                         </p>
                         <div class="d-flex">
                             <span class="text-body-tertiary">Maturity rating:</span>
                             <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
-                                18+</p>
+                                13+</p>
                             <p class="me-4">violence, language, suicide</p>
-                            <p>Recommended for ages 18 and up</p>
+                            <p>Recommended for ages 13 and up</p>
                         </div>
                     </div>
                 </div>
@@ -219,6 +212,7 @@
             $('.all-movies').css({
                 'pointer-events': 'none',
             });
+            genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
         });
 
@@ -237,7 +231,14 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    video.play();
+                    const checkAvailability = video.play();
+                    if (checkAvailability !== undefined) {
+                        checkAvailability.then(() => {
+                        }).catch(error => {
+                            video.muted = true;
+                            video.play();
+                        });
+                    }
                 } else {
                     video.pause();
                 }
