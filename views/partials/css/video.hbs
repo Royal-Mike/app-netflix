@@ -110,7 +110,7 @@
         }
     }
 
-    #playback-speed {
+    .video-controls-popup {
         right: 0;
         bottom: 6.5rem;
         opacity: 0;
@@ -118,17 +118,17 @@
         pointer-events: none;
     }
 
-    #playback-speed h2 {
+    .video-controls-popup h2 {
         margin-left: -1rem;
     }
 
-    #playback-speed .d-flex {
+    .video-controls-popup .d-flex {
         width: 40rem;
         justify-content: space-between;
         align-items: center;
     }
 
-    #playback-speed hr {
+    .video-controls-popup hr {
         bottom: 48%;
         border: 1px solid rgb(160, 160, 160);
         opacity: 1;
@@ -148,5 +148,30 @@
         border: 7px solid rgb(var(--bs-dark-rgb));
         outline: 3px solid rgb(160, 160, 160);
         transform: scale(1.5);
+    }
+
+    ::cue {
+        background: transparent;
+        font-weight: bolder;
+    }
+
+    #subtitles-container > h2 {
+        margin: 0;
+    }
+
+    #subtitles-container > p {
+        cursor: pointer;
+    }
+
+    #subtitles-container > p:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #subtitles-container > p > i {
+        opacity: 0;
+    }
+
+    #subtitles-container > p > i.selected {
+        opacity: 1;
     }
 </style>

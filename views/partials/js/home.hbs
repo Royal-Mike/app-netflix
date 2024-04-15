@@ -1,6 +1,8 @@
 <script>
     $(document).ready(function () {
         let src = '', title = '', runtime = '', genres = '', overview = '';
+        $('video').prop('volume', '0.1');
+
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
                 $('.movie-actions', this).removeClass('d-none');

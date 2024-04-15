@@ -2,14 +2,30 @@
 {{> js/video }}
 <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="background-color:black" id="video-container">
     <video class="position-absolute" width="100%" height="100%">
-        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4" type="video/mp4">
+        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/sintel.mp4" type="video/mp4">
         Your browser does not support the video tag.
+        <track
+            label="English"
+            kind="subtitles"
+            srclang="en"
+            src="subtitles/sintel-en.vtt"
+            default />
+        <track
+            label="Deutsch"
+            kind="subtitles"
+            srclang="de"
+            src="subtitles/sintel-de.vtt" />
+        <track
+            label="Español"
+            kind="subtitles"
+            srclang="es"
+            src="subtitles/sintel-es.vtt" />
     </video>
     <div class="position-absolute top-0 w-100 d-flex controls" id="top-control">
         <a class="link-unstyled" href="/home"><i class="fa-solid fa-arrow-left m-4 ps-1"></i></a>
     </div>
     <div class="position-absolute bottom-0 w-100 d-flex flex-column controls" id="video-control">
-        <div class="position-absolute bg-dark rounded p-4 px-5" id="playback-speed">
+        <div class="video-controls-popup position-absolute bg-dark rounded p-4 px-5" id="playback-speed">
             <h2 class="mb-5">Playback Speed</h2>
             <div class="d-flex position-relative my-4">
                 <hr class="position-absolute w-100 m-0">
@@ -27,6 +43,10 @@
                 <p class="fs-3">1.5x</p>
             </div>
         </div>
+        <div class="video-controls-popup position-absolute bg-dark rounded p-4 px-5" id="subtitles-container">
+            <h2 class="mb-4">Subtitles</h2>
+            <p id="subtitles_none" class="fs-3 px-4"><i class="fa-solid fa-check fs-3 selected"></i>&nbsp;None</p>
+        </div>
         <div class="d-flex justify-content-center align-items-center" id="progress-container">
             <input type="range" class="form-range ps-1" id="video-progress" min="0" value="0">
             <p class="fs-5 m-0 ms-3 pe-1" id="timestamp">00:00</p>
@@ -38,6 +58,7 @@
             <i id="audio" class="fa-solid fa-volume-high m-4 ms-4 pb-2 ps-3 pe-5"></i>
             <input type="range" class="form-range ms-4" id="audio-range" min="0" max="100" value="100">
             <h4 style="margin-left:auto; margin-right:auto">Movie Name</h4>
+            <i id="subtitles" class="fa-regular fa-closed-captioning m-4 me-3 pb-2 ps-1 rtl"></i>
             <i id="playback" class="fa-solid fa-gauge-simple-high m-4 me-3 pb-2 ps-1 rtl"></i>
             <i id="expand" class="fa-solid fa-expand m-4 pb-2 rtl"></i>
         </div>
