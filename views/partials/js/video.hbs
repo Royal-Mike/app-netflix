@@ -37,6 +37,7 @@
         $("video").on("loadedmetadata", () => {
             $("#video-progress").attr("max", video.duration);
             $("#timestamp").text(getTimestamp(video.duration));
+
             const volume = Number(Cookies.get("volume"));
             if (volume > -1) {
                 if (volume === 0) return $("#audio").trigger("click");
@@ -202,5 +203,20 @@
         $("#backward-10").on("click", function () {
             video.currentTime -= 10;
         });
+
+        // Subtitles
+        $("track").on("load loaded", function () {
+            const track = video.textTracks;
+            for (let i = 0; i < track.length; i++) {
+                if (track[i].mode === "disabled") continue;
+                for (let j = 0; j < track[i].cues.length; j++) {
+                    track[i].cues[j].line = -4;
+                }
+            }
+        });
+
+        {{!-- for (let i = 0; i < video.textTracks.length; i++) {
+            video.textTracks[i].mode = "hidden";
+        } --}}
     });
 </script>

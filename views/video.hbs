@@ -2,8 +2,24 @@
 {{> js/video }}
 <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="background-color:black" id="video-container">
     <video class="position-absolute" width="100%" height="100%">
-        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4" type="video/mp4">
+        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/sintel.mp4" type="video/mp4">
         Your browser does not support the video tag.
+        <track
+            label="English"
+            kind="subtitles"
+            srclang="en"
+            src="subtitles/sintel-en.vtt"
+            default />
+        <track
+            label="Deutsch"
+            kind="subtitles"
+            srclang="de"
+            src="subtitles/sintel-de.vtt" />
+        <track
+            label="Español"
+            kind="subtitles"
+            srclang="es"
+            src="subtitles/sintel-es.vtt" />
     </video>
     <div class="position-absolute top-0 w-100 d-flex controls" id="top-control">
         <a class="link-unstyled" href="/home"><i class="fa-solid fa-arrow-left m-4 ps-1"></i></a>

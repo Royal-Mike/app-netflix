@@ -49,6 +49,7 @@ app.use('/imgs', express.static('./imgs'))
 app.use('/favicon', express.static('./favicon'))
 app.use('/js', express.static('./js'));
 app.use('/fonts', express.static('./fonts'))
+app.use('/subtitles', express.static('./subtitles'))
 
 router.use(passport.initialize());
 router.use(passport.session());
