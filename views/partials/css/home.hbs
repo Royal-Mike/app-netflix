@@ -43,7 +43,7 @@
         height: 100%;
         background: linear-gradient(to right, rgba(33, 37, 41, 1), rgba(33, 37, 41, 0));
         pointer-events: none;
-        z-index: 2;
+        z-index: 4;
     }
 
     .overlay-right {
@@ -54,7 +54,7 @@
         height: 100%;
         background: linear-gradient(to left, rgba(33, 37, 41, 1), rgba(33, 37, 41, 0));
         pointer-events: none;
-        z-index: 2;
+        z-index: 4;
     }
 
     .movie-hoverred:hover {
@@ -178,9 +178,16 @@
     }
 
     .poster {
-        width: 100%;
-        margin-top: 0;
+        width: 100vw;
+        height: 100vh;
         scroll-behavior: smooth;   
+        z-index: 5;
+        position: absolute;
+        overflow: auto;
+    }
+
+    .all-movies {
+       
     }
 
     ::-webkit-scrollbar {

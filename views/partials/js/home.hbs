@@ -3,6 +3,9 @@
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
                 $('.movie-actions', this).removeClass('d-none');
+                $('.thumbnail', this).addClass('d-none');
+                $('.run-video-when-hovering', this).removeClass('d-none');
+                $('.run-video-when-hovering > video', this)[0].play();
                 $(this).css({
                     'transform': 'scale(1.5)',
                     'transition': '0.5s',
@@ -12,6 +15,9 @@
 
             $(this).on('mouseout', function () {
                 $('.movie-actions', this).addClass('d-none');
+                $('.thumbnail', this).removeClass('d-none');
+                $('.run-video-when-hovering', this).addClass('d-none');
+                $('.run-video-when-hovering > video', this)[0].pause();
                 $(this).css({
                     'transform': 'scale(1)',
                     'transition': '0.5s',
@@ -28,11 +34,12 @@
         });
 
         $('.open-movie-details').on('click', function () {
+            const position = window.scrollY;
             const poster_template =
                 `
-            <div class="poster">
-                <div class="position-absolute start-50 top-0 translate-middle-x"
-                    style="height: 70vw; overflow-y: auto; overflow-x: hidden; width: 60vw;">
+            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px">
+                <div
+                    style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">
                     <div class="movie-info-part">
                         <div class="m-0 movie-image position-relative">
                             <div
@@ -185,7 +192,7 @@
             $('.outer-container').append(poster_template);
             $('.all-movies').css({
                 'pointer-events': 'none',
-            })
+            });
             $('.overlay-left, .overlay-right').removeClass('invisible');
         });
 
