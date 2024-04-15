@@ -154,28 +154,6 @@ module.exports = {
         let con = null;
         try {
             con = await db.connect();
-            if (tbName === "movies") {
-                await con.none(
-                    `DELETE FROM "movie_genres" WHERE movie_id = $1`,
-                    [value]
-                );
-                await con.none(
-                    `DELETE FROM "now_playing_movies" WHERE movie_id = $1`,
-                    [value]
-                );
-                await con.none(
-                    `DELETE FROM "popular_movies" WHERE movie_id = $1`,
-                    [value]
-                );
-                await con.none(
-                    `DELETE FROM "top_rated_movies" WHERE movie_id = $1`,
-                    [value]
-                );
-                await con.none(
-                    `DELETE FROM "upcoming_movies" WHERE movie_id = $1`,
-                    [value]
-                );
-            }
             const rs = await con.none(
                 `DELETE FROM "${tbName}" WHERE "${fieldName}" = $1`,
                 [value]

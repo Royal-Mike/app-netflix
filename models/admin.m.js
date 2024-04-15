@@ -12,9 +12,7 @@ module.exports = class Admin {
     }
     static async addMovie(obj) {
         const id = await db.add("movies", obj);
-        console.log(id)
         const genres = JSON.parse(obj.genres);
-        console.log(genres)
         genres.forEach(async genre => {
             await db.add("movie_genres", { movie_id: id, genre_id: genre.id });
         });
@@ -25,6 +23,11 @@ module.exports = class Admin {
         return rs;
     }
     static async deleteMovie(id) {
+        await db.delete("movie_genres", "movie_id", id);
+        await db.delete("now_playing_movies", "movie_id", id);
+        await db.delete("popular_movies", "movie_id", id);
+        await db.delete("top_rated_movies", "movie_id", id);
+        await db.delete("upcoming_movies", "movie_id", id);
         const rs = await db.delete("movies", "id", id);
         return rs;
     }
