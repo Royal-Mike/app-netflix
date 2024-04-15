@@ -69,14 +69,38 @@
             $("#edit-movie").removeClass("d-none").find("input,textarea").val("");
             $("#movie-container,#movie-pagination,.btn-edit-movie").addClass("d-none");
             $("#add-movie").removeClass("d-none");
+            $("#movie-genres").next().find("input").attr("checked", false);
         });
 
         $("#add-movie").on("click", function() {
             let movieAdd = {};
             for (const key in movieCur) {
                 if (!fields.includes(key)) continue;
-                movieAdd[key] = $(`#movie-${key}`).next().val();
-                if (!movieAdd[key]) return alert('Xin hãy điền đầy đủ thông tin!');
+
+                if (key === "genres") {
+                    let genres = [];
+                    $("#movie-genres").next().find("input:checked").each(function(index, item) {
+                        genres.push({ id: $(item).attr("id").replace("genre", ""), name: $(item).next().text() });
+                    });
+                    movieAdd[key] = JSON.stringify(genres);
+                }
+
+                else {
+                    movieAdd[key] = $(`#movie-${key}`).next().val();
+                }
+
+                if (!movieAdd[key]) return alert('Please enter all information');
+
+                if (key.startsWith("production")) {
+                    const names = movieAdd[key].split(",");
+                    let data = [];
+
+                    names.forEach(name => {
+                        data.push({ name: name.trim() });
+                    });
+
+                    movieAdd[key] = JSON.stringify(data);
+                }
             }
 
             $.ajax({
@@ -84,7 +108,7 @@
                 url: '/admin/addmovie',
                 data: movieAdd,
                 success: function(result) {
-                    alert('Thêm sản phẩm thành công!');
+                    alert('Movie Added');
                     window.location.reload();
                 },
                 error: function(result) {
@@ -98,6 +122,7 @@
             $(".file-input").hide();
             $("#edit-movie").removeClass("d-none");
             $("#movie-container,#movie-pagination").addClass("d-none");
+            $("#movie-genres").next().find("input").attr("checked", false);
 
             movieCur = data[$(this).index()];
 

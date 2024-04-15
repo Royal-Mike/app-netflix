@@ -51,14 +51,18 @@ module.exports = {
     add: async (tbName, obj) => {
         let con = null;
         try {
-            cn.database = process.env.DB_NAME;
-            db = pgp(cn);
             con = await db.connect();
-            const rs = await con.one(`SELECT MAX(id) FROM ${tbName}`);
-            obj.id = rs.max + 1;
+
+            if (tbName === "movies") {
+                const rs = await con.one(`SELECT MAX(id) FROM ${tbName}`);
+                obj.id = rs.max + 1;
+            }
+
             let sql = pgp.helpers.insert(obj, null, tbName);
-            await con.none(sql);
-            return 1;
+            const rs = await con.none(sql);
+
+            if (tbName === "movies") return obj.id;
+            return rs;
         } catch (error) {
             throw error;
         } finally {

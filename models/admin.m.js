@@ -11,8 +11,14 @@ module.exports = class Admin {
         return rs;
     }
     static async addMovie(obj) {
-        const rs = await db.add("movies", obj);
-        return rs;
+        const id = await db.add("movies", obj);
+        console.log(id)
+        const genres = JSON.parse(obj.genres);
+        console.log(genres)
+        genres.forEach(async genre => {
+            await db.add("movie_genres", { movie_id: id, genre_id: genre.id });
+        });
+        return id;
     }
     static async updateMovie(data) {
         const rs = await db.updateMovie(data);

@@ -44,7 +44,8 @@ module.exports = {
         res.send(page);
     },
     addMovie: async (req, res) => {
-        await adminM.addMovie({ name: req.body.name });
+        const data = req.body;
+        await adminM.addMovie(data);
         res.send('success');
     },
     updateMovie: async (req, res) => {
