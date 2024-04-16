@@ -1,37 +1,41 @@
 <script>
     $(document).ready(function () {
+        let src = '', title = '', runtime = '', genres = '', overview = '';
         $('video').prop('volume', '0.1');
 
-        let src = '', title = '', runtime = '';
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
                 $('.movie-actions', this).removeClass('d-none');
                 $('.thumbnail', this).addClass('d-none');
 
+                $('.run-video-when-hovering', this).removeClass('d-none');
+
                 src = $('.thumbnail', this).attr('src');
                 title = $('.thumbnail', this).attr('data-title');
+                overview = $('.thumbnail', this).attr('data-overview');
+
                 if (title) title = title.toUpperCase();
                 runtime = $('.movie-runtime', this).text();
 
-                $('.run-video-when-hovering', this).removeClass('d-none');
+                genres = '';
+                $('.all-genre', this).each(function () {
+                    const genre = $(this).text().trim();
+                    genres = genres + genre + ", ";
+                });
 
-                {{!-- $('.run-video-when-hovering', this).one('click', function () {
-                    const video = $('video', this)[0];
-                    if (video) {
-                        video.play();
-                    }
-                }); --}}
+                if (genres) {
+                    genres = genres.slice(0, genres.length - 2);
+                }
 
                 const video = $('.run-video-when-hovering > video', this)[0];
                 const checkAvailability = video.play();
-                if(checkAvailability !== undefined){
+                if (checkAvailability !== undefined) {
                     checkAvailability.then(() => {
                     }).catch(error => {
                         video.muted = true;
                         video.play();
                     });
                 }
-
 
                 $(this).css({
                     'transform': 'scale(1.5)',
@@ -54,7 +58,18 @@
         });
 
         $('.outer-container').on('click', ".cancel-review", function () {
-            $('.poster').remove();
+            $('.poster').css({
+                'animation': 'removePoster 1s'
+            })
+
+            $('#video-in-poster').addClass('d-none');
+            $('#video-in-poster').currentTime = 0;
+            $('#play-video-in-poster', this).removeClass('d-none');
+
+            setTimeout(() => {
+                $('.poster').remove();
+            }, 500)
+
             $('.all-movies').css({
                 'pointer-events': '',
             })
@@ -65,7 +80,7 @@
             const position = window.scrollY;
             const poster_template =
                 `
-            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px">
+            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px;">
                 <div
                     style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">
                     <div class="movie-info-part">
@@ -74,8 +89,15 @@
                                 class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
                                 <i class="fa-solid fa-xmark fs-3"></i>
                             </div>
-                            <img src="${src}" width="100%" style="height: 90vh" class="rounded-top" alt="">
-                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-around"
+                            <img src="${src}" width="100%" style="height: 80vh" class="rounded-top" id="play-video-in-poster" alt="">
+                            <div class="m-0 position-relative d-none" id="video-in-poster" style="height: 80vh; z-index: -1">
+                                <video id="poster-video" width="100%" height="100%" style="object-fit: cover;" loop>
+                                    <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4"
+                                        type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-between"
                                 style="width: 60vw;">
                                 <div class="p-3">
                                     <p class="movie-title fw-bold">${title}</p>
@@ -96,13 +118,10 @@
                                     </div>
                                 </div>
 
-                                <div class="indistinct-chattering">
-                                    <b class="fs-4">[indistinct chattering]</b>
-                                </div>
-
                                 <div
                                     class="rounded-circle ms-5 d-flex justify-content-center align-self-end border border-3 p-1 mb-3 me-3 volumn">
-                                    <i class="fa-solid fa-volume-high fs-4 text-body-tertiary"></i>
+                                    <i class="fa-solid fa-volume-high fs-4 text-light turn-on-volumn"></i>
+                                    <i class="fa-solid fa-volume-xmark fs-4 text-light turn-off-volumn d-none"></i>
                                 </div>
                             </div>
                         </div>
@@ -126,13 +145,11 @@
 
                                 <div class="d-flex align-items-center">
                                     <p class="border ps-2 pe-2 m-0 me-2 fw-bold">13+</p>
-                                    <p class="m-0">violence, language, suicide</p>
+                                    <p class="m-0">${genres}</p>
                                 </div>
 
                                 <div class="mt-5 fs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda quaerat neque commodi,
-                                    quisquam cum cupiditate itaque voluptas odit quo sed illo exercitationem deserunt incidunt
-                                    delectus ullam distinctio. Ab, quod molestias.
+                                    ${overview}
                                 </div>
                             </div>
 
@@ -144,12 +161,7 @@
 
                                 <p>
                                     <span class="text-body-tertiary">Genres:</span>
-                                    Independent Movies, Horror Movies, US Movies
-                                </p>
-
-                                <p>
-                                    <span class="text-body-tertiary">This movie is:</span>
-                                    Ominous, Scary, Suspenseful
+                                    ${genres}
                                 </p>
                             </div>
                         </div>
@@ -185,33 +197,29 @@
 
                     <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
                         <hr color="blue" />
-                        <p class="fs-3">About <b>Get Out</b></p>
+                        <p class="fs-3">About <b>${title}</b></p>
                         <p>
                             <span class="text-body-tertiary">Director:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Cast:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Writer:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
                         </p>
                         <p>
                             <span class="text-body-tertiary">Genres:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
-                        </p>
-                        <p>
-                            <span class="text-body-tertiary">This movie is:</span>
-                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                            ${genres}
                         </p>
                         <div class="d-flex">
                             <span class="text-body-tertiary">Maturity rating:</span>
                             <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
-                                18+</p>
+                                13+</p>
                             <p class="me-4">violence, language, suicide</p>
-                            <p>Recommended for ages 18 and up</p>
+                            <p>Recommended for ages 13 and up</p>
                         </div>
                     </div>
                 </div>
@@ -221,11 +229,31 @@
             $('.all-movies').css({
                 'pointer-events': 'none',
             });
+            genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
+
+            $('#play-video-in-poster').on('click', function () {
+                $(this).addClass('d-none');
+                $('#poster-video')[0].play();
+                $('#poster-video').prop('volume', '0.1');
+                $('#video-in-poster').removeClass('d-none');
+            })
+
+            $('.turn-on-volumn').on('click', function () {
+                $('#poster-video')[0].muted = true;
+                $(this).addClass('d-none');
+                $('.turn-off-volumn').removeClass('d-none');
+            })
+
+            $('.turn-off-volumn').on('click', function () {
+                $('#poster-video')[0].muted = false;
+                $(this).addClass('d-none');
+                $('.turn-on-volumn').removeClass('d-none');
+            })
         });
 
         $('.play-video').on('click', function () {
-            window.location.href = '/watch';
+            window.location.href = `/watch?name=${title}`;
         });
 
         const video = $('#video')[0];
@@ -239,7 +267,14 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    video.play();
+                    const checkAvailability = video.play();
+                    if (checkAvailability !== undefined) {
+                        checkAvailability.then(() => {
+                        }).catch(error => {
+                            video.muted = true;
+                            video.play();
+                        });
+                    }
                 } else {
                     video.pause();
                 }
