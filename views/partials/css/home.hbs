@@ -184,6 +184,25 @@
         z-index: 5;
         position: absolute;
         overflow: auto;
+        animation: scalePoster 1s;
+    }
+
+    @keyframes scalePoster {
+        0% {
+            transform: scale(0.3);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes removePoster {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0.1);
+        }
     }
 
     .all-movies {
@@ -215,11 +234,6 @@
         font-size: 3rem;
         -webkit-text-stroke: 3px rgb(0, 0, 0);
         font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
-    }
-
-    .indistinct-chattering {
-        margin-left: 8rem;
-        font-weight: bolder;
     }
 
     .action-on-movie {

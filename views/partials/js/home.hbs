@@ -58,7 +58,18 @@
         });
 
         $('.outer-container').on('click', ".cancel-review", function () {
-            $('.poster').remove();
+            $('.poster').css({
+                'animation': 'removePoster 1s'
+            })
+
+            $('#video-in-poster').addClass('d-none');
+            $('#video-in-poster').currentTime = 0;
+            $('#play-video-in-poster', this).removeClass('d-none');
+
+            setTimeout(() => {
+                $('.poster').remove();
+            }, 500)
+
             $('.all-movies').css({
                 'pointer-events': '',
             })
@@ -69,7 +80,7 @@
             const position = window.scrollY;
             const poster_template =
                 `
-            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px">
+            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px;">
                 <div
                     style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">
                     <div class="movie-info-part">
@@ -78,8 +89,15 @@
                                 class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
                                 <i class="fa-solid fa-xmark fs-3"></i>
                             </div>
-                            <img src="${src}" width="100%" style="height: 90vh" class="rounded-top" alt="">
-                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-around"
+                            <img src="${src}" width="100%" style="height: 80vh" class="rounded-top" id="play-video-in-poster" alt="">
+                            <div class="m-0 position-relative d-none" id="video-in-poster" style="height: 80vh; z-index: -1">
+                                <video id="poster-video" width="100%" height="100%" style="object-fit: cover;" loop>
+                                    <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4"
+                                        type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-between"
                                 style="width: 60vw;">
                                 <div class="p-3">
                                     <p class="movie-title fw-bold">${title}</p>
@@ -100,13 +118,10 @@
                                     </div>
                                 </div>
 
-                                <div class="indistinct-chattering">
-                                    <b class="fs-4">[indistinct chattering]</b>
-                                </div>
-
                                 <div
                                     class="rounded-circle ms-5 d-flex justify-content-center align-self-end border border-3 p-1 mb-3 me-3 volumn">
-                                    <i class="fa-solid fa-volume-high fs-4 text-body-tertiary"></i>
+                                    <i class="fa-solid fa-volume-high fs-4 text-light turn-on-volumn"></i>
+                                    <i class="fa-solid fa-volume-xmark fs-4 text-light turn-off-volumn d-none"></i>
                                 </div>
                             </div>
                         </div>
@@ -216,10 +231,29 @@
             });
             genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
+
+            $('#play-video-in-poster').on('click', function () {
+                $(this).addClass('d-none');
+                $('#poster-video')[0].play();
+                $('#poster-video').prop('volume', '0.1');
+                $('#video-in-poster').removeClass('d-none');
+            })
+
+            $('.turn-on-volumn').on('click', function () {
+                $('#poster-video')[0].muted = true;
+                $(this).addClass('d-none');
+                $('.turn-off-volumn').removeClass('d-none');
+            })
+
+            $('.turn-off-volumn').on('click', function () {
+                $('#poster-video')[0].muted = false;
+                $(this).addClass('d-none');
+                $('.turn-on-volumn').removeClass('d-none');
+            })
         });
 
         $('.play-video').on('click', function () {
-            window.location.href = '/watch';
+            window.location.href = `/watch?name=${title}`;
         });
 
         const video = $('#video')[0];
