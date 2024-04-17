@@ -232,12 +232,12 @@
             genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
 
-            $('#play-video-in-poster').on('click', function () {
-                $(this).addClass('d-none');
+            setTimeout(() => {
+                $('#play-video-in-poster').addClass('d-none');
                 $('#poster-video')[0].play();
                 $('#poster-video').prop('volume', '0.1');
                 $('#video-in-poster').removeClass('d-none');
-            })
+            }, 1000);
 
             $('.turn-on-volumn').on('click', function () {
                 $('#poster-video')[0].muted = true;

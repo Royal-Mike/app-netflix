@@ -1,19 +1,159 @@
 <script>
     $(document).ready(function () {
-        function isCloseToBottom(elem) {
-            const rect = elem[0].getBoundingClientRect();
-            return rect.bottom <= $(window).height();
-        }
+        $('video').prop('volume', '0.1');
 
-        $(window).scroll(() => {
-            setTimeout(() => {
-                const lastMovie = $('.list-searched-movies .col:last-child');
+        setInterval(async () => {
+            let lastMovie = $('.list-searched-movies .movie-hoverred:last-child');
+            let lastMovieTop = lastMovie.offset().top;
+            let lastMovieHeight = lastMovie.outerHeight();
+            let lastMovieMiddle = lastMovieTop + lastMovieHeight / 2;
+            let scrollTop = $(window).scrollTop();
+            let windowHeight = $(window).height();
 
-                if (lastMovie.length && isCloseToBottom(lastMovie)) {
-                    console.log('load')
+            if (lastMovieMiddle >= scrollTop && lastMovieMiddle <= (scrollTop + windowHeight)) {
+
+                let allMovies = $('.list-searched-movies .movie-hoverred').length;
+                let queryString = window.location.href.split('?')[1];
+                let queryParams = new URLSearchParams(queryString);
+                let userInput = queryParams.get('query');
+                let page = allMovies / 20 + 1;
+
+                let dat = '';
+                const url = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${userInput}&page=${page}`
+                try {
+                    const response = await fetch(url);
+                    const json = await response.json();
+                    dat = json.results;
+                    dat.forEach(movie => {
+                        movie.runtime = Math.floor(Math.random() * 3 + 1) + "h " + Math.floor(Math.random() * 60) + "m";
+                        const path = movie.poster_path ? movie.poster_path : movie.backdrop_path;
+                        const isAdult = movie.adult ? '<p class="m-0 ps-1 pe-1">18+</p>' : '<p class="m-0 ps-1 pe-1">13+</p>';
+
+                        let template =
+                            `
+                            <div class="col p-0 movie-hoverred ms-2 me-2 mb-5" style="width: 13.5rem;">
+                                <div class="card" style="height: 9rem; width: 13.5rem">
+                                    <img src="https://image.tmdb.org/t/p/original${path}"
+                                        class="d-block rounded-top thumbnail w-100 h-100" alt="${movie.title}"
+                                        data-title="${movie.original_title}" data-overview="${movie.overview}">
+                                    <div style="margin: 0; width: 13.5rem; height: 9rem;" class="d-none run-video-when-hovering">
+                                        <video width="100%" height="100%" style="object-fit: cover;">
+                                            <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                    <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                                        <div class="option-list d-flex">
+                                            <div
+                                                class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center play-video">
+                                                <i class="fa-solid fa-play text-dark"></i>
+                                            </div>
+                                            <div
+                                                class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </div>
+                                            <div
+                                                class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                            </div>
+                                            <div
+                                                class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-2 open-movie-details">
+                                                <i class="fa-solid fa-chevron-down"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-success fw-bold m-0 mt-2 mb-2 match">82% Match</p>
+                                        <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                                            <div class="border border-1 m-0">
+                                                ${isAdult}
+                                            </div>
+                                            <p class="m-0 ms-2 movie-runtime">${movie.runtime}</p>
+                                            <div class="border border-2 rounded m-0 ms-2">
+                                                <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                                            </div>
+                                            <div class="m-0 ms-2 d-flex align-items-center">
+                                                <i class="fa-solid fa-podcast fs-5"></i>
+                                                <div class="spatial-audio">
+                                                    <p class="fw-bold m-0 ms-1">Spatial</p>
+                                                    <p class="m-0 ms-1 lh-1">Audio</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-start flex-wrap mt-2 align-items-center movie-categories">
+                                            {{#each this.genres}}
+                                            {{#if @first}}
+                                            <p class="text-light m-0 all-genre">{{this.name}}</p>
+                                            {{else}}
+                                            <div class="m-0 bg-secondary rounded ms-2"></div>
+                                            <p class="text-light m-0 ms-2 all-genre">{{this.name}}</p>
+                                            {{/if}}
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+
+                        $('.list-searched-movies').append(template);
+                        $('.movie-hoverred').each(function () {
+                            $(this).on('mouseover', function () {
+                                $('.movie-actions', this).removeClass('d-none');
+                                $('.thumbnail', this).addClass('d-none');
+
+                                $('.run-video-when-hovering', this).removeClass('d-none');
+
+                                src = $('.thumbnail', this).attr('src');
+                                title = $('.thumbnail', this).attr('data-title');
+                                overview = $('.thumbnail', this).attr('data-overview');
+
+                                if (title) title = title.toUpperCase();
+                                runtime = $('.movie-runtime', this).text();
+
+                                genres = '';
+                                $('.all-genre', this).each(function () {
+                                    const genre = $(this).text().trim();
+                                    genres = genres + genre + ", ";
+                                });
+
+                                if (genres) {
+                                    genres = genres.slice(0, genres.length - 2);
+                                }
+
+                                const video = $('.run-video-when-hovering > video', this)[0];
+                                const checkAvailability = video.play();
+                                if (checkAvailability !== undefined) {
+                                    checkAvailability.then(() => {
+                                    }).catch(error => {
+                                        video.muted = true;
+                                        video.play();
+                                    });
+                                }
+
+                                $(this).css({
+                                    'transform': 'scale(1.5)',
+                                    'transition': '0.5s',
+                                    'position': 'relative',
+                                });
+                            });
+
+                            $(this).on('mouseleave', function () {
+                                $('.movie-actions', this).addClass('d-none');
+                                $('.thumbnail', this).removeClass('d-none');
+                                $('.run-video-when-hovering', this).addClass('d-none');
+                                $('.run-video-when-hovering > video', this)[0].pause();
+                                $('.run-video-when-hovering > video', this)[0].currentTime = 0;
+                                $(this).css({
+                                    'transform': 'scale(1)',
+                                    'transition': '0.5s',
+                                });
+                            });
+                        });
+                    })
+                } catch (err) {
+                    console.error('Error:', err);
                 }
-            }, 2000)
-        });
+            }
+        }, 3000);
 
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
@@ -83,9 +223,9 @@
                                 class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
                                 <i class="fa-solid fa-xmark fs-3"></i>
                             </div>
-                            <img src="${src}" width="100%" style="height: 70vh" class="rounded-top" alt="">
-                            <div>
-                                <video width="100%" height="100%" style="object-fit: cover;">
+                            <img src="${src}" width="100%" style="height: 80vh" class="rounded-top" id="play-video-in-poster" alt="">
+                            <div class="m-0 position-relative d-none" id="video-in-poster" style="height: 80vh; z-index: -1">
+                                <video id="poster-video" width="100%" height="100%" style="object-fit: cover;" loop>
                                     <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -114,7 +254,8 @@
 
                                 <div
                                     class="rounded-circle ms-5 d-flex justify-content-center align-self-end border border-3 p-1 mb-3 me-3 volumn">
-                                    <i class="fa-solid fa-volume-high fs-4 text-body-tertiary"></i>
+                                    <i class="fa-solid fa-volume-high fs-4 text-light turn-on-volumn"></i>
+                                    <i class="fa-solid fa-volume-xmark fs-4 text-light turn-off-volumn d-none"></i>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +373,25 @@
                 })
                 $('.overlay-left, .overlay-right').addClass('invisible');
             });
+
+            setTimeout(() => {
+                $('#play-video-in-poster').addClass('d-none');
+                $('#poster-video')[0].play();
+                $('#poster-video').prop('volume', '0.1');
+                $('#video-in-poster').removeClass('d-none');
+            }, 1000);
+
+            $('.turn-on-volumn').on('click', function () {
+                $('#poster-video')[0].muted = true;
+                $(this).addClass('d-none');
+                $('.turn-off-volumn').removeClass('d-none');
+            })
+
+            $('.turn-off-volumn').on('click', function () {
+                $('#poster-video')[0].muted = false;
+                $(this).addClass('d-none');
+                $('.turn-on-volumn').removeClass('d-none');
+            })
         });
     });
 </script>
