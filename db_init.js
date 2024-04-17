@@ -65,7 +65,17 @@ async function createDatabase() {
 				tagline VARCHAR(255)
 			)
 		`);
-
+		
+		await pool.query(`
+		CREATE TABLE IF NOT EXISTS subscriptions (
+			userId INTEGER REFERENCES users(id),
+			subscribeCode VARCHAR(10) UNIQUE,
+			status VARCHAR(20) CHECK (status IN ('subscribed', 'trial', 'none')),
+			startDate DATE,
+			endDate DATE,
+			PRIMARY KEY (userId, subscribeCode)
+		);
+	  `);
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS genres (
 				id SERIAL PRIMARY KEY,
