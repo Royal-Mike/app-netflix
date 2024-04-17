@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <input id = "myInputField" id="form-control me-2" type="text" onchange={}>
+    <input  id="form-control me-2" type="text" onchange={}>
     <div id="result">The typed value is <span id="info"></span></div>
     <div class="searchmovieName"> Movie name is: </div> 
     
@@ -36,7 +36,7 @@
 (async function findID () {
     try {
         const result = await fetchMovieDataSynchronously();
-        const myInputField = document.getElementById("myInputField")
+        const myInputField = document.getElementById("form-control me-2")
 
         myInputField.addEventListener("input", (e) =>{
             console.log(myInputField.value)
@@ -67,11 +67,7 @@
             }
                 return result.genres[i].name 
             }
-           
-            
         }
-        
-        // console.log(result.genres[0].name);
    })
 
 
@@ -84,7 +80,9 @@
     }
 })();
 
+
+// Vd ve cac category: War , action, comedy, animation
         </Script>
  </body>
-
 </html>
+
