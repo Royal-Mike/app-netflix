@@ -13,7 +13,6 @@ module.exports = {
         const redirectUrl = `${req.protocol}://${req.get('host')}/subscribe/activate?subscribe_code=${subscribe_code}`;
         const ipnUrl = `${req.protocol}://${req.get('host')}/payment/notify`;
         const orderInfo = "Subscription Payment";
-        console.log("subscribe_code", subscribe_code);
         const paymentUrl = await momoC.getPayUrl(orderInfo, redirectUrl, ipnUrl);
     
         await subscribeM.createSubscription(user_id, subscribe_code, 'none', new Date(), null);
@@ -30,7 +29,6 @@ module.exports = {
         let dark = theme === "dark" ? true : false;
 
           const subscribe_code = req.query.subscribe_code;
-          console.log("subscribe_code before update", subscribe_code)
           const subscription = await subscribeM.getSubscriptionByCode(subscribe_code);
       
           if (subscription) {

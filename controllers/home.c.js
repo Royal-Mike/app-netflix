@@ -15,7 +15,7 @@ module.exports = {
       } else {
         const currentDate = new Date();
         const subscriptionEndDate = new Date(subscription.end_date);
-
+        console.log(subscription,currentDate, subscriptionEndDate,subscription.end_date, currentDate < subscriptionEndDate);
         const popular_movies = await homeM.getPopularMovies();
         const now_playing_movies = await homeM.getNowPlayingMovies();
         const top_rated_movies = await homeM.getTopRatedMovies();
