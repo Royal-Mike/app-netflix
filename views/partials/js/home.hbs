@@ -74,7 +74,8 @@
 
             $('.all-movies').css({
                 'pointer-events': '',
-            })
+            });
+            $('.all-movies').removeClass('unscrollable');
             $('.overlay-left, .overlay-right').addClass('invisible');
         });
 
@@ -197,32 +198,31 @@
                             </div>
                         </div>
 
-                        <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
-                            <hr color="blue" />
-                            <p class="fs-3">About <b>${title}</b></p>
-                            <p>
-                                <span class="text-body-tertiary">Director:</span>
-                                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
-                            </p>
-                            <p>
-                                <span class="text-body-tertiary">Cast:</span>
-                                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
-                            </p>
-                            <p>
-                                <span class="text-body-tertiary">Writer:</span>
-                                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
-                            </p>
-                            <p>
-                                <span class="text-body-tertiary">Genres:</span>
-                                ${genres}
-                            </p>
-                            <div class="d-flex">
-                                <span class="text-body-tertiary">Maturity rating:</span>
-                                <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
-                                    13+</p>
-                                <p class="me-4">violence, language, suicide</p>
-                                <p>Recommended for ages 13 and up</p>
-                            </div>
+                    <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
+                        <hr color="blue" />
+                        <p class="fs-3">About <b>${title}</b></p>
+                        <p>
+                            <span class="text-body-tertiary">Director:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Cast:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Writer:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+                        </p>
+                        <p>
+                            <span class="text-body-tertiary">Genres:</span>
+                            ${genres}
+                        </p>
+                        <div class="d-flex">
+                            <span class="text-body-tertiary">Maturity rating:</span>
+                            <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
+                                13+</p>
+                            <p class="me-4">${genres}</p>
+                            <p>Recommended for ages 13 and up</p>
                         </div>
                     </div>
                 </div>
@@ -235,8 +235,21 @@
             $('.all-movies').css({
                 'pointer-events': 'none',
             });
+            $('.all-movies').addClass('unscrollable');
+{{!-- 
+            $('.poster').on('scroll', function(e) {
+                if ($(this).scrollTop() >= position - 45) {
+                    e.preventDefault();
+                    $(this).scrollTop(position - 45);
+                }
+            }) --}}
+
             genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
+
+            $('.poster').on('scroll', function () {
+
+            });
 
             setTimeout(() => {
                 $('#play-video-in-poster').addClass('d-none');
