@@ -57,6 +57,10 @@
         z-index: 4;
     }
 
+    .movie-hoverred {
+        cursor: pointer;
+    }
+
     .movie-hoverred:hover {
         z-index: 3;
     }
@@ -71,6 +75,17 @@
 
     .movie-hoverred:nth-child(6n) {
         transform-origin: right;
+    }
+
+    .movie-hoverred .run-video-when-hovering {
+        width: 15.5rem;
+        height: 9rem;
+        margin: 0;
+    }
+
+    .movie-hoverred .run-video-when-hovering video {
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
     }
 
     .next-prev-button {
@@ -93,11 +108,17 @@
     .movie-hoverred>img,
     .movie-top-10-VN-info>img {
         height: 9rem;
-        width: 13.5rem;
+        width: 15.5rem;
+        border-radius: 0.3rem;
+        object-fit: cover;
     }
 
     .movie-actions {
-        width: 13.5rem;
+        width: 15.5rem;
+    }
+
+    .movie-actions .rounded-circle {
+        transition: 0.5s;
     }
 
     .option-list div {
@@ -290,5 +311,16 @@
 
     .contact {
         margin-top: 3rem;
+    }
+
+    .carousel button {
+        z-index: 3;
+        background-color: transparent !important;
+        filter: invert(1) grayscale(100);
+        opacity: 0;
+    }
+
+    .carousel:hover button {
+        opacity: 1;
     }
 </style>
