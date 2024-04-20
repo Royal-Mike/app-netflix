@@ -72,7 +72,8 @@
 
             $('.all-movies').css({
                 'pointer-events': '',
-            })
+            });
+            $('.all-movies').removeClass('unscrollable');
             $('.overlay-left, .overlay-right').addClass('invisible');
         });
 
@@ -80,9 +81,9 @@
             const position = window.scrollY;
             const poster_template =
                 `
-            <div class="poster d-flex justify-content-center" style="top: ${position - 25}px;">
+            <div class="poster d-flex justify-content-center" style="top: ${position - 45}px; overflow: overlay">
                 <div
-                    style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">
+                    style="height: 120rem; overflow-x: hidden; width: 70vw; z-index: 4">
                     <div class="movie-info-part">
                         <div class="m-0 movie-image position-relative">
                             <div
@@ -218,19 +219,33 @@
                             <span class="text-body-tertiary">Maturity rating:</span>
                             <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
                                 13+</p>
-                            <p class="me-4">violence, language, suicide</p>
+                            <p class="me-4">${genres}</p>
                             <p>Recommended for ages 13 and up</p>
                         </div>
                     </div>
                 </div>
             </div>
             `
+
             $('.outer-container').append(poster_template);
             $('.all-movies').css({
                 'pointer-events': 'none',
             });
+            $('.all-movies').addClass('unscrollable');
+{{!-- 
+            $('.poster').on('scroll', function(e) {
+                if ($(this).scrollTop() >= position - 45) {
+                    e.preventDefault();
+                    $(this).scrollTop(position - 45);
+                }
+            }) --}}
+
             genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
+
+            $('.poster').on('scroll', function () {
+
+            });
 
             setTimeout(() => {
                 $('#play-video-in-poster').addClass('d-none');
