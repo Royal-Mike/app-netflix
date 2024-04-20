@@ -10,7 +10,7 @@
     <div class="all-movies">
         <div class="overlay-left invisible"></div>
 
-        <div class="suggested-movie">
+        <div class="suggested-movie" style="overflow: hidden;">
             <div class="overlay-top"></div>
             <div>
                 {{!-- <img src="https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg" alt="" width="100%"
@@ -23,44 +23,41 @@
                     </video>
                 </div>
 
-                <div class="position-absolute top-50 left-0 ms-2">
-                    <h2 class="w-25">
-                        COOKIERUN KINGDOM
-                    </h2>
+                <div class="position-absolute w-100 left-0 ms-4" style="top: 45%;">
+                    <h1 class="text-light w-50" style="font-size: 4rem;">
+                        COOKIE RUN: KINGDOM
+                    </h1>
 
-                    <p class="mt-5" style="width: 35%;">{{this.tagline}} Lorem ipsum, dolor sit amet consectetur
+                    <p class="text-light mt-2" style="width: 35%;">
+                        Lorem ipsum, dolor sit amet consectetur
                         adipisicing elit.
                         Dolore
                         debitis quas
                         sapiente alias sit obcaecati dolorum placeat, expedita at, assumenda architecto suscipit,
-                        aliquid ullam explicabo! Nihil fugit ex provident quia.</p>
+                        aliquid ullam explicabo! Nihil fugit ex provident quia.
+                    </p>
 
-                    <div class="d-flex mt-3 z-3 position-relative">
-                        <div class="bg-light fs-3 ps-5 pe-5 rounded text-dark d-flex align-items-center play-video"
-                            style="width: fit-content;">
-                            <i class="fa-solid fa-play me-2"></i>
-                            <p class="m-0">Play</p>
+                    <div class="d-flex mt-5 z-3 position-relative">
+                        <div class="bg-light fs-5 px-5 py-1 rounded text-dark d-flex justify-content-center align-items-center play-video"
+                            style="width: fit-content; cursor: pointer;">
+                            <i class="fa-solid fa-play fs-4 me-2" style="line-height: normal"></i>
+                            <p class="m-0"><strong>Play</strong></p>
                         </div>
 
-                        <div class="bg-secondary bg-opacity-50 fs-3 ps-5 pe-5 rounded text-dark ms-2 d-flex align-items-center open-movie-details"
-                            style="width: fit-content;">
-                            <i class="fa-solid fa-circle-info me-2"></i>
-                            <p class="m-0">More Info</p>
+                        <div class="bg-secondary bg-opacity-50 fs-5 px-5 py-1 rounded text-dark ms-2 d-flex justify-content-center align-items-center open-movie-details"
+                            style="width: fit-content; cursor: pointer;">
+                            <i class="fa-solid fa-circle-info text-light fs-4 me-2" style="line-height: normal"></i>
+                            <p class="text-light m-0"><strong>More Info</strong></p>
                         </div>
 
-                        <div
-                            class="rounded-circle ms-auto d-flex justify-content-center align-self-center border border-3 border-light p-1 volumn">
+                        <div class="rounded-circle ms-auto d-flex justify-content-center align-items-center align-self-center border border-3 border-light p-1 volumn" style="line-height: normal;">
                             <i class="fa-solid fa-volume-high fs-4 text-light turn-on-volumn d-none"></i>
                             <i class="fa-solid fa-volume-xmark fs-4 text-light turn-off-volumn"></i>
                         </div>
 
-                        <div class="ps-3 pb-1 pe-5 ms-2 bg-dark bg-opacity-75 border-start border-3 border-light">
-                            <p class="fs-3 m-0">13+</p>
+                        <div class="ps-3 pb-1 pe-5 ms-3 bg-dark bg-opacity-75 border-start border-3 border-light">
+                            <p class="fs-3 m-0 pe-5">13+</p>
                         </div>
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-3 fs-2 text-light position-relative z-3">
-                        [I don't know this movie]
                     </div>
                 </div>
             </div>
