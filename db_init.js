@@ -24,6 +24,7 @@ async function dropDatabase() {
 		await pool.query('DROP TABLE IF EXISTS movies CASCADE');
 		await pool.query('DROP TABLE IF EXISTS genres CASCADE');
 		await pool.query('DROP TABLE IF EXISTS users CASCADE');
+		await pool.query('DROP TABLE IF EXISTS subscriptions CASCADE')
 
 		console.log('Old database dropped successfully');
 	} catch (error) {
@@ -65,7 +66,17 @@ async function createDatabase() {
 				tagline VARCHAR(255)
 			)
 		`);
-
+		
+		await pool.query(`
+		CREATE TABLE IF NOT EXISTS subscriptions (
+			user_id INTEGER REFERENCES users(id),
+			subscribe_code VARCHAR(10) UNIQUE,
+			status VARCHAR(20) CHECK (status IN ('subscribed', 'trial', 'none','pending')),
+			start_date DATE,
+			end_date DATE,
+			PRIMARY KEY (user_id, subscribe_code)
+		);
+	  `);
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS genres (
 				id SERIAL PRIMARY KEY,
@@ -188,10 +199,10 @@ async function importMovies() {
 				}
 			}
 
-			console.log(`Table: ${movieType}`);
-			console.log(`Imported Movies: ${importedCount}`);
-			console.log(`Existing Movies: ${existingCount}`);
-			console.log('---');
+			//console.log(`Table: ${movieType}`);
+			//console.log(`Imported Movies: ${importedCount}`);
+			//console.log(`Existing Movies: ${existingCount}`);
+			//console.log('---');
 		}
 
 		console.log('Movies imported successfully');
@@ -256,9 +267,10 @@ async function checkGenres() {
 
 async function dbInit() {
 	await pool.connect();
+	//await dropDatabase();
 	await createDatabase();
 	await importMovies();
-	await checkGenres();
+	//await checkGenres();
 	pool.end();
 }
 

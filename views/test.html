@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,29 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-    <input id = "myInputField" id="name" type="text" onchange={importMovies()}>
+    <input id = "myInputField" id="form-control me-2" type="text" onchange={}>
     <div id="result">The typed value is <span id="info"></span></div>
-    <div class="searchmovieName"> Movie name is: </div> -->
+    <div class="searchmovieName"> Movie name is: </div> 
     
     <Script>
+      async function fetchMovieDataSynchronously (){
+            
+            const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+            const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDNmZjQyN2ExYzJjZjYzMDRlNzZiYWQ2MzVmMjFhOSIsInN1YiI6IjY2MGI5ZDllOWM5N2JkMDE3Y2E0YjI2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WGH-mBZJE25NOc9WuEDiwzQnNtlSorvr7oI-s2erpsU'
+            }
+            };
 
-
-    async function importMovies() {
-    
-        const myInputField = document.getElementById("myInputField")
-        myInputField.addEventListener("input", (e) =>
-   {
-        url = "https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=" + myInputField.value
-           console.log(myInputField.value)
-                fetch(url)
-        .then(res => res.json())
-        .then(json => console.log(json.results))
-        .catch(err => console.error('error:' + err));
-
-     })
+            try {
+        const res = await fetch(url, options);
+        const json = await res.json();
+        return json;
+    } catch (err) {
+        console.error('error:' + err);
+        throw err;
     }
-    
-    </Script>
-<!-- </body>
+}
 
-</html> -->
+// Usage
+(async () => {
+    try {
+        const result = await fetchMovieDataSynchronously();
+        
+        for (let i = 0; i < result.genres.length; i++) {
+            if(result.genres[i].name = )
+            
+        }
+        
+        console.log(result.genres[0].name); // Use the result as needed
+
+    } catch (err) {
+        // Handle errors if needed
+        console.error('Failed to fetch movie data:', err);
+    }
+})();
+
+        </Script>
+ </body>
+
+</html>
