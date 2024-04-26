@@ -106,6 +106,15 @@ async function createDatabase() {
 		`);
 
 		await pool.query(`
+			CREATE TABLE IF NOT EXISTS playList (
+				userId INTEGER REFERENCES users(id),
+				movieId INTEGER REFERENCES movies(id),
+				PRIMARY KEY (userId,movieId)
+			);
+		`);
+
+
+		await pool.query(`
 			CREATE TABLE IF NOT EXISTS top_rated_movies (
 				movie_id INTEGER REFERENCES movies(id),
 				PRIMARY KEY (movie_id)

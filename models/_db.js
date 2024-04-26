@@ -219,6 +219,7 @@ module.exports = {
     getPopularMovies: async (tbName1, tbName2) => {
         let con = null;
         try {
+            console.log("Popular MOvieee");
             cn.database = process.env.DB_NAME;
             db = pgp(cn);
             con = await db.connect();
@@ -263,6 +264,7 @@ module.exports = {
                 }
                 rs.push(isFirst);
             }
+            console.log(rs[0].list6Movies[0].tmdb_id);
             return rs;
         } catch (error) {
             throw error;
@@ -440,4 +442,53 @@ module.exports = {
             }
         }
     }
+    ,
+    addPlayList: async (userID,movieID) => {
+        
+        try {
+            con = await db.connect();
+            console.log('Connected to PostgreSQL database');
+           
+           console.log("real username:",userID );
+           
+            let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
+            console.log("query1: ", query1);
+            const result1 = await con.query(query1);
+
+            // const query2 = 'SELECT * FROM your_table';
+            console.log('Query result:', result1[0].id);
+            let query2 = `INSERT INTO "playlist"("userid", "movieid") VALUES ('${result1[0].id}', '${movieID}');`
+            console.log("success");
+            const result2 = await con.query(query2);
+            console.log('Query result:', result2);
+          } catch (err) {
+            console.log('This movie is already in your list');
+            console.error('Error:', err.stack);
+            
+          } finally {
+            
+            console.log('Connection closed');
+          }
+        
+    },
+
+    getUserID: async (userID) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+
+            let query1 = `SELECT id FROM public.users where username = '${userID}';`
+            console.log("query1: ", query1);
+            const result1 = await con.query(query1);
+            return result1[0].id;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
 }

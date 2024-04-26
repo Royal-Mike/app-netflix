@@ -1,5 +1,6 @@
 <script>
     $(document).ready(function () {
+        
         let src = '', title = '', runtime = '', genres = '', overview = '';
         $('video').prop('volume', '0.1');
 
@@ -76,10 +77,34 @@
             $('.overlay-left, .overlay-right').addClass('invisible');
         });
 
+        $('.fa-thumbs-up').on('click',function () {
+            const id =$(this).attr("id");
+            console.log("on: ", id)
+        
+        $.ajax({
+                type: 'POST',
+                url: '/home/playList',
+                data: {
+                   userID: "{{userID}}", movieID: id 
+                },
+                success: function(result) {
+                    console.log("ok")
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });   
+            
+
+
+        });
+
         $('.open-movie-details').on('click', function () {
             const position = window.scrollY;
             const poster_template =
                 `
+
+
             <div class="poster d-flex justify-content-center" style="top: ${position - 25}px;">
                 <div
                     style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">

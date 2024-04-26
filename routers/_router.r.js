@@ -6,12 +6,16 @@ const homeR = require("./home.r");
 const adminR = require("./admin.r");
 const videoR = require("./video.r");
 const searchR = require("./search.r");
+const listR = require("./list.r");
+
 
 router.use("/acc", accountR);
 router.use("/home", homeR);
 router.use("/admin", adminR);
 router.use("/watch", videoR);
 router.use("/search", searchR);
+router.use("/list", listR);
+
 
 const initializeDBM = require("../models/initdb.m");
 
