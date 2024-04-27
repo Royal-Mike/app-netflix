@@ -23,10 +23,17 @@
 
         <div class="form-check form-switch p-0">
             {{#if home}}
-            <a class="m-2 fs-5 link-unstyled" href="/logout">Log Out</a>
+            <a class="m-2 me-3 fs-4 link-unstyled" href="/account">
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <a class="m-2 fs-4 link-unstyled" href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
             {{/if}}
             {{#if admin}}
-            <a class="m-2 fs-5 link-unstyled" href="/logout">Log Out</a>
+            <a class="m-2 fs-4 link-unstyled" href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
             {{/if}}
         </div>
     </div>
