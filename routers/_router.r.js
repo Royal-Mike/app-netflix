@@ -2,17 +2,21 @@ const express = require("express");
 const router = express.Router();
 
 const accountR = require("./account.r");
+const profileR = require("./profile.r");
 const homeR = require("./home.r");
 const adminR = require("./admin.r");
 const videoR = require("./video.r");
 const searchR = require("./search.r");
 const subscribeR = require("./subscribe.r");
+
 router.use("/acc", accountR);
+router.use("/account", profileR);
 router.use("/home", homeR);
 router.use("/admin", adminR);
 router.use("/watch", videoR);
 router.use("/search", searchR);
 router.use("/subscribe", subscribeR);
+
 const initializeDBM = require("../models/initdb.m");
 
 router.get('/', async (req, res) => {
