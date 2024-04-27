@@ -7,7 +7,7 @@
         {{/if}}
 
         {{#if home}}
-        <form class="d-flex me-3" role="search" style="margin-left:auto">
+        <form class="d-flex me-2" role="search" style="margin-left:auto">
             <div class="border border-light bg-black px-2 py-1 d-flex justify-content-center align-items-center search-movies-container search-movies-container-inactive">
                 <i class="fa-solid fs-4 fa-magnifying-glass me-2" id="search-button" style="cursor:pointer;"></i>
                 <input class="d-none" id="search-movies-input" style="width: 4px" type="search"
@@ -16,10 +16,10 @@
         </form>
         {{/if}}
 
-        <div class="form-check form-switch p-0 me-2 d-flex" {{#unless home}}style="margin-left:auto" {{/unless}}>
+        {{!-- <div class="form-check form-switch p-0 me-2 d-flex" {{#unless home}}style="margin-left:auto" {{/unless}}>
             <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2" id="sw-theme"
                 style="cursor:pointer"></i>
-        </div>
+        </div> --}}
 
         <div class="form-check form-switch p-0">
             {{#if home}}
