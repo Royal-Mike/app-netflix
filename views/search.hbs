@@ -1,7 +1,8 @@
 {{> css/home}}
 {{> js/search}}
+{{> js/movie-control}}
 <h3 class="ms-5 mt-4 mb-4">Search results with "{{search}}"</h3>
-<div>
+<div class="outer-container search">
     <div class="w-100 d-flex flex-wrap justify-content-center align-items-center list-searched-movies">
         {{#each searchMovies}}
         <div class="movie-hoverred m-1 mb-5">
