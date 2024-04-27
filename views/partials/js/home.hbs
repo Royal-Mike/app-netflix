@@ -80,6 +80,8 @@
         });
 
         $('.open-movie-details').on('click', function () {
+            if (!video.muted) $('.volumn').trigger('click');
+
             const position = window.scrollY;
             const poster_template =
             `
@@ -117,8 +119,7 @@
                                         </div>
                                     </div>
 
-                                    <div
-                                        class="rounded-circle ms-5 d-flex justify-content-center align-items-center align-self-end border border-3 p-1 mb-3 me-3 volumn detail-small-button">
+                                    <div class="rounded-circle ms-5 d-flex justify-content-center align-items-center align-self-end border border-3 p-2 mb-3 me-3 volumn-poster detail-small-button">
                                         <i class="fa-solid fa-volume-high fs-5 text-light turn-on-volumn"></i>
                                         <i class="fa-solid fa-volume-xmark fs-5 text-light turn-off-volumn d-none"></i>
                                     </div>
@@ -233,20 +234,9 @@
                 'pointer-events': 'none',
             });
             $('.all-movies').addClass('unscrollable');
-{{!-- 
-            $('.poster').on('scroll', function(e) {
-                if ($(this).scrollTop() >= position - 45) {
-                    e.preventDefault();
-                    $(this).scrollTop(position - 45);
-                }
-            }) --}}
 
             genres = '';
             $('.overlay-left, .overlay-right').removeClass('invisible');
-
-            $('.poster').on('scroll', function () {
-
-            });
 
             setTimeout(() => {
                 $('#play-video-in-poster').addClass('d-none');
@@ -255,16 +245,18 @@
                 $('#video-in-poster').removeClass('d-none');
             }, 1000);
 
-            $('.turn-on-volumn').on('click', function () {
-                $('#poster-video')[0].muted = true;
+            const posterVideo = $('#poster-video')[0];
+
+            $('.poster-container .turn-on-volumn').on('click', function () {
+                posterVideo.muted = true;
                 $(this).addClass('d-none');
-                $('.turn-off-volumn').removeClass('d-none');
+                $('.poster-container .turn-off-volumn').removeClass('d-none');
             })
 
-            $('.turn-off-volumn').on('click', function () {
-                $('#poster-video')[0].muted = false;
+            $('.poster-container .turn-off-volumn').on('click', function () {
+                posterVideo.muted = false;
                 $(this).addClass('d-none');
-                $('.turn-on-volumn').removeClass('d-none');
+                $('.poster-container .turn-on-volumn').removeClass('d-none');
             })
         });
 
@@ -310,6 +302,7 @@
                 $('.turn-off-volumn').removeClass('d-none');
             }
             $('video').prop('muted', !video.muted);
-        })
+            Cookies.set("global_muted", video.muted, { expires: 365 });
+        });
     });
 </script>
