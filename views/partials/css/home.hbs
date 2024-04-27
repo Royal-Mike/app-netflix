@@ -278,13 +278,17 @@
     }
 
     .movie-title {
+        padding: 6px;
         font-size: 3rem;
-        -webkit-text-stroke: 3px rgb(0, 0, 0);
+        background-image: linear-gradient(to top, black, black);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-stroke: 6px transparent;
         font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
     }
 
     .action-on-movie {
-        top: 50%;
+        top: 60%;
     }
 
     .cancel-review {
@@ -343,5 +347,26 @@
 
     .carousel:hover button {
         opacity: 1;
+    }
+
+    .detail-small-button {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: rgb(186, 186, 186) !important;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .detail-small-button:hover {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-color: white !important;
+    }
+
+    .hover-fade {
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .hover-fade:hover {
+        filter: brightness(0.9);
     }
 </style>
