@@ -1,7 +1,7 @@
 <script>
     $(document).ready(function () {
         let src = '', title = '', runtime = '', genres = '', overview = '';
-        $('video').prop('volume', '0.1');
+        $('video').prop('volume', '0.1').prop('muted', true);
 
         $('.movie-hoverred').each(function () {
             $(this).on('mouseover', function () {
@@ -312,7 +312,7 @@
                 $('.turn-on-volumn').addClass('d-none');
                 $('.turn-off-volumn').removeClass('d-none');
             }
-            video.muted = !video.muted;
+            $('video').prop('muted', !video.muted);
         })
     });
 </script>
