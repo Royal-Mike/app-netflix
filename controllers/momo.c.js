@@ -8,9 +8,8 @@ var requestId = partnerCode + new Date().getTime();
 var orderId = requestId;
 const requestType = "captureWallet";
 const extraData = "";
-const amount = "10000";
 module.exports = {
-  getPayUrl: async (orderInfo, redirectUrl, ipnUrl) => {
+  getPayUrl: async (orderInfo, redirectUrl, ipnUrl, amount) => {
     try {
       const requestId = partnerCode + new Date().getTime();
       const rawSignature = `accessKey=${accessKey}&amount=${amount}&extraData=${extraData}&ipnUrl=${ipnUrl}&orderId=${orderId}&orderInfo=${orderInfo}&partnerCode=${partnerCode}&redirectUrl=${redirectUrl}&requestId=${requestId}&requestType=${requestType}`;
