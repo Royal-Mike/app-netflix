@@ -40,5 +40,11 @@ module.exports = {
         const movieID = req.body.movieID
         const addToPlayList = await homeM.addToPlayList(userID,movieID);
         return "success"
+    },
+    liked : async (req, res) => {
+        const userID = req.body.userID
+        const movieID = req.body.movieID
+        const increaseLiked = await homeM.increaseLiked(userID,movieID);
+        return "success"
     }
 };

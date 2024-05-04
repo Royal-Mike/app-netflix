@@ -535,19 +535,4 @@ module.exports = {
             }
         }
     },
-    
-    updateSubscription: async (subscriptionData) => {
-        let con = null;
-        try {
-          con = await db.connect();
-          const query = 'UPDATE subscriptions SET status = $1, start_date = $2, end_date = $3 WHERE subscribe_code = $4';
-          await con.none(query, [subscriptionData.status, subscriptionData.start_date, subscriptionData.end_date, subscriptionData.subscribe_code.subscribe_code]);
-        } catch (error) {
-          throw error;
-        } finally {
-          if (con) {
-            con.done();
-          }
-        }
-      },
 }

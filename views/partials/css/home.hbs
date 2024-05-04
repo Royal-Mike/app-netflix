@@ -4,20 +4,8 @@
         margin: 0;
     }
 
-    .outer-container {
-        margin-top: -6.5rem !important;
-    }
-
-    .outer-container.search {
-        margin-top: auto !important;
-    }
-
     .suggested-movie {
         position: relative;
-    }
-
-    .suggested-movie video {
-        filter: brightness(0.7);
     }
 
     .suggested-movie>img {
@@ -26,17 +14,12 @@
         height: 100vh;
     }
 
-    ::cue {
-        background: transparent;
-        font-weight: bolder;
-    }
-
     .overlay-bottom {
         position: absolute;
-        top: 80%;
+        top: 60%;
         left: 0;
         width: 100%;
-        height: 20%;
+        height: 40%;
         background: linear-gradient(to bottom, rgba(33, 37, 41, 0), rgba(33, 37, 41, 1));
         pointer-events: none;
     }
@@ -74,10 +57,6 @@
         z-index: 4;
     }
 
-    .movie-hoverred {
-        cursor: pointer;
-    }
-
     .movie-hoverred:hover {
         z-index: 3;
     }
@@ -94,17 +73,6 @@
         transform-origin: right;
     }
 
-    .movie-hoverred .run-video-when-hovering {
-        width: 15.5rem;
-        height: 9rem;
-        margin: 0;
-    }
-
-    .movie-hoverred .run-video-when-hovering video {
-        border-top-left-radius: 0.3rem;
-        border-top-right-radius: 0.3rem;
-    }
-
     .next-prev-button {
         width: 4rem;
         height: 9rem;
@@ -114,6 +82,10 @@
         overflow: visible;
     }
 
+    .outer-container {
+        margin-top: 0;
+    }
+
     .place-6-movies {
         height: 9rem;
     }
@@ -121,17 +93,11 @@
     .movie-hoverred>img,
     .movie-top-10-VN-info>img {
         height: 9rem;
-        width: 15.5rem;
-        border-radius: 0.3rem;
-        object-fit: cover;
+        width: 13.5rem;
     }
 
     .movie-actions {
-        width: 15.5rem;
-    }
-
-    .movie-actions .rounded-circle {
-        transition: 0.5s;
+        width: 13.5rem;
     }
 
     .option-list div {
@@ -140,8 +106,11 @@
     }
 
     .option-list div:hover {
-        background-color: rgba(0, 0, 0, 0.6);
-        border-color: white !important;
+        background-color: white !important;
+    }
+
+    .option-list div:hover > i {
+        color: black !important;
     }
 
     .option-list div > i {
@@ -208,49 +177,36 @@
         transition: 0.5s;
     }
 
-    .poster-container {
-        position: fixed;
-        z-index: 1021;
-        inset: 0;
-        width: 100%;
-        height: 100vh;
-        overflow: auto;
-        scroll-behavior: smooth;
-        animation: scalePoster 0.5s;
-    }
-
     .poster {
-        width: 100%;
-    }
-
-    .unscrollable {
-        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+        scroll-behavior: smooth;   
+        z-index: 5;
+        position: absolute;
+        overflow: auto;
+        animation: scalePoster 1s;
     }
 
     @keyframes scalePoster {
         0% {
-            opacity: 0;
             transform: scale(0.3);
         }
         100% {
-            opacity: 1;
             transform: scale(1);
         }
     }
 
     @keyframes removePoster {
         0% {
-            opacity: 1;
             transform: scale(1);
         }
         100% {
-            opacity: 0;
             transform: scale(0.1);
         }
     }
 
-    .poster > div {
-        border-radius: 0.3rem;
+    .all-movies {
+       
     }
 
     ::-webkit-scrollbar {
@@ -275,17 +231,13 @@
     }
 
     .movie-title {
-        padding: 6px;
         font-size: 3rem;
-        background-image: linear-gradient(to top, black, black);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-stroke: 6px transparent;
+        -webkit-text-stroke: 3px rgb(0, 0, 0);
         font-family: "Arial Black", Arial, sans-serif, "Roboto", sans-serif;
     }
 
     .action-on-movie {
-        top: 60%;
+        top: 50%;
     }
 
     .cancel-review {
@@ -296,7 +248,7 @@
         height: 2.5rem;
     }
 
-    .add-to-list, .like-movie, .volumn, .volumn-poster {
+    .add-to-list, .like-movie, .volumn {
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -305,8 +257,8 @@
         background-color: greenyellow;
     }
 
-    .cancel-review {
-        cursor: pointer;
+    .cancel-review:hover {
+        background-color: red;
     }
 
     .movie-details {
@@ -331,54 +283,12 @@
         margin-top: 5rem;
     }
 
+    .service-code {
+        border: 3px solid white;
+        width: fit-content;
+    }
+
     .contact {
         margin-top: 3rem;
-    }
-
-    .carousel button {
-        z-index: 3;
-        background-color: transparent !important;
-        filter: invert(1) grayscale(100);
-        opacity: 0;
-    }
-
-    .carousel:hover button {
-        opacity: 1;
-    }
-
-    .detail-small-button {
-        background-color: rgba(0, 0, 0, 0.3);
-        border-color: rgb(186, 186, 186) !important;
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .detail-small-button:hover {
-        background-color: rgba(0, 0, 0, 0.6);
-        border-color: white !important;
-    }
-
-    .hover-fade {
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .hover-fade:hover {
-        filter: brightness(0.85);
-    }
-
-    #search-movies-input {
-        background-color: transparent;
-        border: none;
-        outline: none;
-    }
-
-    .search-movies-container {
-        transition: 0.5s;
-    }
-
-    .search-movies-container-inactive {
-        background-color: transparent !important;
-        border-color: transparent !important;
     }
 </style>
