@@ -4,7 +4,8 @@ module.exports = {
     profile: async (req, res) => {
         res.render('account/profile', {
             title: 'Profile',
-            home: true
+            home: true,
+            profile: true
         })
     }
 };

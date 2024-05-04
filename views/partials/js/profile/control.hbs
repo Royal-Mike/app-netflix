@@ -1,0 +1,11 @@
+<script>
+    $(() => {
+        $(".side-button").on("click", function() {
+            $(".side-button-active").removeClass("side-button-active");
+            $(this).addClass("side-button-active");
+            $(".screen-info").addClass("d-none");
+            $("#screen-" + $(this).attr("id").split("-")[1]).removeClass("d-none");
+        });
+        $("#swap-membership").trigger("click");
+    });
+</script>
