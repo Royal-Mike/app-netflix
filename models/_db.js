@@ -150,6 +150,27 @@ module.exports = {
             }
         }
     },
+    getMovieList: async (tbName, fieldName, value) => {
+        let con = null;
+        tbName = "movies"
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            const rs = await con.any(
+                `select * from movies where id in (select movieid from playlist where ${fieldName} = ${value}) ;`,
+                [value]
+            );
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    }
+    ,
     getLikedList: async (tbName, fieldName, value) => {
         let con = null;
         try {
@@ -157,7 +178,7 @@ module.exports = {
             db = pgp(cn);
             con = await db.connect();
             const rs = await con.any(
-                `SELECT id FROM "${tbName}" WHERE "${fieldName}" = 'True'`,
+                `SELECT * FROM "${tbName}" WHERE "${fieldName}" = 'True'`,
                 [value]
             );
             return rs;

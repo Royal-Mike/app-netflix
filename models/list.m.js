@@ -10,7 +10,9 @@ module.exports = class List {
     {
         
         const getID = await db.getUserID(email)
-        const rtDat = await db.getAny(table,fieldName,getID);
+
+        const rtDat = await db.getMovieList(table,fieldName,getID);
+        
         console.log(rtDat);
         return rtDat;
     }
