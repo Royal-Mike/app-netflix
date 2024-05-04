@@ -45,6 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(secret));
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/', express.static('./'))
 app.use('/imgs', express.static('./imgs'))
 app.use('/favicon', express.static('./favicon'))
 app.use('/js', express.static('./js'));

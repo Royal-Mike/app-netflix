@@ -1,0 +1,140 @@
+<div class="poster-container">
+    <div class="poster d-flex justify-content-center">
+        <div style="overflow-x: hidden; width: 70vw; z-index: 4">
+            <div class="movie-info-part">
+                <div class="m-0 movie-image position-relative">
+                    <div class="rounded-circle ms-5 d-flex justify-content-center align-items-center p-1 mb-3 position-absolute cancel-review hover-fade">
+                        <i class="fa-solid fa-xmark fs-3"></i>
+                    </div>
+                    <img src="${src}" width="100%" style="height: 80vh" class="rounded-top" id="play-video-in-poster" alt="">
+                    <div class="m-0 position-relative d-none" id="video-in-poster" style="height: 80vh; z-index: -1">
+                        <video id="poster-video" width="100%" height="100%" style="object-fit: cover;" loop>
+                            <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4"
+                                type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="d-flex align-items-center position-absolute action-on-movie justify-content-between"
+                        style="width: 100%;">
+                        <div class="p-3">
+                            <p class="movie-title">${title}</p>
+                            <div class="d-flex" style="padding-left: 6px;">
+                                <div class="bg-light fs-3 ps-5 pe-5 d-flex justify-content-center align-items-center rounded text-dark hover-fade play-video">
+                                    <i class="fa-solid fa-play fs-4 me-2" style="line-height: normal"></i>
+                                    <p class="m-0"><strong>Play</strong></p>
+                                </div>
+                                <div class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 add-to-list detail-small-button">
+                                    <i class="fa-solid fa-plus fs-5 text-light"></i>
+                                </div>
+                                <div class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 like-movie detail-small-button">
+                                    <i class="fa-solid fa-thumbs-up fs-5 text-light"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-circle ms-5 d-flex justify-content-center align-items-center align-self-end border border-3 p-2 mb-3 me-3 volumn-poster detail-small-button">
+                            <i class="fa-solid fa-volume-high fs-5 text-light turn-on-volumn"></i>
+                            <i class="fa-solid fa-volume-xmark fs-5 text-light turn-off-volumn d-none"></i>
+                        </div>
+                    </div>
+                    <div class="overlay-bottom"></div>
+                </div>
+                <div class="m-0 pt-5 movie-details ps-5 pe-3 d-flex">
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <b class="text-success me-2">New</b>
+                            <p class="m-0 me-2">2017</p>
+                            <p class="m-0 me-2">${runtime}</p>
+                            <p class="rounded border ps-2 pe-2 m-0 me-2">HD</p>
+                            <div class="m-0 d-flex align-items-center me-2">
+                                <i class="fa-solid fa-podcast fs-3"></i>
+                                <div class="text">
+                                    <p class="fw-bold m-0 ms-1">Spatial</p>
+                                    <p class="m-0 ms-1 lh-1">Audio</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-rectangle-ad me-2"></i>
+                            <i class="fa-regular fa-message"></i>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <p class="border ps-2 pe-2 m-0 me-2 fw-bold">13+</p>
+                            <p class="m-0">${genres}</p>
+                        </div>
+
+                        <div class="mt-5 fs-5">
+                            ${overview}
+                        </div>
+                    </div>
+
+                    <div class="ps-4">
+                        <p>
+                            <span class="text-body-tertiary">Cast:</span>
+                            Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc, more
+                        </p>
+
+                        <p>
+                            <span class="text-body-tertiary">Genres:</span>
+                            ${genres}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="similar-movies bg-black p-5">
+                <h2>More Like This</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100" style="padding: .2rem !important;">
+                            <img src="/imgs/achelousaurus.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                    <div class="d-flex align-items-center">
+                                        <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">18+</p>
+                                        <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                        <p class="m-0" style="font-size: 1rem;">2017</p>
+                                        <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                    </div>
+
+                                    <div
+                                        class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                        <i class="fa-solid fa-plus fs-4"></i>
+                                    </div>
+                                </h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="deeper-info-about-movie bg-black pt-5 pe-5 ps-5 pb-1 rounded-bottom">
+            <hr color="blue" />
+            <p class="fs-3">About <b>${title}</b></p>
+            <p>
+                <span class="text-body-tertiary">Director:</span>
+                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+            </p>
+            <p>
+                <span class="text-body-tertiary">Cast:</span>
+                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+            </p>
+            <p>
+                <span class="text-body-tertiary">Writer:</span>
+                Cao Huu Quoc, Nguyen Quang Tuan, Le Duy Tan, Nguyen Hoang Phuc
+            </p>
+            <p>
+                <span class="text-body-tertiary">Genres:</span>
+                ${genres}
+            </p>
+            <div class="d-flex">
+                <span class="text-body-tertiary">Maturity rating:</span>
+                <p class="border ps-2 pe-2 m-0 me-2 ms-2 fw-bold" style="width: fit-content; height: fit-content">
+                    13+</p>
+                <p class="me-4">${genres}</p>
+                <p>Recommended for ages 13 and up</p>
+            </div>
+        </div>
+    </div>
+</div>
