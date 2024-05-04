@@ -9,18 +9,16 @@ module.exports = {
 			const user_id = await accountM.getUserIdByUsername(req.user.username);
 			const subscription = await subscribeM.getSubscriptionByUserId(user_id);
 
-
-			if (!subscription || subscription.status === 'none') {
+			// Check if a user has a subscription or expired subscription
+			if (!subscription) {
 				res.redirect('/subscribe');
 			} else {
-				const currentDate = new Date();
-				const subscriptionEndDate = new Date(subscription.end_date);
-				console.log(subscription, currentDate, subscriptionEndDate, subscription.end_date, currentDate < subscriptionEndDate);
+				if (subscription.status === 'none'|| subscription.end_date < new Date())
+				res.redirect('/subscribe');
 				const popular_movies = await homeM.getPopularMovies();
 				const now_playing_movies = await homeM.getNowPlayingMovies();
 				const top_rated_movies = await homeM.getTopRatedMovies();
 				const upcoming_movies = await homeM.getUpcomingMovies();
-
 				res.render('home', {
 					title: 'Home',
 					home: true,
