@@ -62,9 +62,13 @@ async function createDatabase() {
 				production_countries JSONB,
 				release_date DATE,
 				runtime INTEGER,
-				tagline VARCHAR(255)
+				tagline VARCHAR(255),
+				likes INTEGER  DEFAULT 0,
+				checkLiked text DEFAULT 'False'
 			)
 		`);
+
+		//them likes random vo database
 
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS genres (

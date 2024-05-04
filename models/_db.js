@@ -150,6 +150,25 @@ module.exports = {
             }
         }
     },
+    getLikedList: async (tbName, fieldName, value) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            const rs = await con.any(
+                `SELECT id FROM "${tbName}" WHERE "${fieldName}" = 'True'`,
+                [value]
+            );
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
     delete: async (tbName, fieldName, value) => {
         let con = null;
         try {
@@ -459,6 +478,31 @@ module.exports = {
             console.log('Query result:', result1[0].id);
             let query2 = `INSERT INTO "playlist"("userid", "movieid") VALUES ('${result1[0].id}', '${movieID}');`
             console.log("success");
+            const result2 = await con.query(query2);
+            console.log('Query result:', result2);
+          } catch (err) {
+            console.log('This movie is already in your list');
+            console.error('Error:', err.stack);
+            
+          } finally {
+            
+            console.log('Connection closed');
+          }
+        
+    },
+    increaseLikedMovie: async (userID,movieID) => {
+        
+        try {
+            con = await db.connect();
+            console.log('Connected to PostgreSQL database');
+            let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
+            console.log("query1: ", query1);
+            const result1 = await con.query(query1);
+
+            // const query2 = 'SELECT * FROM your_table';
+            console.log('Query result:', result1[0].id);
+            let query2 = `UPDATE public.movies SET    likes = likes +  1, checkLiked = 'True' WHERE id = ${movieID}  and checkLiked = 'False';`
+            console.log('query2', query2);
             const result2 = await con.query(query2);
             console.log('Query result:', result2);
           } catch (err) {

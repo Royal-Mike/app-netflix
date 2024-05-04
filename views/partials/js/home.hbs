@@ -77,7 +77,7 @@
             $('.overlay-left, .overlay-right').addClass('invisible');
         });
 
-        $('.fa-thumbs-up').on('click',function () {
+        $('.fa-plus').on('click',function () {
             const id =$(this).attr("id");
             console.log("on: ", id)
         
@@ -98,6 +98,30 @@
 
 
         });
+
+        $('.fa-thumbs-up').on('click',function () {
+            const id =$(this).attr("id");
+            console.log("on: ", id)
+        
+        $.ajax({
+                type: 'POST',
+                url: '/home/liked',
+                data: {
+                   userID: "{{userID}}", movieID: id 
+                },
+                success: function(result) {
+                    console.log("ok")
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });   
+            
+
+
+        });
+
+
 
         $('.open-movie-details').on('click', function () {
             const position = window.scrollY;
