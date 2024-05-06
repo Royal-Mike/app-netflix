@@ -2,8 +2,8 @@ const homeM = require('../models/home.m');
 const subscribeM = require('../models/subscribe.m');
 const accountM = require('../models/account.m');
 module.exports = {
-	home: async (req, res) => {
-		try {
+    home: async (req, res) => {
+        try {
 			let theme = req.cookies.theme;
 			let dark = theme === "dark" ? true : false;
 			const user_id = await accountM.getUserIdByUsername(req.user.username);
