@@ -1,0 +1,130 @@
+{{!-- {{#each movie}}
+<div>{{this.movieid}}</div>
+
+{{/each}}
+
+<script>
+    console.log({{movie}})
+</script> --}}
+
+
+
+
+{{> css/home}}
+{{> js/search}}
+<h2 class="ms-2">Your list list </h2>
+<div class="outer-container">
+    <div class="row row-cols-1 row-cols-md-6 g-4 mt-5 justify-content-center list-searched-movies">
+        {{#each movie}}
+        <div class="col p-0 movie-hoverred ms-2 me-2 mb-5" style="width: 13.5rem;">
+            <div class="card" style="height: 9rem; width: 13.5rem">
+                <img src="https://image.tmdb.org/t/p/original/{{#if this.poster_path}}{{this.poster_path}}{{else}}{{this.backdrop_path}}{{/if}}"
+                    class="d-block rounded-top thumbnail w-100 h-100" alt="{{this.title}}"
+                    data-title="{{this.original_title}}" data-overview="{{this.overview}}">
+                <div style="margin: 0; width: 13.5rem; height: 9rem;" class="d-none run-video-when-hovering">
+                    <video width="100%" height="100%" style="object-fit: cover;">
+                        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="movie-actions bg-black p-2 d-none rounded-bottom">
+                    <div class="option-list d-flex">
+                        <div
+                            class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center play-video">
+                            <i class="fa-solid fa-play text-dark"></i>
+                        </div>
+                        <div
+                            class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div
+                            class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <div
+                            class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-2 open-movie-details">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <p class="text-success fw-bold m-0 mt-2 mb-2 match">82% Match</p>
+                    <div class="d-flex justify-content-start align-items-center m-0 small-info-of-movie">
+                        <div class="border border-1 m-0">
+                            {{#if this.adult}}
+                            <p class="m-0 ps-1 pe-1">18+</p>
+                            {{else}}
+                            <p class="m-0 ps-1 pe-1">13+</p>
+                            {{/if}}
+                        </div>
+                        <p class="m-0 ms-2 movie-runtime">{{this.runtime}}</p>
+                        <div class="border border-2 rounded m-0 ms-2">
+                            <p class="m-0 ps-1 pe-1 fw-bold">HD</p>
+                        </div>
+                        <div class="m-0 ms-2 d-flex align-items-center">
+                            <i class="fa-solid fa-podcast fs-5"></i>
+                            <div class="spatial-audio">
+                                <p class="fw-bold m-0 ms-1">Spatial</p>
+                                <p class="m-0 ms-1 lh-1">Audio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start flex-wrap mt-2 align-items-center movie-categories">
+                        {{#each this.genres}}
+                        {{#if @first}}
+                        <p class="text-light m-0 all-genre">{{this.name}}</p>
+                        {{else}}
+                        <div class="m-0 bg-secondary rounded ms-2"></div>
+                        <p class="text-light m-0 ms-2 all-genre">{{this.name}}</p>
+                        {{/if}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <div class="d-flex justify-content-center contact">
+        <div>
+            <div class="platforms">
+                <i class="fa-brands fa-facebook fs-1 me-3"></i>
+                <i class="fa-brands fa-instagram fs-1 me-3"></i>
+                <i class="fa-brands fa-twitter fs-1 me-3"></i>
+                <i class="fa-brands fa-youtube fs-1"></i>
+            </div>
+            <div class="d-flex mt-5 web-info">
+                <div>
+                    <p class="fs-5">Audio Description</p>
+                    <p class="fs-5">Investor Relations</p>
+                    <p class="fs-5">Legal Notices</p>
+                </div>
+
+                <div>
+                    <p class="fs-5">Help Center</p>
+                    <p class="fs-5">Jobs</p>
+                    <p class="fs-5">Cookie Preferences</p>
+                </div>
+
+                <div>
+                    <p class="fs-5">Gift Cards</p>
+                    <p class="fs-5">Term of Use</p>
+                    <p class="fs-5">Corporate Information</p>
+                </div>
+
+                <div>
+                    <p class="fs-5">Media Center</p>
+                    <p class="fs-5">Privacy</p>
+                    <p class="fs-5">Contact Us</p>
+                </div>
+            </div>
+
+            <div class="fs-5 mt-4 p-2 service-code">
+                Service Code
+            </div>
+
+            <div class="mt-4">
+                <i class="fa-regular fa-copyright"></i>
+                1997-2024 Netflix, Inc.
+            </div>
+        </div>
+    </div>
+</div>

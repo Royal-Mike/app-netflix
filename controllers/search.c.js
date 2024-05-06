@@ -7,7 +7,6 @@ module.exports = {
         res.render('search', {
             title: 'Search',
             home: true,
-            search: true,
             dark: dark,
             searchMovies,
             search: req.query.query
