@@ -74,6 +74,7 @@
 
         $('.open-movie-details').on('click', async function () {
             let poster_template = `{{> poster}}`;   
+            $('.outer-container').append(poster_template);
             listMovies.push(title.toLowerCase());
 
             {{#unless search}} if (!video.muted) $('.volumn').trigger('click'); {{/unless}}
@@ -147,8 +148,8 @@
                                     }
                                 });
 
-                                poster_template = poster_template.replace('listmovies', list);
-                                $('.outer-container').append(poster_template);
+                                $('.load-more-movies').append(list);
+
 
                                 $('.get-more-movies').on('click', function () {
                                     $(this).addClass('stop-from-clicking');
@@ -257,9 +258,7 @@
                                 }
                             });
 
-                            poster_template = `{{> poster}}`;   
-                            poster_template = poster_template.replace('listmovies', list);
-                            $('.outer-container').append(poster_template);
+                            $('.load-more-movies').append(list);
 
                             $('.get-more-movies').on('click', async function () {
                                 $(this).addClass('stop-from-clicking');
