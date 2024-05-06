@@ -13,7 +13,6 @@ router.post("/login", passport.authenticate("myStrategies", { failureRedirect: "
 		}
 		else {
 			req.session.username = req.body.username;
-			
 			res.redirect("/home");
 		}
 	}
