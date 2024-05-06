@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input  id="form-control me-2" type="text" onchange={}>
+    <div id="result">The typed value is <span id="info"></span></div>
+    <div class="searchmovieName"> Movie name is: </div> 
+    
+    <Script>
+   const myInputField = document.getElementById("form-control me-2") 
+    myInputField.addEventListener("input", (e) =>{
+            console.log(myInputField.value)
+            
+                
+
+        const url = 'https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=' + myInputField.value;
+        const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDNmZjQyN2ExYzJjZjYzMDRlNzZiYWQ2MzVmMjFhOSIsInN1YiI6IjY2MGI5ZDllOWM5N2JkMDE3Y2E0YjI2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WGH-mBZJE25NOc9WuEDiwzQnNtlSorvr7oI-s2erpsU'
+        }
+        };
+
+        fetch(url, options)
+        .then(res => res.json())
+        .then(json =>{
+            // console.log(json.results)
+            for (let i = 0; i < json.results.length; i++) {
+                
+                console.log(json.results[i].original_title);
+                
+            }   
+        } )
+        .catch(err => console.error('error:' + err));
+        })
+
+//         const fetch = require('node-fetch');
+
+// const url = 'https://api.themoviedb.org/3/search/keyword?query=king&page=1';
+// const options = {
+//   method: 'GET',
+//   headers: {
+//     accept: 'application/json',
+//     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDNmZjQyN2ExYzJjZjYzMDRlNzZiYWQ2MzVmMjFhOSIsInN1YiI6IjY2MGI5ZDllOWM5N2JkMDE3Y2E0YjI2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WGH-mBZJE25NOc9WuEDiwzQnNtlSorvr7oI-s2erpsU'
+//   }
+// };
+
+// fetch(url, options)
+//   .then(res => res.json())
+//   .then(json => console.log(json))
+//   .catch(err => console.error('error:' + err));
+
+    
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+// Vd ve cac category: War , action, comedy, animation
+        </Script>
+ </body>
+</html>
+

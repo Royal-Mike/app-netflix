@@ -73,7 +73,6 @@
         });
 
         $('.open-movie-details').on('click', async function () {
-            let poster_template = `{{> poster}}`;   
             listMovies.push(title.toLowerCase());
 
             {{#unless search}} if (!video.muted) $('.volumn').trigger('click'); {{/unless}}
@@ -86,6 +85,7 @@
                 },
                 success: async function(response) {
                     toLoadMore = response.data;
+                    console.log(toLoadMore);
                     if (toLoadMore !== "search categories") {
                         const testIfHas = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${toLoadMore.label}&page=${pageNew}`;
                         let responseTest = await fetch(testIfHas);
@@ -95,6 +95,7 @@
                             toLoadMore = "search categories";
                         }
                     }
+
 
                     if (toLoadMore === "search categories") {
                         const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`;
@@ -147,6 +148,7 @@
                                     }
                                 });
 
+                                let poster_template = `{{> poster}}`;   
                                 poster_template = poster_template.replace('listmovies', list);
                                 $('.outer-container').append(poster_template);
 
@@ -257,7 +259,7 @@
                                 }
                             });
 
-                            poster_template = `{{> poster}}`;   
+                            let poster_template = `{{> poster}}`;   
                             poster_template = poster_template.replace('listmovies', list);
                             $('.outer-container').append(poster_template);
 

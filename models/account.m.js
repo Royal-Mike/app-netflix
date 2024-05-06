@@ -21,12 +21,4 @@ module.exports = class Account {
 		const rs = await db.getOne(table, "email", em);
 		return rs;
 	}
-	static async getUserIdByUsername(username) {
-		const rs = await db.getOne(table, "username", username);
-		return rs ? rs.id : null;
-	}
-	static async getSubscription(userid) {
-		const rs = await db.getOne("subscriptions", "user_id", userid);
-		return rs;
-	}
 };
