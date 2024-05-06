@@ -113,7 +113,7 @@
         color: black !important;
     }
 
-    .option-list div>i {
+    .option-list div > i {
         font-size: 1rem;
     }
 
@@ -130,7 +130,7 @@
         font-size: .8rem;
     }
 
-    .small-info-of-movie>p {
+    .small-info-of-movie > p {
         font-size: .7rem;
     }
 
@@ -142,11 +142,11 @@
         font-size: .8rem;
     }
 
-    .spatial-audio>p:nth-child(1) {
+    .spatial-audio > p:nth-child(1){
         font-size: .6rem;
     }
 
-    .spatial-audio>p:nth-child(2) {
+    .spatial-audio > p:nth-child(2){
         font-size: .5rem;
     }
 
@@ -191,7 +191,6 @@
         0% {
             transform: scale(0.3);
         }
-
         100% {
             transform: scale(1);
         }
@@ -201,14 +200,13 @@
         0% {
             transform: scale(1);
         }
-
         100% {
             transform: scale(0.1);
         }
     }
 
-    .poster>div {
-        border-radius: 0.3rem;
+    .all-movies {
+       
     }
 
     ::-webkit-scrollbar {
@@ -250,10 +248,7 @@
         height: 2.5rem;
     }
 
-    .add-to-list,
-    .like-movie,
-    .volumn,
-    .volumn-poster {
+    .add-to-list, .like-movie, .volumn {
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -295,97 +290,5 @@
 
     .contact {
         margin-top: 3rem;
-    }
-
-    .carousel button {
-        z-index: 3;
-        background-color: transparent !important;
-        filter: invert(1) grayscale(100);
-        opacity: 0;
-    }
-
-    .carousel:hover button {
-        opacity: 1;
-    }
-
-    .detail-small-button {
-        background-color: rgba(0, 0, 0, 0.3);
-        border-color: rgb(186, 186, 186) !important;
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .detail-small-button:hover {
-        background-color: rgba(0, 0, 0, 0.6);
-        border-color: white !important;
-    }
-
-    .hover-fade {
-        cursor: pointer;
-        transition: 0.5s;
-    }
-
-    .hover-fade:hover {
-        filter: brightness(0.85);
-    }
-
-    #search-movies-input {
-        background-color: transparent;
-        border: none;
-        outline: none;
-    }
-
-    .search-movies-container {
-        transition: 0.5s;
-    }
-
-    .search-movies-container-inactive {
-        background-color: transparent !important;
-        border-color: transparent !important;
-    }
-
-    .genre-id {
-        display: none;
-    }
-
-    .overview {
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        display: -webkit-box;
-    }
-
-    .get-more-movies {
-        width: 2.6rem;
-        height: 2.6rem;
-    }
-
-    .get-more-movies:hover {
-        background-color: white;
-    }
-
-    .get-more-movies:hover i {
-        color: black;
-    }
-
-    .single-line {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .single-line:before,
-    .single-line:after {
-        content: "";
-        flex: 1 1;
-        margin: auto;
-        border-bottom: 2px solid white; 
-    }
-
-    .add-to-list:hover {
-        background-color: white;
-    }
-
-    .add-to-list:hover i {
-        color: black;
     }
 </style>

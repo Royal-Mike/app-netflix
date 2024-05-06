@@ -1,6 +1,0 @@
-<script>
-    $(() => {
-        const dob = new Date(Date.parse('{{data.dob}}')).toISOString().split('T')[0];
-        $("#user-dob").next().val(dob);
-    });
-</script>

@@ -4,34 +4,16 @@
 <div class="outer-container">
     <div class="row row-cols-1 row-cols-md-6 g-4 mt-5 justify-content-center list-searched-movies">
         {{#each searchMovies}}
-        <div class="movie-hoverred m-1 mb-5">
-            <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
-                class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
-            <div class="d-none run-video-when-hovering">
-                <video width="100%" height="100%" style="object-fit: cover;">
-                    <source src="/videos/trailer.mp4"
-                        type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="movie-actions bg-black p-2 d-none rounded-bottom">
-                <div class="option-list d-flex">
-                    <div
-                        class="bg-light rounded-circle me-2 d-flex justify-content-center align-items-center play-video hover-fade">
-                        <i class="fa-solid fa-play text-dark"></i>
-                    </div>
-                    <div
-                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
-                        <i class="fa-solid fa-plus"></i>
-                    </div>
-                    <div
-                        class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    </div>
-                    <div
-                        class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-2 open-movie-details">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
+        <div class="col p-0 movie-hoverred ms-2 me-2 mb-5" style="width: 13.5rem;">
+            <div class="card" style="height: 9rem; width: 13.5rem">
+                <img src="https://image.tmdb.org/t/p/original/{{#if this.poster_path}}{{this.poster_path}}{{else}}{{this.backdrop_path}}{{/if}}"
+                    class="d-block rounded-top thumbnail w-100 h-100" alt="{{this.title}}"
+                    data-title="{{this.original_title}}" data-overview="{{this.overview}}">
+                <div style="margin: 0; width: 13.5rem; height: 9rem;" class="d-none run-video-when-hovering">
+                    <video width="100%" height="100%" style="object-fit: cover;">
+                        <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="movie-actions bg-black p-2 d-none rounded-bottom">
                     <div class="option-list d-flex">
