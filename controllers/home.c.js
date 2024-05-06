@@ -68,13 +68,13 @@ module.exports = {
     addPlayList: async (req, res) => {
         const userID = req.session.username;
         const movieID = req.body.movieID;
-        await homeM.addToPlayList(userID, movieID);
-        return "success";
+        const result = await homeM.addToPlayList(userID, movieID);
+        res.send(result);
     },
     liked: async (req, res) => {
         const userID = req.session.username;
         const movieID = req.body.movieID;
-        await homeM.increaseLiked(userID, movieID);
-        return "success";
+        const result = await homeM.increaseLiked(userID, movieID);
+        res.send(result);
     }
 };

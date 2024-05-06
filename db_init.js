@@ -208,11 +208,6 @@ async function importMovies() {
 					`, [movieId]);
 				}
 			}
-
-			//console.log(`Table: ${movieType}`);
-			//console.log(`Imported Movies: ${importedCount}`);
-			//console.log(`Existing Movies: ${existingCount}`);
-			//console.log('---');
 		}
 
 		console.log('Movies imported successfully');
