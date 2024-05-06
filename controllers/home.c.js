@@ -33,4 +33,31 @@ module.exports = {
 			console.error('Error getting home page:', error);
 		}
 	},
+	getKeyWords: async (req, res) => {
+		try {
+			try {
+                const response = await fetch('https://api.textrazor.com/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-TextRazor-Key': "4c77e97c4ce07a96701879736016c67eb230e92c2418998fb81d4714",
+                        'Accept-encoding': 'gzip'
+                    },
+                    body: `text=${req.body.text}&extractors=topics`
+                });
+
+                const data = await response.json();
+				if (data.response.topics) {
+					const highestScore = data.response.topics[0];
+                	res.json({ data: highestScore })
+				} else {
+					res.json({ data: "search categories"})
+				}
+            } catch (error) {
+                console.error(error);
+            }
+		} catch (error) {
+			console.error('Error getting home page:', error);
+		}
+	}
 };

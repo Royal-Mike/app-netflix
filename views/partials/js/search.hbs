@@ -16,7 +16,7 @@
                 let page = allMovies / 20 + 1;
 
                 let dat = '';
-                const url = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${userInput}&page=${page}`
+                const url = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${userInput}&page=${page}`;
                 try {
                     const response = await fetch(url);
                     const json = await response.json();

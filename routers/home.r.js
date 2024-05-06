@@ -9,6 +9,7 @@ router.use((req, res, next) => {
     res.redirect("/");
 });
 
+router.post("/getKeyWords", userC.getKeyWords);
 router.get("/", userC.home);
 
 module.exports = router;
