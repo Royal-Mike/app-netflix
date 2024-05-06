@@ -15,13 +15,13 @@ const { create } = require('express-handlebars');
 const router = require('./routers/_router.r');
 const dbInit = require('./db_init');
 dbInit()
-  .then(() => {
-    console.log('Database initialized successfully.');
-  })
-  .catch((err) => {
-    console.error('Error initializing database:', err);
-    process.exit(1);
-  });
+    .then(() => {
+        console.log('Database initialized successfully.');
+    })
+    .catch((err) => {
+        console.error('Error initializing database:', err);
+        process.exit(1);
+    });
 
 app.use(session({
     secret: secret,

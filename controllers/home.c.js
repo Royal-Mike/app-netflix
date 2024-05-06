@@ -5,10 +5,6 @@ const accountM = require('../models/account.m');
 module.exports = {
     home: async (req, res) => {
         try {
-			let theme = req.cookies.theme;
-			let userID = req.session.username;
-
-			let dark = theme === "dark" ? true : false;
 			const user_id = await accountM.getUserIdByUsername(req.user.username);
 			const subscription = await subscribeM.getSubscriptionByUserId(user_id);
 
@@ -26,7 +22,6 @@ module.exports = {
 				res.render('home', {
 					title: 'Home',
 					home: true,
-					dark: dark,
 					popular_movies,
 					now_playing_movies,
 					top_rated_movies,
