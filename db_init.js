@@ -24,6 +24,7 @@ async function dropDatabase() {
 		await pool.query('DROP TABLE IF EXISTS movies CASCADE');
 		await pool.query('DROP TABLE IF EXISTS genres CASCADE');
 		await pool.query('DROP TABLE IF EXISTS users CASCADE');
+		await pool.query('DROP TABLE IF EXISTS subscriptions CASCADE')
 
 		console.log('Old database dropped successfully');
 	} catch (error) {
@@ -62,14 +63,20 @@ async function createDatabase() {
 				production_countries JSONB,
 				release_date DATE,
 				runtime INTEGER,
-				tagline VARCHAR(255),
-				likes INTEGER  DEFAULT 0,
-				checkLiked text DEFAULT 'False'
+				tagline VARCHAR(255)
 			)
 		`);
-
-		//them likes random vo database
-
+		
+		await pool.query(`
+		CREATE TABLE IF NOT EXISTS subscriptions (
+			user_id INTEGER REFERENCES users(id),
+			subscribe_code VARCHAR(10) UNIQUE,
+			status VARCHAR(20) CHECK (status IN ('subscribed', 'trial', 'none','pending')),
+			start_date DATE,
+			end_date DATE,
+			PRIMARY KEY (user_id)
+		);
+	  `);
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS genres (
 				id SERIAL PRIMARY KEY,
@@ -108,15 +115,6 @@ async function createDatabase() {
 				PRIMARY KEY (movie_id)
 			);
 		`);
-
-		await pool.query(`
-			CREATE TABLE IF NOT EXISTS playList (
-				userId INTEGER REFERENCES users(id),
-				movieId INTEGER REFERENCES movies(id),
-				PRIMARY KEY (userId,movieId)
-			);
-		`);
-
 
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS top_rated_movies (
@@ -201,10 +199,10 @@ async function importMovies() {
 				}
 			}
 
-			console.log(`Table: ${movieType}`);
-			console.log(`Imported Movies: ${importedCount}`);
-			console.log(`Existing Movies: ${existingCount}`);
-			console.log('---');
+			//console.log(`Table: ${movieType}`);
+			//console.log(`Imported Movies: ${importedCount}`);
+			//console.log(`Existing Movies: ${existingCount}`);
+			//console.log('---');
 		}
 
 		console.log('Movies imported successfully');
@@ -269,9 +267,10 @@ async function checkGenres() {
 
 async function dbInit() {
 	await pool.connect();
+	//await dropDatabase();
 	await createDatabase();
 	await importMovies();
-	await checkGenres();
+	//await checkGenres();
 	pool.end();
 }
 

@@ -9,7 +9,7 @@ router.use((req, res, next) => {
     res.redirect("/");
 });
 
+router.post("/getKeyWords", userC.getKeyWords);
 router.get("/", userC.home);
-router.post("/playList", userC.addPlayList);
-router.post("/liked", userC.liked);
+
 module.exports = router;
