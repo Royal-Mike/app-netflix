@@ -40,5 +40,55 @@
             $('video').prop('muted', !video.muted);
             Cookies.set("global_muted", video.muted, { expires: 365 });
         });
+
+        $('.fa-plus').on('click',function () {
+            const id =$(this).attr("id");
+            console.log("on: ", id)
+            alert("liked movie")
+
+            $.ajax({
+                type: 'POST',
+                url: '/home/playList',
+                data: {
+                   userID: "{{userID}}",
+                   movieID: id 
+                },
+                success: function(result) {
+                    console.log("ok")
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });   
+        });
+
+        $('.fa-thumbs-up').on('click',function () {
+            const id = $(this).attr("id");
+            clicked = false;
+
+            if (!clicked) {
+                alert('Alert added!');
+                clicked = true;
+            }
+            else {
+                alert('Alert removed!');
+                clicked = false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/home/liked',
+                data: {
+                   userID: "{{userID}}",
+                   movieID: id
+                },
+                success: function(result) {
+                    console.log("ok")
+                },
+                error: function(result) {
+                    console.log(result);
+                }
+            });
+        });
     });
 </script>

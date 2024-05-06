@@ -25,4 +25,14 @@ module.exports = class Home {
         const rtDat = await db.getUpcomingMovies(moviesTb, upcomingTb);
         return rtDat;
     }
+
+    static async addToPlayList(userID,movieID) {
+        const rtDat = await db.addPlayList(userID,movieID);
+        return rtDat;
+    }
+
+    static async increaseLiked(userID, movieID) {
+        const rtDat = await db.increaseLikedMovie(userID, movieID);
+        return rtDat;
+    }
 }

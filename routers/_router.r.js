@@ -8,6 +8,8 @@ const adminR = require("./admin.r");
 const videoR = require("./video.r");
 const searchR = require("./search.r");
 const subscribeR = require("./subscribe.r");
+const listR = require("./list.r");
+const likedlistR = require("./likedList.r");
 
 router.use("/acc", accountR);
 router.use("/account", profileR);
@@ -16,6 +18,8 @@ router.use("/admin", adminR);
 router.use("/watch", videoR);
 router.use("/search", searchR);
 router.use("/subscribe", subscribeR);
+router.use("/list", listR);
+router.use("/liked", likedlistR);
 
 const initializeDBM = require("../models/initdb.m");
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userC = require("../controllers/home.c");
+const homeC = require("../controllers/home.c");
 
 router.use((req, res, next) => {
     if (req.isAuthenticated()) {
@@ -9,7 +9,10 @@ router.use((req, res, next) => {
     res.redirect("/");
 });
 
-router.post("/getKeyWords", userC.getKeyWords);
-router.get("/", userC.home);
+router.post("/getKeyWords", homeC.getKeyWords);
+router.get("/", homeC.home);
+
+router.post("/playList", homeC.addPlayList);
+router.post("/liked", homeC.liked);
 
 module.exports = router;
