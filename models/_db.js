@@ -454,5 +454,92 @@ module.exports = {
             con.done();
           }
         }
+    },
+    addPlayList: async (userID, movieID) => {
+        try {
+            con = await db.connect();
+            let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
+            const result1 = await con.query(query1);
+            console.log(result1);
+            let query2 = `INSERT INTO "playlist"("userid", "movieid") VALUES ('${result1[0].id}', '${movieID}');`
+            const result2 = await con.query(query2);
+          } catch (err) {
+            console.log('This movie is already in your list');
+            console.error('Error:', err.stack);
+          } finally {
+            console.log('Connection closed');
+          }
+    },
+    increaseLikedMovie: async (userID,movieID) => {
+        try {
+            con = await db.connect();
+            let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
+            const result1 = await con.query(query1);
+            let query2 = `UPDATE public.movies SET    likes = likes +  1, checkLiked = 'True' WHERE id = ${movieID}  and checkLiked = 'False';`
+            const result2 = await con.query(query2);
+          } catch (err) {
+            console.log('This movie is already in your list');
+            console.error('Error:', err.stack);
+          } finally {
+            console.log('Connection closed');
+          }
+    },
+    getMovieList: async (tbName, fieldName, value) => {
+        let con = null;
+        tbName = "movies"
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            const rs = await con.any(
+                `select * from movies where id in (select movieid from playlist where ${fieldName} = ${value}) ;`,
+                [value]
+            );
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getLikedList: async (tbName, fieldName, value) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+            const rs = await con.any(
+                `SELECT * FROM "${tbName}" WHERE "${fieldName}" = 'True'`,
+                [value]
+            );
+            return rs;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
+    },
+    getUserID: async (userID) => {
+        let con = null;
+        try {
+            cn.database = process.env.DB_NAME;
+            db = pgp(cn);
+            con = await db.connect();
+
+            let query1 = `SELECT id FROM public.users where username = '${userID}';`
+            console.log("query1: ", query1);
+            const result1 = await con.query(query1);
+            return result1[0].id;
+        } catch (error) {
+            throw error;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
     }
 }

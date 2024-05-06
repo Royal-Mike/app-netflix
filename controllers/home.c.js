@@ -1,10 +1,13 @@
 const homeM = require('../models/home.m');
 const subscribeM = require('../models/subscribe.m');
 const accountM = require('../models/account.m');
+
 module.exports = {
     home: async (req, res) => {
         try {
 			let theme = req.cookies.theme;
+			let userID = req.session.username;
+
 			let dark = theme === "dark" ? true : false;
 			const user_id = await accountM.getUserIdByUsername(req.user.username);
 			const subscription = await subscribeM.getSubscriptionByUserId(user_id);
@@ -61,5 +64,17 @@ module.exports = {
 		} catch (error) {
 			console.error('Error getting home page:', error);
 		}
-	}
+	},
+    addPlayList: async (req, res) => {
+        const userID = req.session.username;
+        const movieID = req.body.movieID;
+        await homeM.addToPlayList(userID, movieID);
+        return "success";
+    },
+    liked: async (req, res) => {
+        const userID = req.session.username;
+        const movieID = req.body.movieID;
+        await homeM.increaseLiked(userID, movieID);
+        return "success";
+    }
 };

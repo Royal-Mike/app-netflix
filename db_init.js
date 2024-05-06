@@ -63,10 +63,12 @@ async function createDatabase() {
 				production_countries JSONB,
 				release_date DATE,
 				runtime INTEGER,
-				tagline VARCHAR(255)
+				tagline VARCHAR(255),
+				likes INTEGER DEFAULT 0,
+				checkLiked text DEFAULT 'False'
 			)
 		`);
-		
+
 		await pool.query(`
 		CREATE TABLE IF NOT EXISTS subscriptions (
 			user_id INTEGER REFERENCES users(id),
@@ -127,6 +129,14 @@ async function createDatabase() {
 			CREATE TABLE IF NOT EXISTS popular_movies (
 				movie_id INTEGER REFERENCES movies(id),
 				PRIMARY KEY (movie_id)
+			);
+		`);
+
+		await pool.query(`
+			CREATE TABLE IF NOT EXISTS playlist (
+				userId INTEGER REFERENCES users(id),
+				movieId INTEGER REFERENCES movies(id),
+				PRIMARY KEY (userId,movieId)
 			);
 		`);
 
