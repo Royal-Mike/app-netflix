@@ -1,10 +1,12 @@
 {{> css/home}}
 {{> js/movie-control}}
+{{> js/movie-like-list}}
+
 <h3 class="ms-5 mt-4 mb-4">Your List</h3>
 <div class="outer-container search">
     <div class="w-100 d-flex flex-wrap justify-content-center align-items-center list-searched-movies">
         {{#each movie}}
-        <div class="movie-hoverred m-1 mb-5">
+        <div class="movie-hoverred m-1 mb-5" id="{{this.id}}">
             <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
                 class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
             <div class="d-none run-video-when-hovering">
@@ -22,11 +24,11 @@
                     </div>
                     <div
                         class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus" id="{{this.id}}"></i>
                     </div>
                     <div
                         class="bg-dark rounded-circle me-2 d-flex justify-content-center align-items-center border border-2">
-                        <i class="fa-solid fa-thumbs-up"></i>
+                        <i class="fa-solid fa-thumbs-up" id="{{this.id}}"></i>
                     </div>
                     <div
                         class="bg-dark rounded-circle d-flex justify-content-center align-items-center ms-auto border border-2 open-movie-details">
