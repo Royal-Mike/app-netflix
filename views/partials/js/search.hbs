@@ -1,7 +1,43 @@
 <script>
     $(document).ready(function () {
+        const genresList = [
+            { id: 12, name: "Adventure" },
+            { id: 14, name: "Fantasy" },
+            { id: 16, name: "Animation" },
+            { id: 18, name: "Drama" },
+            { id: 27, name: "Horror" },
+            { id: 28, name: "Action" },
+            { id: 35, name: "Comedy" },
+            { id: 36, name: "History" },
+            { id: 37, name: "Western" },
+            { id: 53, name: "Thriller" },
+            { id: 80, name: "Crime" },
+            { id: 878, name: "Science Fiction" },
+            { id: 9648, name: "Mystery" },
+            { id: 10402, name: "Music" },
+            { id: 10749, name: "Romance" },
+            { id: 10751, name: "Family" },
+            { id: 10752, name: "War" }
+        ];
+
+        function joinGenres(movie) {
+            const movieGenres = movie.genre_ids.map(genreId => {
+                const genre = genresList.find(genre => genre.id === genreId);
+                return genre ? genre : { id: genreId, name: "Unknown" };
+            });
+
+            const result = movieGenres.map(obj => ({
+                id: obj.id,
+                name: obj.name
+            }));
+            
+            return result;
+        }
+
+        let src = '', title = '', runtime = '', genres = '', overview = '', genreIds = '', page = 1, total_pages = -1, toLoadMore, pageNew = 1, total_pages_new = -1;
+
         setInterval(async () => {
-            let lastMovie = $('.list-searched-movies .movie-hoverred:last-child');
+            let lastMovie = $('.list-searched-movies .movies-in-search:last-child');
             let lastMovieTop = lastMovie.offset().top;
             let lastMovieHeight = lastMovie.outerHeight();
             let lastMovieMiddle = lastMovieTop + lastMovieHeight / 2;
@@ -9,7 +45,7 @@
             let windowHeight = $(window).height();
 
             if (lastMovieMiddle >= scrollTop && lastMovieMiddle <= (scrollTop + windowHeight)) {
-                let allMovies = $('.list-searched-movies .movie-hoverred').length;
+                let allMovies = $('.list-searched-movies .movies-in-search').length;
                 let queryString = window.location.href.split('?')[1];
                 let queryParams = new URLSearchParams(queryString);
                 let userInput = queryParams.get('query');
@@ -25,10 +61,11 @@
                         movie.runtime = Math.floor(Math.random() * 3 + 1) + "h " + Math.floor(Math.random() * 60) + "m";
                         const path = movie.poster_path ? movie.poster_path : movie.backdrop_path;
                         const isAdult = movie.adult ? '<p class="m-0 ps-1 pe-1">18+</p>' : '<p class="m-0 ps-1 pe-1">13+</p>';
+                        const allGenres = joinGenres(movie);
 
                         let template =
                             `
-                            <div class="movie-hoverred m-1 mb-5">
+                            <div class="movies-in-search m-1 mb-5">
                                 <img src="https://image.tmdb.org/t/p/original${path}"
                                     class="d-block rounded-top thumbnail" alt="..." data-title="${movie.original_title}" data-overview="${movie.overview}">
                                 <div class="d-none run-video-when-hovering">
@@ -77,22 +114,29 @@
                                     </div>
 
                                     <div
-                                        class="d-flex justify-content-start flex-wrap mt-2 align-items-center movie-categories">
-                                        {{#each this.genres}}
-                                        {{#if @first}}
-                                        <p class="text-light m-0 all-genre">{{this.name}}</p>
-                                        {{else}}
-                                        <div class="m-0 bg-secondary rounded ms-2"></div>
-                                        <p class="text-light m-0 ms-2 all-genre">{{this.name}}</p>
-                                        {{/if}}
-                                        {{/each}}
-                                    </div>
+                                        class="d-flex justify-content-start flex-wrap mt-2 align-items-center movie-categories">`
+
+                                    for (let i = 0; i < allGenres.length; i++) {
+                                        const ithGenre = allGenres[i];
+                                        if (i === 0) {
+                                            template += `<p class="text-light m-0 all-genre">${ithGenre.name}</p>
+                                                        <p class="text-light m-0 genre-id">${ithGenre.id}</p>`
+                                        } else {
+                                            template += `<div class="m-0 bg-secondary rounded ms-2"></div>
+                                                        <p class="text-light m-0 ms-2 all-genre">${ithGenre.name}</p>
+                                                        <p class="text-light m-0 genre-id">${ithGenre.id}</p>`
+                                        }
+                                    }
+
+                                    template +=   
+                                    `</div>
                                 </div>
                             </div>
                             `
 
                         $('.list-searched-movies').append(template);
-                        $('.movie-hoverred').each(function () {
+
+                        $('.movies-in-search').each(function () {
                             $(this).on('mouseover', function () {
                                 $('.movie-actions', this).removeClass('d-none');
                                 $('.thumbnail', this).addClass('d-none');
@@ -107,13 +151,24 @@
                                 runtime = $('.movie-runtime', this).text();
 
                                 genres = '';
+                                genreIds = '';
+
                                 $('.all-genre', this).each(function () {
                                     const genre = $(this).text().trim();
                                     genres = genres + genre + ", ";
                                 });
 
+                                $('.genre-id', this).each(function () {
+                                    const id = $(this).text().trim();
+                                    genreIds += id + ",";
+                                });
+
                                 if (genres) {
                                     genres = genres.slice(0, genres.length - 2);
+                                }
+
+                                if (genreIds) {
+                                    genreIds = genreIds.slice(0, genreIds.length - 1);
                                 }
 
                                 const video = $('.run-video-when-hovering > video', this)[0];
@@ -143,6 +198,255 @@
                                     'transform': 'scale(1)',
                                     'transition': '0.5s',
                                 });
+                            });
+                        });
+
+                        $('.open-movie-details').on('click', async function () {
+                            let poster_template = `{{> poster}}`;   
+                            $('.outer-container').append(poster_template);
+
+                            {{#unless search}} if (!video.muted) $('.volumn').trigger('click'); {{/unless}}
+
+                            $.ajax({
+                                url: 'http://localhost:3000/home/getKeyWords',
+                                method: 'POST',
+                                data: {
+                                    text: overview,
+                                },
+                                success: async function(response) {
+                                    toLoadMore = response.data;
+                                    if (toLoadMore !== "search categories") {
+                                        const testIfHas = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${toLoadMore.label}&page=${pageNew}`;
+                                        let responseTest = await fetch(testIfHas);
+                                        let jsonTest = await responseTest.json();
+                                        let MoreLikeThisTest = jsonTest.results;
+                                        if (MoreLikeThisTest.length === 0) {
+                                            toLoadMore = "search categories";
+                                        }
+                                    }
+
+                                    if (toLoadMore === "search categories") {
+                                        const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`;
+                                        const options = {
+                                            method: 'GET',
+                                            headers: {
+                                                accept: 'application/json',
+                                                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDNmZjQyN2ExYzJjZjYzMDRlNzZiYWQ2MzVmMjFhOSIsInN1YiI6IjY2MGI5ZDllOWM5N2JkMDE3Y2E0YjI2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WGH-mBZJE25NOc9WuEDiwzQnNtlSorvr7oI-s2erpsU'
+                                            }
+                                        };
+
+                                        fetch(url, options)
+                                        .then(res => res.json())
+                                        .then(
+                                            json => {
+                                                total_pages = json.total_pages;
+                                                let MoreLikeThis = json.results;
+
+                                                let list = ``;
+
+                                                MoreLikeThis.forEach(movie => {
+                                                    if (movie.title.toLowerCase() != title.toLowerCase()) {
+                                                        listMovies.push(movie.title.toLowerCase());
+                                                        let age = movie.adult ? "18+" : "13+";
+                                                        let year = movie.release_date.split('-')[0];
+                                                        list += 
+                                                        `
+                                                        <div class="col">
+                                                            <div class="card h-100" style="padding: .2rem !important;">
+                                                                <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                                            <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                                            <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                                            <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                                            <i class="fa-solid fa-plus fs-4"></i>
+                                                                        </div>
+                                                                    </h5>
+                                                                    <p class="card-text overview">${movie.overview}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        `
+                                                    }
+                                                });
+
+                                                $('.load-more-movies').append(list);
+
+
+                                                $('.get-more-movies').on('click', function () {
+                                                    $(this).addClass('stop-from-clicking');
+                                                    $('.icon-down', this).addClass('d-none');
+                                                    $('.icon-load', this).removeClass('d-none');
+                                                    if (page < total_pages) {
+                                                        page += 1;
+                                                        const urlNew = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`; 
+                                                        fetch(urlNew, options)
+                                                        .then(res => res.json())
+                                                        .then(
+                                                            json => {
+                                                                MoreLikeThis = json.results;
+                                                                list = ``;
+
+                                                                MoreLikeThis.forEach(movie => {
+                                                                    if (movie.title.toLowerCase() != title.toLowerCase()) {
+                                                                        let age = movie.adult ? "18+" : "13+";
+                                                                        let year = movie.release_date.split('-')[0];
+                                                                        list += 
+                                                                        `
+                                                                        <div class="col">
+                                                                            <div class="card h-100" style="padding: .2rem !important;">
+                                                                                <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                                                                <div class="card-body">
+                                                                                    <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                                                                        <div class="d-flex align-items-center">
+                                                                                            <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                                                            <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                                                            <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                                                            <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                                                                        </div>
+
+                                                                                        <div
+                                                                                            class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                                                            <i class="fa-solid fa-plus fs-4"></i>
+                                                                                        </div>
+                                                                                    </h5>
+                                                                                    <p class="card-text overview">${movie.overview}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        `
+                                                                    }
+                                                                });
+
+                                                                $('.load-more-movies').append(list);
+
+                                                                $(this).removeClass('stop-from-clicking');
+                                                                $('.icon-down', this).removeClass('d-none');
+                                                                $('.icon-load', this).addClass('d-none');
+                                                            }
+                                                        )
+                                                    } else {
+
+                                                    }
+                                                });
+                                            })
+                                        .catch(err => console.error('error:' + err));
+                                    } else {
+                                        if (toLoadMore.score === 1 && toLoadMore.label.indexOf('(') !== -1) {
+                                            let index = toLoadMore.label.indexOf('(');
+                                            let index1 = toLoadMore.label.indexOf(')');
+                                            toLoadMore = toLoadMore.label.slice(index, index1 + 1);
+                                        } else {
+                                            toLoadMore = toLoadMore.label.split(' ')[0];
+                                        }
+                                        const url = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${toLoadMore}&page=${pageNew}`;
+
+                                        try {
+                                            let response = await fetch(url);
+                                            let json = await response.json();
+                                            let MoreLikeThis = json.results;
+                                            total_pages_new = json.total_pages;
+                                            let list = ``;
+
+                                            MoreLikeThis.forEach(movie => {
+                                                if (movie.title.toLowerCase() != title.toLowerCase()) {
+                                                    let age = movie.adult ? "18+" : "13+";
+                                                    let year = movie.release_date.split('-')[0];
+                                                    list += 
+                                                    `
+                                                    <div class="col">
+                                                        <div class="card h-100" style="padding: .2rem !important;">
+                                                            <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                                        <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                                        <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                                        <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                                        <i class="fa-solid fa-plus fs-4"></i>
+                                                                    </div>
+                                                                </h5>
+                                                                <p class="card-text overview">${movie.overview}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    `
+                                                }
+                                            });
+
+                                            $('.load-more-movies').append(list);
+
+                                            $('.get-more-movies').on('click', async function () {
+                                                $(this).addClass('stop-from-clicking');
+                                                $('.icon-down', this).addClass('d-none');
+                                                $('.icon-load', this).removeClass('d-none');
+                                                if (pageNew < total_pages_new) {
+                                                    pageNew += 1;
+                                                    const urlNew = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${toLoadMore}&page=${pageNew}`;
+                                                    response = await fetch(urlNew);
+                                                    json = await response.json();
+                                                    MoreLikeThis = json.results;
+                                                    list = ``;
+
+                                                    MoreLikeThis.forEach(movie => {
+                                                        if (movie.title.toLowerCase() != title.toLowerCase()) {
+                                                            let age = movie.adult ? "18+" : "13+";
+                                                            let year = movie.release_date.split('-')[0];
+                                                            list += 
+                                                            `
+                                                            <div class="col">
+                                                                <div class="card h-100" style="padding: .2rem !important;">
+                                                                    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                                                <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                                                <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                                                <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                                                            </div>
+
+                                                                            <div
+                                                                                class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                                                <i class="fa-solid fa-plus fs-4"></i>
+                                                                            </div>
+                                                                        </h5>
+                                                                        <p class="card-text overview">${movie.overview}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            `
+                                                        }
+                                                    });
+
+                                                    $('.load-more-movies').append(list);
+
+                                                    $(this).removeClass('stop-from-clicking');
+                                                    $('.icon-down', this).removeClass('d-none');
+                                                    $('.icon-load', this).addClass('d-none');
+                                                } else {
+
+                                                }
+                                            });
+                                        } catch (error) {
+                                            console.error('Error:', error);
+                                        }
+                                    }
+                                },
+                                error: function(error) {
+                                    console.error('Error:', error);
+                                }
                             });
                         });
 

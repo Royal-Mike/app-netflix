@@ -19,6 +19,7 @@ module.exports = {
 				const now_playing_movies = await homeM.getNowPlayingMovies();
 				const top_rated_movies = await homeM.getTopRatedMovies();
 				const upcoming_movies = await homeM.getUpcomingMovies();
+				const suggested_movie = [popular_movies[0].list6Movies[0]];
 				res.render('home', {
 					title: 'Home',
 					home: true,
@@ -26,7 +27,8 @@ module.exports = {
 					popular_movies,
 					now_playing_movies,
 					top_rated_movies,
-					upcoming_movies
+					upcoming_movies,
+					suggested_movie
 				});
 			}
 		} catch (error) {

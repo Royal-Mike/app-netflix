@@ -9,8 +9,7 @@
         <div class="suggested-movie noscroll">
             <div class="overlay-top"></div>
             <div>
-                {{!-- <img src="https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg" alt="" width="100%"
-                    style="height: 50vw;"> --}}
+                {{#each suggested_movie}}
                 <div class="noscroll" style="width: 100%; margin: 0">
                     <video id="video" width="100%" autoplay loop height="100%"
                         style="height: 50vw; transform: scaleX(1.15)">
@@ -21,16 +20,27 @@
 
                 <div class="position-absolute w-100 left-0 ms-4" style="top: 45%;">
                     <h1 class="text-light w-50" style="font-size: 4rem;">
-                        COOKIE RUN: KINGDOM
+                        {{this.original_title}}
                     </h1>
 
+                    <div class="d-none">
+                        {{#each this.genres}}
+                        {{#if @first}}
+                        <p class="text-light m-0 all-genre">{{this.name}}</p>
+                        <p class="text-light m-0 genre-id">{{this.id}}</p>
+                        {{else}}
+                        <div class="m-0 bg-secondary rounded ms-2"></div>
+                        <p class="text-light m-0 ms-2 all-genre">{{this.name}}</p>
+                        <p class="text-light m-0 genre-id">{{this.id}}</p>
+                        {{/if}}
+                        {{/each}}
+
+                        <img src="https://image.tmdb.org/t/p/original{{this.poster_path}}" data-title="{{this.original_title}}" data-overview="{{this.overview}}" class="thumbnail"/>
+
+                    </div>
+
                     <p class="text-light mt-2" style="width: 35%;">
-                        Lorem ipsum, dolor sit amet consectetur
-                        adipisicing elit.
-                        Dolore
-                        debitis quas
-                        sapiente alias sit obcaecati dolorum placeat, expedita at, assumenda architecto suscipit,
-                        aliquid ullam explicabo! Nihil fugit ex provident quia.
+                        {{this.overview}}
                     </p>
 
                     <div class="d-flex mt-5 z-3 position-relative">
@@ -56,6 +66,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{/each}}
             </div>
             <div class="overlay-bottom"></div>
         </div>
