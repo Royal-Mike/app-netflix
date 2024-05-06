@@ -2,7 +2,7 @@
     $(document).ready(function () {
         const video = $('#video')[0];
 
-        let src = '', title = '', runtime = '', genres = '', overview = '', genreIds = '', page = 1, total_pages = -1, toLoadMore, pageNew = 1, total_pages_new = -1;
+        let id = '', src = '', title = '', runtime = '', genres = '', overview = '', genreIds = '', page = 1, total_pages = -1, toLoadMore, pageNew = 1, total_pages_new = -1;
         const listMovies = [];
         $('video').prop('volume', '0.1').prop('muted', true);
 
@@ -13,6 +13,7 @@
 
                 $('.run-video-when-hovering', this).removeClass('d-none');
 
+                id = $(this).attr('id');
                 src = $('.thumbnail', this).attr('src');
                 title = $('.thumbnail', this).attr('data-title');
                 overview = $('.thumbnail', this).attr('data-overview');

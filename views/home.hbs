@@ -1,5 +1,6 @@
 {{> js/home}}
 {{> js/movie-control}}
+{{> js/movie-like-list}}
 {{> css/home}}
 
 <div class="container-fluid outer-container position-relative p-0">
@@ -80,7 +81,7 @@
                     <div {{#if @first}}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
                         <div class="d-flex justify-content-center align-items-center place-6-movies">
                             {{#each this.list6Movies}}
-                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}">
+                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}" id="{{this.id}}">
                                 <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
                                     class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
                                 <div class="d-none run-video-when-hovering">
@@ -173,7 +174,7 @@
                     <div {{#if @first}}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
                         <div class="d-flex justify-content-center align-items-center place-6-movies">
                             {{#each this.list6Movies}}
-                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}">
+                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}" id="{{this.id}}">
                                 <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
                                     class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
                                 <div class="d-none run-video-when-hovering">
@@ -266,7 +267,7 @@
                     <div {{#if @first}}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
                         <div class="d-flex justify-content-center align-items-center place-6-movies">
                             {{#each this.list6Movies}}
-                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}">
+                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}" id="{{this.id}}">
                                 <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
                                     class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
                                 <div class="d-none run-video-when-hovering">
@@ -359,7 +360,7 @@
                     <div {{#if @first}}class="carousel-item active" {{else}}class="carousel-item" {{/if}}>
                         <div class="d-flex justify-content-center align-items-center place-6-movies">
                             {{#each this.list6Movies}}
-                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}">
+                            <div class="movie-hoverred ms-1 {{#if @last}}me-1{{/if}}" id="{{this.id}}">
                                 <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}"
                                     class="d-block rounded-top thumbnail" alt="..." data-title="{{this.original_title}}" data-overview="{{this.overview}}">
                                 <div class="d-none run-video-when-hovering">
