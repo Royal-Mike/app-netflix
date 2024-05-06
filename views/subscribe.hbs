@@ -2,7 +2,8 @@
   <h1>Subscribe to Our Services</h1>
   <p>Enjoy unlimited access to movies, TV shows, and more!</p>
   <div class="subscription-options">
-    <button id="subscribe-btn" class="btn btn-primary">Subscribe for 30 Days</button>
+    <button id="subscribe-btn" class="btn btn-primary">Subscribe (HD Package) for 30 days</button>
+    <button id="fhd-subscribe-btn" class="btn btn-primary">Subscribe (Full HD Package) for 30 days</button>
     <button id="trial-btn" class="btn btn-secondary">Try for 7 Days</button>
   </div>
 </div>
@@ -11,7 +12,9 @@
   document.getElementById('subscribe-btn').addEventListener('click', function() {
     window.location.href = '/subscribe/process';
   });
-
+  document.getElementById('fhd-subscribe-btn').addEventListener('click', function() {
+    window.location.href = '/subscribe/process-fhd';
+  });
   document.getElementById('trial-btn').addEventListener('click', function() {
     window.location.href = '/subscribe/trial';
   });

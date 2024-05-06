@@ -74,7 +74,7 @@ async function createDatabase() {
 			status VARCHAR(20) CHECK (status IN ('subscribed', 'trial', 'none','pending')),
 			start_date DATE,
 			end_date DATE,
-			PRIMARY KEY (user_id, subscribe_code)
+			PRIMARY KEY (user_id)
 		);
 	  `);
 		await pool.query(`

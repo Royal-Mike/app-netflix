@@ -13,7 +13,8 @@ module.exports = {
         const redirectUrl = `${req.protocol}://${req.get('host')}/subscribe/activate?subscribe_code=${subscribe_code}`;
         const ipnUrl = `${req.protocol}://${req.get('host')}/payment/notify`;
         const orderInfo = "Subscription Payment";
-        const paymentUrl = await momoC.getPayUrl(orderInfo, redirectUrl, ipnUrl);
+        const amount = "100000";
+        const paymentUrl = await momoC.getPayUrl(orderInfo, redirectUrl, ipnUrl, amount);
     
         await subscribeM.createSubscription(user_id, subscribe_code, 'none', new Date(), null);
     
@@ -22,14 +23,33 @@ module.exports = {
         console.error('Error processing subscription:', error);
         res.redirect('/subscribe');
         }
+    
     },
+    processSubscriptionFHD: async (req, res) => {
+      try {
+      const user_id = req.user.id;
+      const subscribe_code = await subscribeM.generateSubscribeCode();
+      const redirectUrl = `${req.protocol}://${req.get('host')}/subscribe/activate?subscribe_code=${subscribe_code}`;
+      const ipnUrl = `${req.protocol}://${req.get('host')}/payment/notify`;
+      const orderInfo = "Subscription Payment";
+      const amount = "200000";
+      const paymentUrl = await momoC.getPayUrl(orderInfo, redirectUrl, ipnUrl, amount);
+  
+      await subscribeM.createSubscription(user_id, subscribe_code, 'none', new Date(), null);
+  
+      res.redirect(paymentUrl);
+      } catch (error) {
+      console.error('Error processing subscription:', error);
+      res.redirect('/subscribe');
+      }
+  
+  },
     activateSubscription: async (req, res) => {
         try {
         let theme = req.cookies.theme;
         let dark = theme === "dark" ? true : false;
-
-          const subscribe_code = req.query.subscribe_code;
-          const subscription = await subscribeM.getSubscriptionByCode(subscribe_code);
+        const subscribe_code = req.query.subscribe_code;
+        const subscription = await subscribeM.getSubscriptionByCode(subscribe_code);
       
           if (subscription) {
             await subscribeM.updateSubscription({
