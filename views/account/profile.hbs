@@ -1,0 +1,20 @@
+{{> css/profile}}
+{{> css/admin}}
+{{> js/profile/control}}
+<div class="container-fluid">
+    <div class="d-flex mb-5 w-100">
+        <div class="container border py-2 w-25" style="margin:0">
+            <h4 class="mb-3">Profile</h4>
+            <div id="swap-membership" class="d-flex align-items-center mb-3 fs-5 side-button side-button-active">
+                <i class="fa-solid fa-money-bill me-3" style="width:20px"></i>
+                <p class="mb-0">Membership</p>
+            </div>
+            <div id="swap-info" class="d-flex align-items-center mb-3 fs-5 side-button">
+                <i class="fa-solid fa-user me-3" style="width:20px"></i>
+                <p class="mb-0">Info</p>
+            </div>
+        </div>
+        {{> profile/membership}}
+        {{> profile/info}}
+    </div>
+</div>
