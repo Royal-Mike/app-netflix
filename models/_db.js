@@ -446,7 +446,6 @@ module.exports = {
           con = await db.connect();
           const query = 'UPDATE subscriptions SET status = $1, start_date = $2, end_date = $3 WHERE subscribe_code = $4';
           await con.none(query, [subscriptionData.subscribe_code.status, subscriptionData.subscribe_code.start_date, subscriptionData.subscribe_code.end_date, subscriptionData.subscribe_code.subscribe_code]);
-          console.log(subscriptionData);
         } catch (error) {
           throw error;
         } finally {
@@ -458,31 +457,41 @@ module.exports = {
     addPlayList: async (userID, movieID) => {
         try {
             con = await db.connect();
+
             let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
             const result1 = await con.query(query1);
-            console.log(result1);
+
+            const check = await con.oneOrNone(`SELECT * FROM "playlist" WHERE userid = '${result1[0].id}' AND movieid = '${movieID}'`);
+            if (check) return "failure";
+
             let query2 = `INSERT INTO "playlist"("userid", "movieid") VALUES ('${result1[0].id}', '${movieID}');`
-            const result2 = await con.query(query2);
-          } catch (err) {
-            console.log('This movie is already in your list');
-            console.error('Error:', err.stack);
-          } finally {
-            console.log('Connection closed');
-          }
+            await con.query(query2);
+            return "success";
+        } catch (err) {
+            throw err;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
     },
-    increaseLikedMovie: async (userID,movieID) => {
+    increaseLikedMovie: async (userID, movieID) => {
         try {
             con = await db.connect();
-            let query1 = `SELECT id, username FROM public.users where username = '${userID}';`
-            const result1 = await con.query(query1);
-            let query2 = `UPDATE public.movies SET    likes = likes +  1, checkLiked = 'True' WHERE id = ${movieID}  and checkLiked = 'False';`
-            const result2 = await con.query(query2);
-          } catch (err) {
-            console.log('This movie is already in your list');
-            console.error('Error:', err.stack);
-          } finally {
-            console.log('Connection closed');
-          }
+
+            const check = await con.oneOrNone(`SELECT * FROM "movies" WHERE id = ${movieID} AND checkLiked = 'True'`);
+            if (check) return "failure";
+
+            let query = `UPDATE public.movies SET likes = likes + 1, checkLiked = 'True' WHERE id = ${movieID} and checkLiked = 'False';`
+            await con.query(query);
+            return "success";
+        } catch (err) {
+            throw err;
+        } finally {
+            if (con) {
+                con.done();
+            }
+        }
     },
     getMovieList: async (tbName, fieldName, value) => {
         let con = null;
@@ -497,6 +506,7 @@ module.exports = {
             );
             return rs;
         } catch (error) {
+            con.done();
             throw error;
         } finally {
             if (con) {
@@ -529,9 +539,7 @@ module.exports = {
             cn.database = process.env.DB_NAME;
             db = pgp(cn);
             con = await db.connect();
-
             let query1 = `SELECT id FROM public.users where username = '${userID}';`
-            console.log("query1: ", query1);
             const result1 = await con.query(query1);
             return result1[0].id;
         } catch (error) {
