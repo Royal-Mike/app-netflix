@@ -15,101 +15,17 @@
             }, 2000)
         });
 
-        $('.movie-hoverred').each(function () {
-            $(this).on('mouseover', function () {
-                $('.movie-actions', this).removeClass('d-none');
-                $('.thumbnail', this).addClass('d-none');
-
-                $('.run-video-when-hovering', this).removeClass('d-none');
-
-                src = $('.thumbnail', this).attr('src');
-                title = $('.thumbnail', this).attr('data-title');
-                overview = $('.thumbnail', this).attr('data-overview');
-
-                if (title) title = title.toUpperCase();
-                runtime = $('.movie-runtime', this).text();
-
-                genres = '';
-                $('.all-genre', this).each(function () {
-                    const genre = $(this).text().trim();
-                    genres = genres + genre + ", ";
-                });
-
-                if (genres) {
-                    genres = genres.slice(0, genres.length - 2);
-                }
-
-                const video = $('.run-video-when-hovering > video', this)[0];
-                const checkAvailability = video.play();
-                if (checkAvailability !== undefined) {
-                    checkAvailability.then(() => {
-                    }).catch(error => {
-                        video.muted = true;
-                        video.play();
-                    });
-                }
-
-                $(this).css({
-                    'transform': 'scale(1.5)',
-                    'transition': '0.5s',
-                    'position': 'relative',
-                });
-            });
-
-            $(this).on('mouseleave', function () {
-                $('.movie-actions', this).addClass('d-none');
-                $('.thumbnail', this).removeClass('d-none');
-                $('.run-video-when-hovering', this).addClass('d-none');
-                $('.run-video-when-hovering > video', this)[0].pause();
-                $('.run-video-when-hovering > video', this)[0].currentTime = 0;
-                $(this).css({
-                    'transform': 'scale(1)',
-                    'transition': '0.5s',
-                });
-            });
-        });
-
-        $('.open-movie-details').on('click', function () {
-            const position = Math.abs(window.scrollY) + 100;
-
-            const poster_template =
-                `
-            <div class="poster d-flex justify-content-center" style="top: ${position}px">
-                <div
-                    style="height: fit-content; overflow-x: hidden; width: 70vw; z-index: 4">
-                    <div class="movie-info-part">
-                        <div class="m-0 movie-image position-relative">
-                            <div
-                                class="rounded-circle ms-5 d-flex justify-content-center align-items-center border border-2 p-1 mb-3 position-absolute cancel-review">
-                                <i class="fa-solid fa-xmark fs-3"></i>
-                            </div>
-                            <img src="${src}" width="100%" style="height: 70vh" class="rounded-top" alt="">
-                            <div>
-                                <video width="100%" height="100%" style="object-fit: cover;">
-                                    <source src="https://file.garden/ZfpCIAeKR2HIs_bB/movies/trailer.mp4"
-                                        type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            <div class="d-flex align-items-center position-absolute action-on-movie justify-content-between"
-                                style="width: 60vw;">
-                                <div class="p-3">
-                                    <p class="movie-title fw-bold">${title}</p>
-                                    <div class="d-flex">
-                                        <div class="bg-light fs-3 ps-5 pe-5 rounded text-dark">
-                                            <i class="fa-solid fa-play"></i>
-                                            Play
-                                        </div>
-                                        <div
-                                            class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 add-to-list">
-                                            <i class="fa-solid fa-plus fs-4"></i>
-                                        </div>
-
-                                        <div
-                                            class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-3 p-1 like-movie">
-                                            <i class="fa-solid fa-thumbs-up fs-4"></i>
-                                        </div>
-                                    </div>
+                        let template =
+                            `
+                            <div class="movie-hoverred m-1 mb-5">
+                                <img src="https://image.tmdb.org/t/p/original${path}"
+                                    class="d-block rounded-top thumbnail" alt="..." data-title="${movie.original_title}" data-overview="${movie.overview}">
+                                <div class="d-none run-video-when-hovering">
+                                    <video width="100%" height="100%" style="object-fit: cover;">
+                                        <source src="/videos/trailer.mp4"
+                                            type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
                                 </div>
 
                                 <div

@@ -7,23 +7,31 @@
         {{!-- <a class="m-2 fs-5 link-unstyled" href="/liked">Liked List</a> --}}
         {{/if}}
 
-        {{#if home}}
-        <form class="d-flex me-4" role="search" style="margin-left:auto">
-            <button class="btn btn-outline-success" id="search-button"><i
-                    class="fa-solid fa-magnifying-glass"></i></button>
-            <input class="form-control me-2 d-none" id="search-movies-input" style="width: 0px" type="search"
-                placeholder="Search" aria-label="Search">
+        {{#if home}} {{#unless profile}}
+        <form class="d-flex me-2" role="search" style="margin-left:auto">
+            <div class="border border-light bg-black px-2 py-1 d-flex justify-content-center align-items-center search-movies-container search-movies-container-inactive">
+                <i class="fa-solid fs-4 fa-magnifying-glass me-2" id="search-button" style="cursor:pointer;"></i>
+                <input class="d-none" id="search-movies-input" style="width: 4px" type="search"
+                    placeholder="Titles, people, genres" aria-label="Search">
+            </div>
         </form>
-        {{/if}}
+        {{/unless}} {{/if}}
 
         <div class="form-check form-switch p-0 me-2 d-flex" {{#unless home}}style="margin-left:auto" {{/unless}}>
             <i class="fa-solid {{#if dark}} fa-moon {{else}} fa-sun {{/if}} fs-2" id="sw-theme"
                 style="cursor:pointer"></i>
         </div>
 
-        <div class="form-check form-switch p-0">
+        <div class="form-check form-switch p-0" {{#if profile}} style="margin-left:auto" {{/if}}>
             {{#if home}}
-            <a class="m-2 fs-5 link-unstyled" href="/logout">Log Out</a>
+            {{#unless profile}}
+            <a class="m-2 me-3 fs-4 link-unstyled" href="/account">
+                <i class="fa-solid fa-user"></i>
+            </a>
+            {{/unless}}
+            <a class="m-2 fs-4 link-unstyled" href="/logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
             {{/if}}
             {{#if admin}}
             <a class="m-2 fs-5 link-unstyled" href="/logout">Log Out</a>
