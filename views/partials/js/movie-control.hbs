@@ -85,7 +85,19 @@
                 },
                 success: async function(response) {
                     toLoadMore = response.data;
-                    if (toLoadMore == "search categories") {
+                    console.log(toLoadMore);
+                    if (toLoadMore !== "search categories") {
+                        const testIfHas = `https://api.themoviedb.org/3/search/movie?api_key=f43ff427a1c2cf6304e76bad635f21a9&query=${toLoadMore.label}&page=${pageNew}`;
+                        let responseTest = await fetch(testIfHas);
+                        let jsonTest = await responseTest.json();
+                        let MoreLikeThisTest = jsonTest.results;
+                        if (MoreLikeThisTest.length === 0) {
+                            toLoadMore = "search categories";
+                        }
+                    }
+
+
+                    if (toLoadMore === "search categories") {
                         const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`;
                         const options = {
                             method: 'GET',
@@ -199,9 +211,10 @@
                             })
                         .catch(err => console.error('error:' + err));
                     } else {
-                        if (toLoadMore.score == 1) {
-                            let index = toLoadMore.label.indexOf(' ');
-                            toLoadMore = toLoadMore.label.slice(index + 1);
+                        if (toLoadMore.score === 1 && toLoadMore.label.indexOf('(') !== -1) {
+                            let index = toLoadMore.label.indexOf('(');
+                            let index1 = toLoadMore.label.indexOf(')');
+                            toLoadMore = toLoadMore.label.slice(index, index1 + 1);
                         } else {
                             toLoadMore = toLoadMore.label.split(' ')[0];
                         }
