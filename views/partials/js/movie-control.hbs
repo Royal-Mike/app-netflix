@@ -2,7 +2,7 @@
     $(document).ready(function () {
         const video = $('#video')[0];
 
-        let src = '', title = '', runtime = '', genres = '', overview = '';
+        let src = '', title = '', runtime = '', genres = '', overview = '', genreIds = '', page = 1, total_pages = -1;
         $('video').prop('volume', '0.1').prop('muted', true);
 
         $('.movie-hoverred').each(function () {
@@ -20,13 +20,24 @@
                 runtime = $('.movie-runtime', this).text();
 
                 genres = '';
+                genreIds = '';
+
                 $('.all-genre', this).each(function () {
                     const genre = $(this).text().trim();
                     genres = genres + genre + ", ";
                 });
 
+                $('.genre-id', this).each(function () {
+                    const id = $(this).text().trim();
+                    genreIds += id + ",";
+                });
+
                 if (genres) {
                     genres = genres.slice(0, genres.length - 2);
+                }
+
+                if (genreIds) {
+                    genreIds = genreIds.slice(0, genreIds.length - 1);
                 }
 
                 const video = $('.run-video-when-hovering > video', this)[0];
@@ -63,11 +74,65 @@
             {{#unless search}} if (!video.muted) $('.volumn').trigger('click'); {{/unless}}
 
             const position = window.scrollY;
-            const poster_template = `{{> poster}}`;
+            let poster_template = `{{> poster}}`;
+
+            const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDNmZjQyN2ExYzJjZjYzMDRlNzZiYWQ2MzVmMjFhOSIsInN1YiI6IjY2MGI5ZDllOWM5N2JkMDE3Y2E0YjI2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WGH-mBZJE25NOc9WuEDiwzQnNtlSorvr7oI-s2erpsU'
+                }
+            };
+
+            fetch(url, options)
+            .then(res => res.json())
+            .then(
+                json => {
+                    total_pages = json.total_pages;
+                    const MoreLikeThis = json.results;
+
+                    let list = ``;
+                    let i = 0;
+
+                    MoreLikeThis.forEach(movie => {
+                        if (movie.title.toLowerCase() != title.toLowerCase()) {
+                            let age = movie.adult ? "18+" : "13+";
+                            let year = movie.release_date.split('-')[0];
+                            list += 
+                            `
+                            <div class="col">
+                                <div class="card h-100" style="padding: .2rem !important;">
+                                    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                            <div class="d-flex align-items-center">
+                                                <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                            </div>
+
+                                            <div
+                                                class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                <i class="fa-solid fa-plus fs-4"></i>
+                                            </div>
+                                        </h5>
+                                        <p class="card-text overview">${movie.overview}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        }
+                    });
+
+                    poster_template = poster_template.replace('listmovies', list);
+                    $('.outer-container').append(poster_template);
+                })
+            .catch(err => console.error('error:' + err));
 
             $('body').addClass('noscroll');
 
-            $('.outer-container').append(poster_template);
             $('.all-movies').css({
                 'pointer-events': 'none',
             });

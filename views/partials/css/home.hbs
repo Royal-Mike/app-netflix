@@ -144,7 +144,7 @@
         border-color: white !important;
     }
 
-    .option-list div > i {
+    .option-list div>i {
         font-size: 1rem;
     }
 
@@ -161,7 +161,7 @@
         font-size: .8rem;
     }
 
-    .small-info-of-movie > p {
+    .small-info-of-movie>p {
         font-size: .7rem;
     }
 
@@ -173,11 +173,11 @@
         font-size: .8rem;
     }
 
-    .spatial-audio > p:nth-child(1){
+    .spatial-audio>p:nth-child(1) {
         font-size: .6rem;
     }
 
-    .spatial-audio > p:nth-child(2){
+    .spatial-audio>p:nth-child(2) {
         font-size: .5rem;
     }
 
@@ -232,6 +232,7 @@
             opacity: 0;
             transform: scale(0.3);
         }
+
         100% {
             opacity: 1;
             transform: scale(1);
@@ -243,13 +244,14 @@
             opacity: 1;
             transform: scale(1);
         }
+
         100% {
             opacity: 0;
             transform: scale(0.1);
         }
     }
 
-    .poster > div {
+    .poster>div {
         border-radius: 0.3rem;
     }
 
@@ -296,7 +298,10 @@
         height: 2.5rem;
     }
 
-    .add-to-list, .like-movie, .volumn, .volumn-poster {
+    .add-to-list,
+    .like-movie,
+    .volumn,
+    .volumn-poster {
         width: 2.5rem;
         height: 2.5rem;
     }
@@ -380,5 +385,16 @@
     .search-movies-container-inactive {
         background-color: transparent !important;
         border-color: transparent !important;
+    }
+
+    .genre-id {
+        display: none;
+    }
+
+    .overview {
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        display: -webkit-box;
     }
 </style>
