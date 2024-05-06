@@ -454,5 +454,5 @@ module.exports = {
             con.done();
           }
         }
-      },
+    }
 }
