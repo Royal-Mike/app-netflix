@@ -1,5 +1,10 @@
 <script>
     $(() => {
-        
+        const plan = '{{sub.status}}';
+        if (plan === "subscribed") $("#sub-plan").text("Premium Plan");
+        else $("#sub-plan").text("Free Trial");
+
+        const date = new Date(Date.parse('{{sub.end_date}}')).toLocaleDateString();
+        $("#sub-end-date").text(date);
     });
 </script>
