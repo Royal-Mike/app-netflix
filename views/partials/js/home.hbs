@@ -80,6 +80,7 @@
         $('.fa-plus').on('click',function () {
             const id =$(this).attr("id");
             console.log("on: ", id)
+            alert("liked movie")
         
         $.ajax({
                 type: 'POST',
@@ -102,7 +103,16 @@
         $('.fa-thumbs-up').on('click',function () {
             const id =$(this).attr("id");
             console.log("on: ", id)
-        
+             clicked = false;
+            if (!clicked) {
+                    alert('Alert added!');
+                    clicked = true;
+                    } 
+                    else {
+                    alert('Alert removed!');
+                    clicked = false;
+                }
+
         $.ajax({
                 type: 'POST',
                 url: '/home/liked',
@@ -121,6 +131,11 @@
 
         });
 
+        const alertButton = document.getElementsByClassName('fa-thumbs-up');
+           let clicked = false;
+           alertButton.addEventListener('click', () => {
+            
+            })
 
 
         $('.open-movie-details').on('click', function () {
