@@ -74,7 +74,6 @@
             {{#unless search}} if (!video.muted) $('.volumn').trigger('click'); {{/unless}}
 
             const position = window.scrollY;
-            let poster_template = `{{> poster}}`;
 
             const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`;
             const options = {
@@ -90,10 +89,9 @@
             .then(
                 json => {
                     total_pages = json.total_pages;
-                    const MoreLikeThis = json.results;
+                    let MoreLikeThis = json.results;
 
                     let list = ``;
-                    let i = 0;
 
                     MoreLikeThis.forEach(movie => {
                         if (movie.title.toLowerCase() != title.toLowerCase()) {
@@ -114,7 +112,7 @@
                                             </div>
 
                                             <div
-                                                class="rounded-circle ms-2 d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
                                                 <i class="fa-solid fa-plus fs-4"></i>
                                             </div>
                                         </h5>
@@ -126,8 +124,62 @@
                         }
                     });
 
+                    let poster_template = `{{> poster}}`;   
                     poster_template = poster_template.replace('listmovies', list);
                     $('.outer-container').append(poster_template);
+
+                    $('.get-more-movies').on('click', function () {
+                        $('.icon-down', this).addClass('d-none');
+                        $('.icon-load', this).removeClass('d-none');
+                        if (page < total_pages) {
+                            page += 1;
+                            const urlNew = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreIds}`; 
+                            fetch(urlNew, options)
+                            .then(res => res.json())
+                            .then(
+                                json => {
+                                    MoreLikeThis = json.results;
+                                    list = ``;
+
+                                    MoreLikeThis.forEach(movie => {
+                                        if (movie.title.toLowerCase() != title.toLowerCase()) {
+                                            let age = movie.adult ? "18+" : "13+";
+                                            let year = movie.release_date.split('-')[0];
+                                            list += 
+                                            `
+                                            <div class="col">
+                                                <div class="card h-100" style="padding: .2rem !important;">
+                                                    <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" class="card-img-top" alt="..." style="height: 14rem">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title d-flex" style="font-size: 1rem;">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="border ps-2 pe-2 m-0 me-2 fw-bold" style="font-size: 1rem;">${age}</p>
+                                                                <p class="rounded border ps-2 pe-2 m-0 me-2" style="font-size: .7rem;">HD</p>
+                                                                <p class="m-0" style="font-size: 1rem;">${year}</p>
+                                                                <i class="fa-solid fa-podcast fs-5 ms-2"></i>
+                                                            </div>
+
+                                                            <div
+                                                                class="rounded-circle ms-2 add-to-list d-flex justify-content-center align-items-center border border-2 p-1 ms-auto">
+                                                                <i class="fa-solid fa-plus fs-4"></i>
+                                                            </div>
+                                                        </h5>
+                                                        <p class="card-text overview">${movie.overview}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            `
+                                        }
+                                    });
+
+                                    $('.load-more-movies').append(list);
+
+                                    $('.icon-down', this).removeClass('d-none');
+                                    $('.icon-load', this).addClass('d-none');
+                                }
+                            )
+                        }
+                    });
                 })
             .catch(err => console.error('error:' + err));
 
