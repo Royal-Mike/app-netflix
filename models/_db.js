@@ -154,6 +154,13 @@ module.exports = {
         let con = null;
         try {
             con = await db.connect();
+            if (tbName === "users") {
+                const result = await con.query(`SELECT id FROM "users" where username = '${value}';`);
+                await con.none(
+                    `DELETE FROM "subscriptions" WHERE "user_id" = $1`,
+                    [result[0].id]
+                );
+            }
             const rs = await con.none(
                 `DELETE FROM "${tbName}" WHERE "${fieldName}" = $1`,
                 [value]
