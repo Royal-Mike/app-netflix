@@ -548,8 +548,6 @@ module.exports = {
             console.log("query1: ", query1);
             const result1 = await con.query(query1);
             return result1[0].id;
-<<<<<<< Updated upstream
-=======
         } catch (error) {
             throw error;
         } finally {
@@ -565,7 +563,6 @@ module.exports = {
           const query = 'UPDATE subscriptions SET status = $1, start_date = $2, end_date = $3 WHERE subscribe_code = $4';
           await con.none(query, [subscriptionData.subscribe_code.status, subscriptionData.subscribe_code.start_date, subscriptionData.subscribe_code.end_date, subscriptionData.subscribe_code.subscribe_code]);
           console.log(subscriptionData);
->>>>>>> Stashed changes
         } catch (error) {
             throw error;
         } finally {
